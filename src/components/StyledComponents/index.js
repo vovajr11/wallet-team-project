@@ -1,3 +1,6 @@
+import { Form } from 'formik';
+import Input from '@mui/material/Input';
+import FormControl from '@mui/material/FormControl';
 import styled from '@emotion/styled';
 
 const Button = styled.button`
@@ -26,4 +29,15 @@ export const WhiteBtn = styled(Button)`
     a {
         color: #4a56e2;
     }
+`;
+
+export const StyledForm = styled(Form)`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const StyledFormControl = styled(FormControl)``;
+
+export const StyledInput = styled(Input)`
+    width: 410px;
 `;

@@ -13,7 +13,7 @@ import {
     StyledForm,
     StyledFormControl,
     StyledInput,
-} from './RegisterForm.styles';
+} from '../StyledComponents';
 import validationsForm from './validations';
 
 const Form = props => {
