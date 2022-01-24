@@ -24,6 +24,19 @@ const register = credentials => dispatch => {
         .catch(error => dispatch(authActions.registerError(error)));
 };
 
+const logIn = credentials => dispatch => {
+    dispatch(authActions.loginRequest());
+
+    axios
+        .post('/auth/sign-in', credentials)
+        .then(({ data }) => {
+            token.set(data.token);
+            dispatch(authActions.loginSuccess(data));
+        })
+        .catch(error => dispatch(authActions.loginError(error)));
+};
+
 export default {
     register,
+    logIn,
 };
