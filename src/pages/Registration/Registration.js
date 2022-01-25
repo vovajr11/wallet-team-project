@@ -1,5 +1,12 @@
-const Registration = () => {
-    return <h2>Registration view</h2>;
+import React from 'react';
+import { RegisterForm } from '../../components/RegisterForm';
+
+const Registration = props => {
+    return (
+        <section>
+            <RegisterForm />
+        </section>
+    );
 };
 
 export default Registration;
