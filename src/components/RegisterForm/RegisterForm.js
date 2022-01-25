@@ -100,7 +100,6 @@ const Form = props => {
                 <WhiteBtn type="button">
                     <Link to="/login">Log In</Link>
                 </WhiteBtn>
-                <GreenBtn type="submit">Hello</GreenBtn>
             </StyledForm>
         </div>
     );
