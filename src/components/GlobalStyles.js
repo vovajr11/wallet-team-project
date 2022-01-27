@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import '../stylesheet/fonts.css';
 
 export const GlobalStyles = css`
     *,
@@ -13,6 +14,7 @@ export const GlobalStyles = css`
     h4,
     h5,
     h6 {
+        //font-family: 'Poppins';
         margin: 0;
     }
 
