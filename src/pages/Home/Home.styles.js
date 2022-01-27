@@ -11,8 +11,9 @@ export const AddTransactionBtn = styled.button`
     border-radius: 50%;
     box-shadow: 0 6px 15px rgb(36 204 167 / 50%);
     font-size: 20px;
-    svg{
-        
-        font-size: 20px;
+
+    &:hover{
+        transform: scale(1.1);
+        transition: 0.2 ease-out;
     }
 `;
