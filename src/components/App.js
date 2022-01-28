@@ -15,7 +15,6 @@ const App = () => {
         <BrowserRouter>
             <Global styles={GlobalStyles} />
             <Layout>
-                <Header />
                 <Routes>
                     <Route element={<PublicRoutes />}>
                         <Route path="/login" element={<Login />} />

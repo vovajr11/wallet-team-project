@@ -1,22 +1,31 @@
 import LogoutIcon from '@mui/icons-material/Logout';
-
-import { HeaderSection, HeaderEntrance } from './Header.style';
+// import { ReactElement as LogoIcon } from '../../../assets/svg/logo.svg';
+import logo from './img/logo.svg';
+import {
+    HeaderSection,
+    HeaderEntrance,
+    HeaderEntranceItem,
+    LogoutIconW,
+} from './Header.style';
 
 const Header = () => {
     return (
         <HeaderSection>
             <a href="#">
-                {/* <img src={logo} alt="Wallet" /> */}
-                <svg>
-                    <use xlinkHref="./assets/svg/pictures-min.svg#chart"></use>
-                </svg>
+                {/* <LogoIcon /> */}
+                <img src={logo} alt="Wallet" />
+                {/* <svg>
+                    <use xlinkHref="./assets/svg/logo.svg"></use>
+                </svg> */}
             </a>
             <HeaderEntrance>
-                <li>Name</li>
-                <li>
-                    <LogoutIcon />
-                    <span>exit</span>
-                </li>
+                <HeaderEntranceItem>Name</HeaderEntranceItem>
+                <HeaderEntranceItem>
+                    <LogoutIconW>
+                        <LogoutIcon />
+                    </LogoutIconW>
+                    Exit
+                </HeaderEntranceItem>
             </HeaderEntrance>
         </HeaderSection>
     );
