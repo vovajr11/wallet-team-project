@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const useAuth = () => {
-    const loggedIn = true; /*useSelector(state => state.session.isAuth)*/
+    const loggedIn = useSelector(state => state.session.isAuth);
     const user = { loggedIn };
 
     return user && user.loggedIn;

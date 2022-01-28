@@ -8,13 +8,16 @@ export const GlobalStyles = css`
         box-sizing: border-box;
     }
 
+    body {
+        font-family: 'Poppins';
+    }
+
     h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
-        //font-family: 'Poppins';
         margin: 0;
     }
 
