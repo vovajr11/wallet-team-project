@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import { Global } from '@emotion/react';
 import { Layout } from './Layout';
+import { Header } from './Header';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Registration } from '../pages/Registration';
