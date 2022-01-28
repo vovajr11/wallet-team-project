@@ -1,12 +1,18 @@
-import React from "react";
-import reactDom from "react-dom";
+import React from 'react';
+import { default as BasicSelect } from "./Select";
+import { SelectsContainer } from "./Statistics.styles"
 
-const TableStatistics = (props) => {
+
+const TableStatistics = () => {
     return (
-        <div>
-            TABLE!!!
-        </div>
+        <SelectsContainer>
+            <BasicSelect selectName="Month" />
+            <BasicSelect selectName="Year" />
+        </SelectsContainer>
     )
 }
 
 export default TableStatistics;
+
+
+
