@@ -6,21 +6,27 @@ import * as Yup from 'yup';
 import InputAdornment from '@mui/material/InputAdornment';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
-import { authOperations } from '../../redux/auth';
-import { GreenBtn, WhiteBtn } from '../StyledComponents';
+import { authOperations } from '../../../redux/auth';
+import { GreenBtn, WhiteBtn, LogoContainer } from '../../StyledComponents';
 import {
+    FormContainer,
     StyledForm,
     StyledFormControl,
     StyledInput,
-} from '../StyledComponents';
+} from '../Forms.styles';
 import validationsForm from './validations';
 
 const Form = props => {
     const { values, touched, errors, handleChange, handleSubmit } = props;
 
     return (
-        <div>
-            <h2>Login view</h2>
+        <FormContainer>
+            <LogoContainer>
+                <svg width={40} height={40}>
+                    <use xlinkHref="assets/svg/pictures-min.svg#wallet" />
+                </svg>
+                <h2>Wallet</h2>
+            </LogoContainer>
 
             <StyledForm onSubmit={handleSubmit}>
                 <StyledFormControl variant="standard">
@@ -64,7 +70,7 @@ const Form = props => {
                     <Link to="/register">Registration</Link>
                 </WhiteBtn>
             </StyledForm>
-        </div>
+        </FormContainer>
     );
 };
 
