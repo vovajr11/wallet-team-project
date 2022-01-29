@@ -19,7 +19,8 @@ const ProtectedRoutes = () => {
 const PublicRoutes = () => {
     const isAuth = useAuth();
 
-    return isAuth ? <Navigate to="/home" /> : <Outlet />;
+    // return isAuth ? <Navigate to="/home" /> : <Outlet />;
+    return isAuth ? <Navigate to="/diagram" /> : <Outlet />;
 };
 
 export { ProtectedRoutes, PublicRoutes };
