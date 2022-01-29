@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { AddTransactionBtn, AddIcon } from './ModalAddTransaction.styles';
+import { AddTransactionBtn} from './ModalAddTransaction.styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import {ReactComponent as AddIcon} from '../../assets/svgs/plus.svg';
 
 export default function ModalAddTransaction() {
     const [open, setOpen] = React.useState(false);
@@ -11,9 +12,7 @@ export default function ModalAddTransaction() {
     return (
         <>
             <AddTransactionBtn onClick={handleOpen}>
-                <AddIcon>
-                    <use xlinkHref="assets/svg/pictures.svg#add-cross" />
-                </AddIcon>
+                <AddIcon />
             </AddTransactionBtn>
             <Modal open={open} onClose={handleClose}>
                 <Box />
