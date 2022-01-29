@@ -1,15 +1,11 @@
 import React from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import {AddTransactionBtn} from './Home.styles';
+import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 
 const Home = () => {
     return (
         <div>
             <h2>Home view</h2>
-
-            <AddTransactionBtn>
-                <AddIcon />
-            </AddTransactionBtn>
+            <ModalAddTransaction />
         </div>
     );
 };
