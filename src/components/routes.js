@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 const useAuth = () => {
     const loggedIn = useSelector(state => state.session.isAuth);
+    // const loggedIn = true;
     const user = { loggedIn };
 
     return user && user.loggedIn;
