@@ -32,7 +32,6 @@ export const SelectFilter = styled(Select)`
 
 export const SelectsContainer = styled.div`
     display: flex;
-    gap: 19px;
 `
 export const TableContainer = styled.div`
     max-width: 350px;
@@ -43,10 +42,20 @@ export const DefinitionContainer = styled.div`
     padding: 16px 30px 19px;
     margin-top: 20px;
     border-radius: 30px;
-    background-color: #f4f4f4;
+    background-color: #fff;
 
     p{
         margin: 0;
-        text-transform: uppercase;
+        font-size: 18px;
+        line-height: 23px;
+        font-weight:400; 
     }
+`
+export const ListOfTransitions = styled.ul`
+list-style: none;
+`
+export const ListItem = styled.li`
+
+border-botom: 1px solid #DCDCDF;
+box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
 `
