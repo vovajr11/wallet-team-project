@@ -1,6 +1,3 @@
-import { Form } from 'formik';
-import Input from '@mui/material/Input';
-import FormControl from '@mui/material/FormControl';
 import styled from '@emotion/styled';
 
 const Button = styled.button`
@@ -20,6 +17,7 @@ const Button = styled.button`
 export const GreenBtn = styled(Button)`
     background: #24cca7;
     color: #ffffff;
+    margin-bottom: 20px;
 `;
 
 export const WhiteBtn = styled(Button)`
@@ -31,13 +29,42 @@ export const WhiteBtn = styled(Button)`
     }
 `;
 
-export const StyledForm = styled(Form)`
-    display: flex;
-    flex-direction: column;
+const CenterElement = `
+height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 `;
 
-export const StyledFormControl = styled(FormControl)``;
+export const SectionLeft = styled.section`
+    ${CenterElement}
+    flex-grow: 1;
 
-export const StyledInput = styled(Input)`
-    width: 410px;
+    & > h2 {
+        margin-top: 28px;
+        color: #000000;
+        font-weight: normal;
+        font-size: 30px;
+        line-height: 45px;
+    }
+`;
+
+export const SectionRight = styled.section`
+    ${CenterElement}
+    width: 720px;
+    background-color: #808080;
+`;
+
+export const LogoContainer = styled.div`
+    display: flex;
+    justify-content: center;
+
+    & > h2 {
+        margin-left: 20px;
+        color: #000000;
+        font-size: 30px;
+        line-height: 45px;
+        font-weight: bold;
+    }
 `;
