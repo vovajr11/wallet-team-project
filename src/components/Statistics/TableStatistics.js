@@ -1,6 +1,8 @@
 import React from 'react';
 import { default as BasicSelect } from "./Select";
-import { SelectsContainer } from "./Statistics.styles"
+import { SelectsContainer, TableContainer } from "./Statistics.styles";
+import { TableTransactions } from './TableTransactions';
+
 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -35,10 +37,13 @@ const TableStatistics = () => {
         .catch(err => console.log(err));
 
     return (
-        <SelectsContainer>
-            <BasicSelect selectName="Month" />
-            <BasicSelect selectName="Year" />
-        </SelectsContainer>
+        <TableContainer>
+            <SelectsContainer>
+                <BasicSelect selectName="Month" />
+                <BasicSelect selectName="Year" />
+            </SelectsContainer>
+            <TableTransactions />
+        </TableContainer>
     )
 }
 

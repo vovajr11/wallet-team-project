@@ -34,3 +34,19 @@ export const SelectsContainer = styled.div`
     display: flex;
     gap: 19px;
 `
+export const TableContainer = styled.div`
+    max-width: 350px;
+`
+export const DefinitionContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 30px 19px;
+    margin-top: 20px;
+    border-radius: 30px;
+    background-color: #f4f4f4;
+
+    p{
+        margin: 0;
+        text-transform: uppercase;
+    }
+`

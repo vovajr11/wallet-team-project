@@ -3,6 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { SelectFilter, svgArrow } from './Statistics.styles';
 
+
 export default function BasicSelect(props) {
     const handleChange = (event) => {
         console.log(event.target.value);
