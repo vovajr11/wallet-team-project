@@ -4,10 +4,9 @@ import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTr
 const Home = () => {
     return (
         <div>
-            <h2>Home view</h2>
+            <h2>Dashboard</h2>
             <ModalAddTransaction />
         </div>
     );
 };
-
 export default Home;
