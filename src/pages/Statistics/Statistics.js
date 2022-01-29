@@ -5,11 +5,7 @@ import { Statistics } from '../../components/Statistics';
 const StatisticsPage = (props) => {
     return (
         <>
-            <h2>
-                Statistics view
-            </h2>
             <Statistics />
-
         </>
     )
 };
