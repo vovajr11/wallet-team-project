@@ -1,7 +1,15 @@
 import React from 'react';
+import Dashboard from '../../components/Dashboard/Dashboard';
 import Balance from '../../components/Balance/Balance';
 import Currency from '../../components/Currency/Currency';
-import Dashboard from '../../components/Dashboard/Dashboard';
+
+import {
+    MainContainer,
+    MainContent,
+    MainAside,
+    Navigation,
+    MainAsideTop,
+} from './Home.styles';
 
 const currencyList = [
     {
@@ -20,13 +28,24 @@ const currencyList = [
 
 const Home = () => {
     return (
-        <div className="homePage">
-            <h2>Main</h2>
-            <h2>Statistics</h2>
-            <Balance />
-            <Currency data={currencyList} />
-            <Dashboard />
-        </div>
+        <main>
+            <MainContainer>
+                <MainAside>
+                    <MainAsideTop>
+                        <Navigation>
+                            <li>Main</li>
+                            <li>Statistics</li>
+                            <li className="currencyItemForMobile">Icon</li>
+                        </Navigation>
+                        <Balance />
+                    </MainAsideTop>
+                    <Currency data={currencyList} />
+                </MainAside>
+                <MainContent>
+                    <Dashboard />
+                </MainContent>
+            </MainContainer>
+        </main>
     );
 };
 

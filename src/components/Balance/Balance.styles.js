@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 export const BalanceWrap = styled.div`
     --grey: rgba(166, 166, 166, 1);
 
-    width: 348px;
+    width: 100%;
+    background-color: white;
     padding: 8px 40px;
     border-radius: 30px;
     margin-bottom: 30px;

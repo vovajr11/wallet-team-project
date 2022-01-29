@@ -1,7 +1,7 @@
-import './Dashboard.styles';
+import { DashboardTable } from './Dashboard.styles';
 
 const Dashboard = () => {
-    return <div></div>;
+    return <DashboardTable>Dashboard</DashboardTable>;
 };
 
 export default Dashboard;
