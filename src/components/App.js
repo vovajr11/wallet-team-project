@@ -1,5 +1,8 @@
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Global } from '@emotion/react';
+import { authOperations } from '../redux/auth';
 import { Layout } from './Layout';
 import { Header } from './Header';
 import { Home } from '../pages/Home';
@@ -10,7 +13,11 @@ import { NotFound } from '../pages/NotFound';
 import { GlobalStyles } from './GlobalStyles';
 import { PublicRoutes, ProtectedRoutes } from './routes';
 
-const App = () => {
+const App = ({ onGetCurrentUser }) => {
+    useEffect(() => {
+        onGetCurrentUser();
+    });
+
     return (
         <BrowserRouter>
             <Global styles={GlobalStyles} />
@@ -36,4 +43,6 @@ const App = () => {
     );
 };
 
-export default App;
+export default connect(null, {
+    onGetCurrentUser: authOperations.getCurrentUser,
+})(App);

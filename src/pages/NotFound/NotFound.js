@@ -1,8 +1,10 @@
+import { NotFoundWrap } from './NotFound.styles';
+
 const NotFound = () => {
     return (
-        <section>
+        <NotFoundWrap>
             <h1>404</h1>
-        </section>
+        </NotFoundWrap>
     );
 };
 

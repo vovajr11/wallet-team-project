@@ -36,7 +36,26 @@ const logIn = credentials => dispatch => {
         .catch(error => dispatch(authActions.loginError(error)));
 };
 
+const getCurrentUser = () => (dispatch, getState) => {
+    const {
+        session: { token: persistedToken },
+    } = getState();
+
+    if (!persistedToken) {
+        return;
+    }
+
+    token.set(persistedToken);
+    dispatch(authActions.getCurrentUserRequest());
+
+    axios
+        .get('/users/current')
+        .then(({ data }) => dispatch(authActions.getCurrentUserSuccess(data)))
+        .catch(error => authActions.getCurrentUserError(error));
+};
+
 export default {
     register,
     logIn,
+    getCurrentUser,
 };
