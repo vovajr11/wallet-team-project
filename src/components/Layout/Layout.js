@@ -11,6 +11,7 @@ import {
     Navigation,
     MainAsideTop,
 } from './Layout.styles';
+import { NavLink } from 'react-router-dom';
 
 const currencyList = [
     {
@@ -28,19 +29,27 @@ const currencyList = [
 ];
 
 const Layout = ({ children }) => {
-    const isAuthRes = useSelector(state => state.session.isAuth);
+    const isAuth = useSelector(state => state.session.isAuth);
+    console.log(isAuth, 'isAuth');
     return (
         <StyleLayout>
-            {isAuthRes && (
-                <div>
+            {!isAuth && <>{children}</>}
+            {isAuth && (
+                <>
                     <Header />
                     <main>
                         <MainContainer>
                             <MainAside>
                                 <MainAsideTop>
                                     <Navigation>
-                                        <li>Main</li>
-                                        <li>Statistics</li>
+                                        <li>
+                                            <NavLink to="/home">Main</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/diagram">
+                                                Statistics
+                                            </NavLink>
+                                        </li>
                                         <li className="currencyItemForMobile">
                                             Icon
                                         </li>
@@ -52,7 +61,7 @@ const Layout = ({ children }) => {
                             <MainContent>{children}</MainContent>
                         </MainContainer>
                     </main>
-                </div>
+                </>
             )}
         </StyleLayout>
     );
