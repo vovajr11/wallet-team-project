@@ -1,5 +1,6 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import { ReactComponent as LogoIcon } from '../../assets/svgs/logo.svg';
+import { NavLink } from 'react-router-dom';
 
 import {
     Header,
@@ -15,7 +16,9 @@ const HeaderComponent = () => {
     return (
         <Header>
             <HeaderInner>
-                <LogoIcon />
+                <NavLink to="/home">
+                    <LogoIcon />
+                </NavLink>
                 <HeaderEntrance>
                     <HeaderEntranceItem>Name</HeaderEntranceItem>
                     <HeaderEntranceItem>
