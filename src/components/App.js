@@ -1,10 +1,9 @@
-import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
-import { useEffect, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Global } from '@emotion/react';
 import { authOperations } from '../redux/auth';
 import { Layout } from './Layout';
-import { Header } from './Header';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Registration } from '../pages/Registration';
