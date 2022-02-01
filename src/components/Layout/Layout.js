@@ -18,7 +18,6 @@ import { NavLink } from 'react-router-dom';
 
 const Layout = ({ children }) => {
     const isAuth = useSelector(state => state.session.isAuth);
-    console.log(isAuth, 'isAuth');
     return (
         <StyleLayout>
             {!isAuth && <>{children}</>}

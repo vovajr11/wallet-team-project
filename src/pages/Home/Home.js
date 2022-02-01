@@ -4,7 +4,14 @@ import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTr
 const Home = () => {
     return (
         <div>
-            <h2>Dashboard</h2>
+            <table>
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
             <ModalAddTransaction />
         </div>
     );

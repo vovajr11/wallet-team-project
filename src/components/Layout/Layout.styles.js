@@ -71,7 +71,7 @@ export const Navigation = styled.ul`
         font-size: 18px;
         line-height: 150%;
     }
-    li:first-child {
+    li:first-of-type {
         margin-bottom: 10px;
     }
     .currencyItemForMobile {

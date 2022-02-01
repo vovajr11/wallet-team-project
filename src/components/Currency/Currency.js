@@ -1,26 +1,30 @@
 import { Table } from './Currency.styles';
+import { useState, useEffect } from 'react';
 
 const Currency = () => {
-    const currencyList = [
-        {
-            name: 'USD',
-            purchase: 27.55,
-            sale: 28,
-            id: 1,
-        },
-        {
-            name: 'EUR',
-            purchase: 31.55,
-            sale: 32,
-            id: 2,
-        },
-        {
-            name: 'RUB',
-            purchase: 31.55,
-            sale: 32,
-            id: 2,
-        },
-    ];
+    const [currencyData, setCurrencyData] = useState('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetch(
+                'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
+            )
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    const DataF = data.filter(
+                        cur =>
+                            cur.ccy === 'USD' ||
+                            cur.ccy === 'RUR' ||
+                            cur.ccy === 'EUR',
+                    );
+                    setCurrencyData(DataF);
+                });
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <Table>
@@ -32,11 +36,11 @@ const Currency = () => {
                 </tr>
             </thead>
             <tbody>
-                {currencyList.map(currency => (
-                    <tr key={currency.id}>
-                        <td>{currency.name}</td>
-                        <td>{currency.purchase}</td>
-                        <td>{currency.sale}</td>
+                {[...currencyData].map(currency => (
+                    <tr key={currency.ccy}>
+                        <td>{currency.ccy}</td>
+                        <td>{(+currency.buy).toFixed(2)}</td>
+                        <td>{(+currency.sale).toFixed(2)}</td>
                     </tr>
                 ))}
             </tbody>
