@@ -40,6 +40,29 @@ export const AddIcon = styled.svg`
     height: 20px;
 `;
 
+export const CloseModalBtn = styled.button`
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+`;
+
+export const DialogTitle = styled.h2`
+    margin: 40px 0;
+    text-align: center;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 45px;
+`;
+
 export const Toggler = styled.div`
     display: flex;
     gap: 20px;
@@ -63,10 +86,10 @@ export const ToggleP = styled.p`
     }
 
     margin: 0;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     line-height: 1;
-    font-family: Circe, sans-serif;
+    font-family: Abel, sans-serif;
 `;
 
 export const ToggleLabel = styled.label`

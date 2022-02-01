@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {
     AddTransactionBtn,
+    CloseModalBtn,
+    DialogTitle,
     Toggler,
     ToggleP,
     ToggleLabel,
@@ -8,7 +10,8 @@ import {
     ToggleBackground,
     ToggleBtn,
 } from './ModalAddTransaction.styles';
-import { ReactComponent as AddIcon } from '../../assets/svgs/plus.svg';
+import { ReactComponent as AddIcon} from '../../assets/svgs/plus.svg';
+import { ReactComponent as CloseIcon} from '../../assets/svgs/close.svg';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '@mui/material/Button';
@@ -16,36 +19,32 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-
-const defaultState = {
-    date: new Date(),
-    type: false,
-    amount: '',
-    comment: '',
-    category: '',
-};
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import expenses from './categories';
 
 export default function ModalAddTransaction() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [transaction, setTransaction] = useState(defaultState);
+    const [category, setCategory] = useState('');
+    const [isExpenseType, setExpenseType] = useState(false);
+
+    const formik = useFormik({
+        initialValues: {
+            date: new Date(),
+            type: false,
+            amount: '',
+            comment: '',
+            category: '+',
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
 
     const handleInputChange = event => {
-        const name = event.target.name;
-        const value =
-            event.target.type === 'checkbox'
-                ? event.target.checked
-                : event.target.value;
-        updateTransaction(name, value);
-        if (event.target.type === 'checkbox') {
-            updateTransaction('category', '');
-        }
-    };
-
-    const updateTransaction = (name, value) => {
-        setTransaction(prev => ({ ...prev, [name]: value }));
+        setExpenseType(event.target.checked);
     };
 
     return (
@@ -54,11 +53,14 @@ export default function ModalAddTransaction() {
                 <AddIcon />
             </AddTransactionBtn>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add Transaction</DialogTitle>
+                <CloseModalBtn onClick={handleClose}>
+                    <CloseIcon />
+                </CloseModalBtn>
+                <DialogTitle>Add transaction</DialogTitle>
                 <DialogActions>
                     <Toggler>
                         <ToggleP
-                            className={!transaction.type ? 'green' : 'grey'}
+                            className={!isExpenseType ? 'green' : 'grey'}
                         >
                             Income
                         </ToggleP>
@@ -67,7 +69,7 @@ export default function ModalAddTransaction() {
                                 type="checkbox"
                                 name="type"
                                 onChange={handleInputChange}
-                                checked={transaction.type}
+                                checked={isExpenseType}
                             ></ToggleInput>
                             <ToggleBackground>
                                 <ToggleBtn>
@@ -75,12 +77,25 @@ export default function ModalAddTransaction() {
                                 </ToggleBtn>
                             </ToggleBackground>
                         </ToggleLabel>
-                        <ToggleP className={transaction.type ? 'pink' : 'grey'}>
+                        <ToggleP className={isExpenseType ? 'pink' : 'grey'}>
                             Expences
                         </ToggleP>
                     </Toggler>
                 </DialogActions>
-                <DialogContent></DialogContent>
+                <DialogContent>
+                    <form onSubmit={formik.handleSubmit}>
+                        {isExpenseType && (
+                            <Select value={category}  onChange={(e) => setCategory(e.target.value)}
+                             >
+                                 {expenses.map(key => (
+                                     <MenuItem value={key} key={key}>
+                                     {key}
+                                 </MenuItem>
+                                 ))}
+                             </Select>
+                        )}
+                    </form>
+                </DialogContent>
             </Dialog>
         </>
     );
