@@ -11,8 +11,6 @@ export const MainContainer = styled.section`
     max-width: 1120px;
     min-height: calc(100vh - 86px);
     width: 100%;
-
-    padding-top: 40px;
     margin: 0 auto;
     @media screen and (max-width: 1279px) {
         display: block;
@@ -28,6 +26,7 @@ export const MainContainer = styled.section`
 `;
 
 export const Aside = styled.aside`
+    padding-top: 40px;
     width: 34%;
     border-right: 1px solid #e7e5f2;
     position: relative;
@@ -61,10 +60,10 @@ export const AsideTop = styled.div``;
 export const MainContent = styled.div`
     width: 66%;
     padding-left: 30px;
+    padding-top: 40px;
     @media screen and (max-width: 1279px) {
         width: 100%;
         padding-left: 0;
-        padding-top: 40px;
     }
 `;
 
