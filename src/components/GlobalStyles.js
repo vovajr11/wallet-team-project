@@ -11,11 +11,8 @@ export const GlobalStyles = css`
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
-    }
-
-    body {
         margin: 0;
+        font-family: 'Poppins', sans-serif;
     }
 
     h1,
