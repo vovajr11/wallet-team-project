@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Global } from '@emotion/react';
@@ -47,6 +47,10 @@ const App = ({ onGetCurrentUser }) => {
                                     <Home />
                                 </ProtectedRoute>
                             }
+                        />
+                        <Route
+                            path="/"
+                            element={<Navigate replace to="/home" />}
                         />
                         <Route
                             path="/diagram"

@@ -4,6 +4,7 @@ const NotFound = () => {
     return (
         <NotFoundWrap>
             <h1>404</h1>
+            <h2>Sorry, this page not found</h2>
         </NotFoundWrap>
     );
 };

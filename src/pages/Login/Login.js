@@ -1,22 +1,26 @@
 import React from 'react';
 import { LoginForm } from '../../components/Forms/LoginForm';
-import { Grid } from '@mui/material';
-import { SectionRight, SectionLeft } from '../../components/StyledComponents';
+import {
+    Container,
+    SectionRight,
+    SectionLeft,
+    TitleApp,
+} from '../../components/Forms/Forms.styles';
+import { ReactComponent as PreviewPicture } from '../../assets/svgs/preview-login-picture.svg';
 
 const Login = () => {
     return (
-        <Grid container height="100vh" alignItems="center">
+        <Container>
             <SectionLeft>
-                {/* <svg width={435} height={420}>
-                    <use xlinkHref="assets/svg/pictures-min.svg#preview-picture" />
-                </svg> */}
-                <h2>Finance App</h2>
+                <PreviewPicture width="432" height="420" />
+
+                <TitleApp>Finance App</TitleApp>
             </SectionLeft>
 
             <SectionRight>
                 <LoginForm />
             </SectionRight>
-        </Grid>
+        </Container>
     );
 };
 
