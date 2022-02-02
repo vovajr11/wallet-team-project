@@ -10,8 +10,8 @@ import {
     ToggleBackground,
     ToggleBtn,
 } from './ModalAddTransaction.styles';
-import { ReactComponent as AddIcon} from '../../assets/svgs/plus.svg';
-import { ReactComponent as CloseIcon} from '../../assets/svgs/close.svg';
+import { ReactComponent as AddIcon } from '../../assets/svgs/plus.svg';
+import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '@mui/material/Button';
@@ -24,10 +24,11 @@ import MenuItem from '@mui/material/MenuItem';
 import expenses from './categories';
 
 export default function ModalAddTransaction() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [category, setCategory] = useState('');
+    const [date, setDate] = useState(new Date());
     const [isExpenseType, setExpenseType] = useState(false);
 
     const formik = useFormik({
@@ -59,9 +60,7 @@ export default function ModalAddTransaction() {
                 <DialogTitle>Add transaction</DialogTitle>
                 <DialogActions>
                     <Toggler>
-                        <ToggleP
-                            className={!isExpenseType ? 'green' : 'grey'}
-                        >
+                        <ToggleP className={!isExpenseType ? 'green' : 'grey'}>
                             Income
                         </ToggleP>
                         <ToggleLabel>
@@ -85,15 +84,32 @@ export default function ModalAddTransaction() {
                 <DialogContent>
                     <form onSubmit={formik.handleSubmit}>
                         {isExpenseType && (
-                            <Select value={category}  onChange={(e) => setCategory(e.target.value)}
-                             >
-                                 {expenses.map(key => (
-                                     <MenuItem value={key} key={key}>
-                                     {key}
-                                 </MenuItem>
-                                 ))}
-                             </Select>
+                            <Select
+                                sx={{ width: '100%' }}
+                                value={category}
+                                onChange={e => setCategory(e.target.value)}
+                                variant="standard"
+                                renderValue={selected => {
+                                    if (selected.length === 0) {
+                                        return <p>Select a category</p>;
+                                    }
+                                    return selected.join(', ');
+                                }}
+                                //TODO FIX PLACEHOLDER
+                            >
+                                {expenses.map(key => (
+                                    <MenuItem value={key} key={key}>
+                                        {key}
+                                    </MenuItem>
+                                ))}
+                            </Select>
                         )}
+
+                        <TextField
+                            id="standard-basic"
+                            label="0.00"
+                            variant="standard"
+                        />
                     </form>
                 </DialogContent>
             </Dialog>
