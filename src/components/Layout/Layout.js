@@ -2,35 +2,22 @@ import { useSelector } from 'react-redux';
 import { Header } from '../Header';
 import Balance from '../Balance/Balance';
 import Currency from '../Currency/Currency';
-import Home from '../../pages/Home/Home';
+import { ReactComponent as HomeIcon } from '../../assets/svgs/main.svg';
+import { ReactComponent as StatisticIcon } from '../../assets/svgs/statistic.svg';
+import { ReactComponent as CurrencyIcon } from '../../assets/svgs/currencyIcon.svg';
+
 import {
     StyleLayout,
     MainContainer,
     MainContent,
-    MainAside,
+    Aside,
     Navigation,
-    MainAsideTop,
+    AsideTop,
 } from './Layout.styles';
 import { NavLink } from 'react-router-dom';
 
-const currencyList = [
-    {
-        name: 'USD',
-        purchase: 27.55,
-        sale: 28,
-        id: 1,
-    },
-    {
-        name: 'EUR',
-        purchase: 31.55,
-        sale: 32,
-        id: 2,
-    },
-];
-
 const Layout = ({ children }) => {
     const isAuth = useSelector(state => state.session.isAuth);
-    console.log(isAuth, 'isAuth');
     return (
         <StyleLayout>
             {!isAuth && <>{children}</>}
@@ -39,25 +26,35 @@ const Layout = ({ children }) => {
                     <Header />
                     <main>
                         <MainContainer>
-                            <MainAside>
-                                <MainAsideTop>
+                            <Aside>
+                                <AsideTop>
                                     <Navigation>
                                         <li>
-                                            <NavLink to="/home">Main</NavLink>
+                                            <NavLink
+                                                to="/home"
+                                                className="NavLink"
+                                            >
+                                                <HomeIcon />
+                                                <span>Main</span>
+                                            </NavLink>
                                         </li>
                                         <li>
-                                            <NavLink to="/diagram">
-                                                Statistics
+                                            <NavLink
+                                                to="/diagram"
+                                                className="NavLink"
+                                            >
+                                                <StatisticIcon />
+                                                <span>Statistics</span>
                                             </NavLink>
                                         </li>
                                         <li className="currencyItemForMobile">
-                                            Icon
+                                            <CurrencyIcon />
                                         </li>
                                     </Navigation>
                                     <Balance />
-                                </MainAsideTop>
-                                <Currency data={currencyList} />
-                            </MainAside>
+                                </AsideTop>
+                                <Currency />
+                            </Aside>
                             <MainContent>{children}</MainContent>
                         </MainContainer>
                     </main>
