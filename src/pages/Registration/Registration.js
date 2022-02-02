@@ -1,22 +1,26 @@
 import React from 'react';
-import { Grid } from '@mui/material';
 import { RegisterForm } from '../../components/Forms/RegisterForm';
-import { SectionRight, SectionLeft } from '../../components/StyledComponents';
+import {
+    Container,
+    SectionRight,
+    SectionLeft,
+    TitleApp,
+} from '../../components/Forms/Forms.styles';
+import { ReactComponent as PreviewPicture } from '../../assets/svgs/preview-registration-picture.svg';
 
-const Registration = props => {
+const Registration = () => {
     return (
-        <Grid container height="100vh" alignItems="center">
+        <Container>
             <SectionLeft>
-                {/* <svg width={435} height={420}>
-                    <use xlinkHref="assets/svg/pictures-min.svg#preview-picture" />
-                </svg> */}
-                <h2>Finance App</h2>
+                <PreviewPicture width="452" height="412" />
+
+                <TitleApp>Finance App</TitleApp>
             </SectionLeft>
 
             <SectionRight>
                 <RegisterForm />
             </SectionRight>
-        </Grid>
+        </Container>
     );
 };
 
