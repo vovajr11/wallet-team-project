@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { withFormik } from 'formik';
-import * as Yup from 'yup';
-import InputAdornment from '@mui/material/InputAdornment';
+import { Formik, ErrorMessage } from 'formik';
+import { InputAdornment, LinearProgress } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
-import { authOperations } from '../../../redux/auth';
 import validationsForm from './validations';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
 import {
@@ -19,116 +16,106 @@ import {
 } from '../Forms.styles';
 import { ReactComponent as LogoIcon } from '../../../assets/svgs/logo.svg';
 
-const Form = props => {
-    const { values, touched, errors, handleChange, handleSubmit } = props;
-
+const RegisterForm = () => {
     return (
         <FormContainer>
             <LogoContainer>
                 <LogoIcon />
             </LogoContainer>
 
-            <StyledForm onSubmit={handleSubmit}>
-                <StyledFormControl variant="standard">
-                    <StyledInput
-                        value={values.email}
-                        onChange={handleChange}
-                        name="email"
-                        type="email"
-                        placeholder="E-mail"
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <EmailIcon />
-                            </InputAdornment>
-                        }
-                    />
-                </StyledFormControl>
-                {errors.email && touched.email ? (
-                    <div>{errors.email}</div>
-                ) : null}
+            <Formik
+                initialValues={{
+                    email: '',
+                    password: '',
+                    passwordConfirmation: '',
+                    username: '',
+                }}
+                validationSchema={validationsForm}
+                onSubmit={({ email }, actions) => {
+                    console.log('submit');
+                    console.log({ email });
+                }}
+            >
+                {({ values, handleChange, handleSubmit }) => (
+                    <StyledForm onSubmit={handleSubmit}>
+                        <StyledFormControl variant="standard">
+                            <StyledInput
+                                value={values.email}
+                                onChange={handleChange}
+                                name="email"
+                                type="email"
+                                placeholder="E-mail"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <EmailIcon />
+                                    </InputAdornment>
+                                }
+                            />
+                        </StyledFormControl>
+                        <ErrorMessage name="email" />
+                        {/* <LinearProgress
+                            variant="determinate"
+                            value={50}
+                            sx={{ width: '400px' }}
+                        /> */}
 
-                <StyledFormControl variant="standard">
-                    <StyledInput
-                        value={values.password}
-                        onChange={handleChange}
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <LockIcon />
-                            </InputAdornment>
-                        }
-                    />
-                </StyledFormControl>
-                {errors.password && touched.password ? (
-                    <div>{errors.password}</div>
-                ) : null}
+                        <StyledFormControl variant="standard">
+                            <StyledInput
+                                value={values.password}
+                                onChange={handleChange}
+                                name="password"
+                                type="password"
+                                placeholder="Password"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <LockIcon />
+                                    </InputAdornment>
+                                }
+                            />
+                        </StyledFormControl>
+                        <ErrorMessage name="password" />
 
-                <StyledFormControl variant="standard">
-                    <StyledInput
-                        value={values.passwordConfirmation}
-                        onChange={handleChange}
-                        name="passwordConfirmation"
-                        type="password"
-                        placeholder="Confirm password"
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <LockIcon />
-                            </InputAdornment>
-                        }
-                    />
-                </StyledFormControl>
-                {errors.passwordConfirmation && touched.passwordConfirmation ? (
-                    <div>{errors.passwordConfirmation}</div>
-                ) : null}
+                        <StyledFormControl variant="standard">
+                            <StyledInput
+                                value={values.passwordConfirmation}
+                                onChange={handleChange}
+                                name="passwordConfirmation"
+                                type="password"
+                                placeholder="Confirm password"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <LockIcon />
+                                    </InputAdornment>
+                                }
+                            />
+                        </StyledFormControl>
+                        <ErrorMessage name="passwordConfirmation" />
 
-                <StyledFormControl variant="standard">
-                    <StyledInput
-                        value={values.username}
-                        onChange={handleChange}
-                        name="username"
-                        type="text"
-                        placeholder="Your name"
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <AccountBoxIcon />
-                            </InputAdornment>
-                        }
-                    />
-                </StyledFormControl>
-                {errors.username && touched.username ? (
-                    <div>{errors.username}</div>
-                ) : null}
+                        <StyledFormControl variant="standard">
+                            <StyledInput
+                                value={values.username}
+                                onChange={handleChange}
+                                name="username"
+                                type="text"
+                                placeholder="Your name"
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <AccountBoxIcon />
+                                    </InputAdornment>
+                                }
+                            />
+                        </StyledFormControl>
+                        <ErrorMessage name="username" />
 
-                <GreenBtn type="submit">Registration</GreenBtn>
-                <WhiteBtn type="button">
-                    <Link to="/login">Log In</Link>
-                </WhiteBtn>
-            </StyledForm>
+                        <GreenBtn type="submit">Registration</GreenBtn>
+                        <WhiteBtn type="button">
+                            <Link to="/login">Log In</Link>
+                        </WhiteBtn>
+                    </StyledForm>
+                )}
+            </Formik>
         </FormContainer>
     );
 };
 
-const RegisterForm = withFormik({
-    mapPropsToValues: ({ email, password, passwordConfirmation, username }) => {
-        return {
-            email: email || '',
-            password: password || '',
-            passwordConfirmation: passwordConfirmation || '',
-            username: username || '',
-        };
-    },
-
-    validationSchema: Yup.object().shape(validationsForm),
-
-    handleSubmit: ({ email, password, username }, { props }) => {
-        props.registerUser({ email, password, username });
-    },
-})(Form);
-
-const mapDispatchToProps = {
-    registerUser: authOperations.register,
-};
-
-export default connect(null, mapDispatchToProps)(RegisterForm);
+export default RegisterForm;

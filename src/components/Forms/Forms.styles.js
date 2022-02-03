@@ -1,4 +1,4 @@
-import { Form } from 'formik';
+import { Form, Field } from 'formik';
 import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import styled from '@emotion/styled';
@@ -69,7 +69,7 @@ export const FormContainer = styled.div`
     background-color: white;
     margin: 0 auto;
 
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
         height: 100vh;
     }
 
