@@ -18,13 +18,22 @@ export const GreenBtn = styled(Button)`
     background: #24cca7;
     color: #ffffff;
     margin-bottom: 20px;
+    opacity: 0.8;
+    transition: 0.3s;
+
+    &:hover {
+        opacity: 1;
+    }
 `;
 
 export const WhiteBtn = styled(Button)`
     background: #ffffff;
+    color: #4a56e2;
     border: 1px solid #4a56e2;
 
-    a {
-        color: #4a56e2;
+    &:hover {
+        color: #ffffff;
+        background-color: #4a56e2;
+        transition: 0.3s;
     }
 `;
