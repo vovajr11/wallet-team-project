@@ -9,10 +9,14 @@ import {
     ToggleInput,
     ToggleBackground,
     ToggleBtn,
+    Placeholder,
+    StyledSelect,
 } from './ModalAddTransaction.styles';
 import { GreenBtn, WhiteBtn } from '../StyledComponents';
 import { ReactComponent as AddIcon } from '../../assets/svgs/plus.svg';
+import { ReactComponent as SubtractIcon } from '../../assets/svgs/subtract.svg';
 import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
@@ -20,7 +24,7 @@ import Input from '@mui/material/Input';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import Select from '@mui/material/Select';
+
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -34,7 +38,7 @@ export default function ModalAddTransaction() {
     const handleClose = () => setOpen(false);
     const [category, setCategory] = useState('');
     const [date, setDate] = useState(new Date());
-    const [isExpenseType, setExpenseType] = useState(false);
+    const [isExpenseType, setIsExpenseType] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -50,11 +54,15 @@ export default function ModalAddTransaction() {
     });
 
     const handleInputChange = event => {
-        setExpenseType(event.target.checked);
+        setIsExpenseType(event.target.checked);
     };
 
     const handleSelectChange = event => {
         setCategory(event.target.value);
+    };
+
+    const expandIcon = props => {
+        return <ExpandMore className={props.className} />;
     };
 
     return (
@@ -81,7 +89,11 @@ export default function ModalAddTransaction() {
                             ></ToggleInput>
                             <ToggleBackground>
                                 <ToggleBtn>
-                                    <AddIcon />
+                                    {!isExpenseType ? (
+                                        <AddIcon />
+                                    ) : (
+                                        <SubtractIcon />
+                                    )}
                                 </ToggleBtn>
                             </ToggleBackground>
                         </ToggleLabel>
@@ -93,15 +105,20 @@ export default function ModalAddTransaction() {
                 <DialogContent>
                     <form onSubmit={formik.handleSubmit}>
                         {isExpenseType && (
-                            <Select
+                            <StyledSelect
                                 sx={{ width: '100%' }}
                                 displayEmpty
                                 value={category}
                                 onChange={handleSelectChange}
                                 variant="standard"
+                                IconComponent={expandIcon}
                                 renderValue={selected => {
                                     if (selected.length === 0) {
-                                        return <i>Select a category</i>;
+                                        return (
+                                            <Placeholder>
+                                                Select a category
+                                            </Placeholder>
+                                        );
                                     }
                                     return selected;
                                 }}
@@ -111,7 +128,7 @@ export default function ModalAddTransaction() {
                                         {category}
                                     </MenuItem>
                                 ))}
-                            </Select>
+                            </StyledSelect>
                         )}
                         <Box>
                             <Input

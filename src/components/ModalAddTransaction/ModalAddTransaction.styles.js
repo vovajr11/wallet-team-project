@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Select from '@mui/material/Select';
 
 export const AddTransactionBtn = styled.button`
     color: #ffffff;
@@ -139,3 +140,35 @@ export const ToggleBtn = styled.div`
     align-items: center;
     box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
 `;
+
+export const StyledSelect = styled(Select)`
+    .MuiSelect-select {
+      padding: 10px 20px 10px 20px;
+      line-height: 23px;
+
+      &:focus{
+            background-color: 'transparent'
+        }
+    }
+
+    .MuiInput-underline{
+        &:hover{
+            color:#24CCA7;
+            &:before{
+                border-bottom: 2px solid red;
+            }
+        }
+        &:before{
+            border: 1px solid #E0E0E0;
+            color: red;
+        }
+    }
+`;
+
+export const Placeholder = styled.p`
+    font-family: Abel, sans-serif;
+    font-style: normal;
+font-weight: normal;
+font-size: 18px;
+color: #BDBDBD;
+`
