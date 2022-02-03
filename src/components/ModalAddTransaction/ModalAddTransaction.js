@@ -10,17 +10,22 @@ import {
     ToggleBackground,
     ToggleBtn,
 } from './ModalAddTransaction.styles';
+import { GreenBtn, WhiteBtn } from '../StyledComponents';
 import { ReactComponent as AddIcon } from '../../assets/svgs/plus.svg';
 import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 import expenses from './categories';
 
 export default function ModalAddTransaction() {
@@ -46,6 +51,10 @@ export default function ModalAddTransaction() {
 
     const handleInputChange = event => {
         setExpenseType(event.target.checked);
+    };
+
+    const handleSelectChange = event => {
+        setCategory(event.target.value);
     };
 
     return (
@@ -86,30 +95,55 @@ export default function ModalAddTransaction() {
                         {isExpenseType && (
                             <Select
                                 sx={{ width: '100%' }}
+                                displayEmpty
                                 value={category}
-                                onChange={e => setCategory(e.target.value)}
+                                onChange={handleSelectChange}
                                 variant="standard"
                                 renderValue={selected => {
                                     if (selected.length === 0) {
-                                        return <p>Select a category</p>;
+                                        return <i>Select a category</i>;
                                     }
-                                    return selected.join(', ');
+                                    return selected;
                                 }}
-                                //TODO FIX PLACEHOLDER
                             >
-                                {expenses.map(key => (
-                                    <MenuItem value={key} key={key}>
-                                        {key}
+                                {expenses.map(category => (
+                                    <MenuItem value={category} key={category}>
+                                        {category}
                                     </MenuItem>
                                 ))}
                             </Select>
                         )}
-
-                        <TextField
-                            id="standard-basic"
-                            label="0.00"
-                            variant="standard"
+                        <Box>
+                            <Input
+                                placeholder="0.00"
+                                variant="standart"
+                                type="number"
+                            />
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    variant="standart"
+                                    value={date}
+                                    onChange={newValue => {
+                                        setDate(newValue);
+                                    }}
+                                    renderInput={params => (
+                                        <TextField
+                                            variant="standard"
+                                            {...params}
+                                        />
+                                    )}
+                                />
+                            </LocalizationProvider>
+                        </Box>
+                        <Input
+                            placeholder="Comments"
+                            variant="standart"
+                            type="text"
                         />
+                        <GreenBtn type="submit">Add</GreenBtn>
+                        <WhiteBtn type="button" onClick={handleClose}>
+                            Cancel
+                        </WhiteBtn>
                     </form>
                 </DialogContent>
             </Dialog>
