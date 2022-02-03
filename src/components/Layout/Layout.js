@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { Outlet, NavLink } from 'react-router-dom';
 import { Header } from '../Header';
 import Balance from '../Balance/Balance';
 import Currency from '../Currency/Currency';
@@ -14,13 +15,11 @@ import {
     Navigation,
     AsideTop,
 } from './Layout.styles';
-import { NavLink } from 'react-router-dom';
 
-const Layout = ({ children }) => {
+const Layout = () => {
     const isAuth = useSelector(state => state.session.isAuth);
     return (
         <StyleLayout>
-            {!isAuth && <>{children}</>}
             {isAuth && (
                 <>
                     <Header />
@@ -55,7 +54,9 @@ const Layout = ({ children }) => {
                                 </AsideTop>
                                 <Currency />
                             </Aside>
-                            <MainContent>{children}</MainContent>
+                            <MainContent>
+                                <Outlet />
+                            </MainContent>
                         </MainContainer>
                     </main>
                 </>
