@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Global } from '@emotion/react';
 import { authOperations } from '../redux/auth';
-import { Layout } from './Layout';
+import Layout from './Layout/Layout';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Registration } from '../pages/Registration';
@@ -11,7 +11,7 @@ import { Statistics } from '../pages/Statistics';
 import { NotFound } from '../pages/NotFound';
 import { GlobalStyles } from './GlobalStyles';
 import ProtectedRoute from './Routes/ProtectedRoute';
-import PublicRoute from './Routes/PublicRoute';
+import AuthRoute from './Routes/AuthRoute';
 
 const App = ({ onGetCurrentUser }) => {
     useEffect(() => {
@@ -22,24 +22,27 @@ const App = ({ onGetCurrentUser }) => {
         <>
             <Global styles={GlobalStyles} />
             <BrowserRouter>
-                <Layout>
-                    <Routes>
-                        <Route
-                            path="/register"
-                            element={
-                                <PublicRoute restricted>
-                                    <Registration />
-                                </PublicRoute>
-                            }
-                        />
-                        <Route
-                            path="/login"
-                            element={
-                                <PublicRoute restricted>
-                                    <Login />
-                                </PublicRoute>
-                            }
-                        />
+                <Routes>
+                    <Route
+                        path="/register"
+                        element={
+                            <AuthRoute restricted>
+                                <Registration />
+                            </AuthRoute>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <AuthRoute restricted>
+                                <Login />
+                            </AuthRoute>
+                        }
+                    />
+
+                    <Route path="*" element={<NotFound />} />
+
+                    <Route path="/" element={<Layout />}>
                         <Route
                             path="/home"
                             element={
@@ -60,9 +63,8 @@ const App = ({ onGetCurrentUser }) => {
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
-                </Layout>
+                    </Route>
+                </Routes>
             </BrowserRouter>
         </>
     );
