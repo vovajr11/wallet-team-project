@@ -1,34 +1,30 @@
-import LogoutIcon from '@mui/icons-material/Logout';
-// import { ReactElement as LogoIcon } from '../../../assets/svg/logo.svg';
-import logo from './img/logo.svg';
+import { ReactComponent as LogoIcon } from '../../assets/svgs/logo.svg';
+import { NavLink } from 'react-router-dom';
+import { ModalLogout } from '../ModalLogout/ModalLogoutBody';
+
 import {
-    HeaderSection,
+    Header,
+    HeaderInner,
     HeaderEntrance,
     HeaderEntranceItem,
-    LogoutIconW,
 } from './Header.style';
 
-const Header = () => {
+const HeaderComponent = () => {
     return (
-        <HeaderSection>
-            <a href="#">
-                {/* <LogoIcon /> */}
-                <img src={logo} alt="Wallet" />
-                {/* <svg>
-                    <use xlinkHref="./assets/svg/logo.svg"></use>
-                </svg> */}
-            </a>
-            <HeaderEntrance>
-                <HeaderEntranceItem>Name</HeaderEntranceItem>
-                <HeaderEntranceItem>
-                    <LogoutIconW>
-                        <LogoutIcon />
-                    </LogoutIconW>
-                    Exit
-                </HeaderEntranceItem>
-            </HeaderEntrance>
-        </HeaderSection>
+        <Header>
+            <HeaderInner>
+                <NavLink to="/home">
+                    <LogoIcon />
+                </NavLink>
+                <HeaderEntrance>
+                    <HeaderEntranceItem>Name</HeaderEntranceItem>
+                    <HeaderEntranceItem>
+                        <ModalLogout />
+                    </HeaderEntranceItem>
+                </HeaderEntrance>
+            </HeaderInner>
+        </Header>
     );
 };
 
-export default Header;
+export default HeaderComponent;

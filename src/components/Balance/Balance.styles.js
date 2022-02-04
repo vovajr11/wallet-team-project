@@ -7,7 +7,6 @@ export const BalanceWrap = styled.div`
     background-color: white;
     padding: 8px 40px;
     border-radius: 30px;
-    margin-bottom: 30px;
     h3 {
         color: var(--grey);
         font-family: 'Abel';

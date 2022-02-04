@@ -8,14 +8,16 @@ import LockIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
 import { authOperations } from '../../../redux/auth';
-import { GreenBtn, WhiteBtn, LogoContainer } from '../../StyledComponents';
+import validationsForm from './validations';
+import { GreenBtn, WhiteBtn } from '../../StyledComponents';
 import {
+    LogoContainer,
     FormContainer,
     StyledForm,
     StyledFormControl,
     StyledInput,
 } from '../Forms.styles';
-import validationsForm from './validations';
+import { ReactComponent as LogoIcon } from '../../../assets/svgs/logo.svg';
 
 const Form = props => {
     const { values, touched, errors, handleChange, handleSubmit } = props;
@@ -23,10 +25,7 @@ const Form = props => {
     return (
         <FormContainer>
             <LogoContainer>
-                <svg width={40} height={40}>
-                    <use xlinkHref="assets/svg/pictures-min.svg#wallet" />
-                </svg>
-                <h2>Wallet</h2>
+                <LogoIcon />
             </LogoContainer>
 
             <StyledForm onSubmit={handleSubmit}>

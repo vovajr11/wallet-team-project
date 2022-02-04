@@ -1,17 +1,17 @@
-import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Global } from '@emotion/react';
 import { authOperations } from '../redux/auth';
-import { Layout } from './Layout';
-import { Header } from './Header';
+import Layout from './Layout/Layout';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Registration } from '../pages/Registration';
 import { Statistics } from '../pages/Statistics';
 import { NotFound } from '../pages/NotFound';
 import { GlobalStyles } from './GlobalStyles';
-import { PublicRoutes, ProtectedRoutes } from './routes';
+import ProtectedRoute from './Routes/ProtectedRoute';
+import AuthRoute from './Routes/AuthRoute';
 
 const App = ({ onGetCurrentUser }) => {
     useEffect(() => {
@@ -19,27 +19,54 @@ const App = ({ onGetCurrentUser }) => {
     });
 
     return (
-        <BrowserRouter>
+        <>
             <Global styles={GlobalStyles} />
-            <Layout>
+            <BrowserRouter>
                 <Routes>
-                    <Route element={<PublicRoutes />}>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Registration />} />
-                    </Route>
+                    <Route
+                        path="/register"
+                        element={
+                            <AuthRoute restricted>
+                                <Registration />
+                            </AuthRoute>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <AuthRoute restricted>
+                                <Login />
+                            </AuthRoute>
+                        }
+                    />
 
-                    <Route element={<ProtectedRoutes />}>
-                        <Route path="/home" element={<Home />} />
-                        <Route path="/diagram" element={<Statistics />} />
+                    <Route path="*" element={<NotFound />} />
+
+                    <Route path="/" element={<Layout />}>
+                        <Route
+                            path="/home"
+                            element={
+                                <ProtectedRoute>
+                                    <Home />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route
                             path="/"
                             element={<Navigate replace to="/home" />}
                         />
+                        <Route
+                            path="/diagram"
+                            element={
+                                <ProtectedRoute>
+                                    <Statistics />
+                                </ProtectedRoute>
+                            }
+                        />
                     </Route>
-                    <Route path="*" element={<NotFound />} />
                 </Routes>
-            </Layout>
-        </BrowserRouter>
+            </BrowserRouter>
+        </>
     );
 };
 
