@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     DefinitionContainer
-} from './Statistics.styles'
+} from './TableStatistic.style'
 
 export const TableTransactions = () => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListOfTransitions, ListItem, Total } from './Statistics.styles'
+import { ListOfTransitions, ListItem, Total } from './TransictionsList.style'
 
 export const TransictionsList = (props) => {
 

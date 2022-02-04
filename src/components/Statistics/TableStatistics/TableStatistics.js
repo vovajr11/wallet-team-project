@@ -1,8 +1,8 @@
 import React from 'react';
-import { default as BasicSelect } from "./Select";
-import { SelectsContainer, TableContainer } from "./Statistics.styles";
-import { TableTransactions } from './TableTransactions';
-import { TransictionsList } from './TransictionsList';
+import { default as BasicSelect } from "../Select";
+import { SelectsContainer, TableContainer } from "./TableStatistic.style";
+import { TableTransactions } from './TableTransactions.js';
+import { TransictionsList } from './TransictionsList.js';
 
 
 import axios from 'axios';
