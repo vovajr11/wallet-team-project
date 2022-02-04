@@ -12,18 +12,22 @@ export const MainContainer = styled.section`
     min-height: calc(100vh - 86px);
     width: 100%;
     margin: 0 auto;
-    @media screen and (max-width: 1280px) {
+    @media screen and (max-width: 1279px) {
         display: block;
         justify-content: center;
         max-width: none;
         padding-left: 40px;
         padding-right: 40px;
     }
+    @media screen and (max-width: 767px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 `;
 
-export const MainAside = styled.aside`
-    width: 34%;
+export const Aside = styled.aside`
     padding-top: 40px;
+    width: 34%;
     border-right: 1px solid #e7e5f2;
     position: relative;
     padding-right: 30px;
@@ -37,25 +41,29 @@ export const MainAside = styled.aside`
         box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.05),
             1px 0px 0px rgba(255, 255, 255, 0.6);
     }
-    @media screen and (max-width: 1280px) {
+    @media screen and (max-width: 1279px) {
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 1fr 1fr;
         column-gap: 20px;
         justify-content: space-between;
         width: 100%;
         border-right: none;
+        padding-right: 0;
         &::after {
             display: none;
         }
     }
 `;
 
-export const MainAsideTop = styled.div``;
+export const AsideTop = styled.div``;
 
 export const MainContent = styled.div`
     width: 66%;
-    @media screen and (max-width: 1280px) {
+    padding-left: 30px;
+    padding-top: 40px;
+    @media screen and (max-width: 1279px) {
         width: 100%;
+        padding-left: 0;
     }
 `;
 
@@ -66,11 +74,33 @@ export const Navigation = styled.ul`
         font-size: 18px;
         line-height: 150%;
     }
-    li:first-child {
+    li:first-of-type {
         margin-bottom: 10px;
     }
     .currencyItemForMobile {
         display: none;
+    }
+    .NavLink {
+        display: flex;
+        align-items: center;
+        column-gap: 20px;
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+        span {
+            font-size: 18px;
+            line-height: 150%;
+        }
+        @media screen and (max-width: 480px) {
+            svg {
+                width: 38px;
+                height: 38px;
+            }
+            span {
+                display: none;
+            }
+        }
     }
     @media screen and (max-width: 480px) {
         .currencyItemForMobile {
