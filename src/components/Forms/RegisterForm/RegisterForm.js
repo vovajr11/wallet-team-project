@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
-import { InputAdornment, LinearProgress } from '@mui/material';
+import { InputAdornment } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
 import validationsForm from './validations';
+import PasswordStrengthBar from './PasswordStrengthBar';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
 import {
     LogoContainer,
@@ -17,6 +18,8 @@ import {
 import { ReactComponent as LogoIcon } from '../../../assets/svgs/logo.svg';
 
 const RegisterForm = () => {
+    const [password, setPassword] = useState('');
+
     return (
         <FormContainer>
             <LogoContainer>
@@ -53,16 +56,14 @@ const RegisterForm = () => {
                             />
                         </StyledFormControl>
                         <ErrorMessage name="email" />
-                        {/* <LinearProgress
-                            variant="determinate"
-                            value={50}
-                            sx={{ width: '400px' }}
-                        /> */}
 
                         <StyledFormControl variant="standard">
                             <StyledInput
                                 value={values.password}
-                                onChange={handleChange}
+                                onChange={e => {
+                                    handleChange(e);
+                                    setPassword(e.target.value);
+                                }}
                                 name="password"
                                 type="password"
                                 placeholder="Password"
@@ -91,6 +92,8 @@ const RegisterForm = () => {
                         </StyledFormControl>
                         <ErrorMessage name="passwordConfirmation" />
 
+                        <PasswordStrengthBar value={password} />
+
                         <StyledFormControl variant="standard">
                             <StyledInput
                                 value={values.username}
@@ -107,7 +110,9 @@ const RegisterForm = () => {
                         </StyledFormControl>
                         <ErrorMessage name="username" />
 
-                        <GreenBtn type="submit">Registration</GreenBtn>
+                        <GreenBtn type="submit" style={{ marginTop: '50px' }}>
+                            Registration
+                        </GreenBtn>
                         <WhiteBtn type="button">
                             <Link to="/login">Log In</Link>
                         </WhiteBtn>

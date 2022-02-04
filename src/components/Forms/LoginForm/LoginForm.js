@@ -67,7 +67,9 @@ const LoginForm = () => {
                         </StyledFormControl>
                         <ErrorMessage name="password" />
 
-                        <GreenBtn type="submit">Log in</GreenBtn>
+                        <GreenBtn type="submit" style={{ marginTop: '50px' }}>
+                            Log in
+                        </GreenBtn>
                         <WhiteBtn type="button">
                             <Link to="/register">Registration</Link>
                         </WhiteBtn>

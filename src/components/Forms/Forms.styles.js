@@ -1,7 +1,12 @@
-import { Form, Field } from 'formik';
+import { Form } from 'formik';
 import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import styled from '@emotion/styled';
+
+export const BackgroundContainer = styled.div`
+    background: #f1f2f7;
+    backdrop-filter: blur(50px);
+`;
 
 export const Container = styled.div`
     height: 100vh;
@@ -96,10 +101,34 @@ export const StyledForm = styled(Form)`
     margin-top: 50px;
 
     .MuiFormControl-root {
-        margin-bottom: 40px;
+        margin-top: 40px;
+
+        &:first-of-type {
+            margin-top: 0;
+        }
 
         @media (min-width: 768px) {
             width: 100%;
+        }
+
+        > .MuiInput-root {
+            &::before {
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            &::after {
+                border-bottom: 2px solid #24cca7;
+            }
+
+            .MuiSvgIcon-root path {
+                color: #e0e0e0;
+            }
+        }
+
+        .MuiInput-input {
+            color: #c7c4c4;
+            font-size: 18px;
+            font-family: 'Abel';
         }
     }
 `;
