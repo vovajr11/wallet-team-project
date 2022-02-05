@@ -4,14 +4,16 @@ import { ListOfTransitions, ListItem, Total } from './TransictionsList.style'
 export const TransictionsList = (props) => {
 
     const renderItems = (itemsArr) => itemsArr.map(elem => (
-        <ListItem>
+        <ListItem key={elem.name}>
             <div className='squareColor' style={{ backgroundColor: "red" }}></div>
-            <div className='itemInner'>
+            <div className='itemInner' >
                 <p>{elem.name}</p>
                 <p>{elem.total}</p>
             </div>
         </ListItem>
     ));
+
+    console.log(props.transactionObj);
 
     return (
         <>
@@ -20,11 +22,11 @@ export const TransictionsList = (props) => {
             </ListOfTransitions>
             <Total>
                 <p>Expenses:</p>
-                <p className='expenses'>22 549.24</p>
+                <p className='expenses'>{props.transactionObj.expenseSummary}</p>
             </Total>
             <Total>
                 <p>Incomes:</p>
-                <p className='incomes'>27 350.00</p>
+                <p className='incomes'>{props.transactionObj.incomeSummary}</p>
             </Total>
         </>
     )

@@ -1,13 +1,23 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { SelectFilter, svgArrow } from './Select.style';
+import axios from 'axios';
+
 
 
 export default function BasicSelect(props) {
+
     const handleChange = (event) => {
         props.func(event.target.value);
     };
+
+    const renderOptions = (arr) =>
+        arr.map(elem => (
+            <MenuItem key={elem} value={elem}>
+                <span className='selectName'>{elem}</span>
+            </MenuItem>
+        ))
 
     return (
         <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -15,16 +25,14 @@ export default function BasicSelect(props) {
                 value={props.SelectName}
                 onChange={handleChange}
                 displayEmpty
-                defaultValue={props.selectName}
+                defaultValue={""}
                 inputProps={{ 'aria-label': 'Without label' }}
                 IconComponent={svgArrow}
             >
-                <MenuItem value={props.selectName}>
+                <MenuItem value={""}>
                     <span className='selectName'>{props.selectName}</span>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {renderOptions(props.options)}
             </SelectFilter>
         </FormControl>
     );
