@@ -1,9 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
 import InputAdornment from '@mui/material/InputAdornment';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
+import { authOperations } from '../../../redux/auth';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
 import {
     LogoContainer,
@@ -16,6 +18,8 @@ import validationsForm from './validations';
 import { ReactComponent as LogoIcon } from '../../../assets/svgs/logo.svg';
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
+
     return (
         <FormContainer>
             <LogoContainer>
@@ -28,9 +32,8 @@ const LoginForm = () => {
                     password: '',
                 }}
                 validationSchema={validationsForm}
-                onSubmit={({ email }, actions) => {
-                    console.log('submit');
-                    console.log({ email });
+                onSubmit={({ email, password }) => {
+                    dispatch(authOperations.logIn({ email, password }));
                 }}
             >
                 {({ values, handleSubmit, handleChange }) => (

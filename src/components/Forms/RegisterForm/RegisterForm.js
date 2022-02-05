@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
 import { InputAdornment } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
+import { authOperations } from '../../../redux/auth';
 import validationsForm from './validations';
 import PasswordStrengthBar from './PasswordStrengthBar';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
@@ -18,6 +20,7 @@ import {
 import { ReactComponent as LogoIcon } from '../../../assets/svgs/logo.svg';
 
 const RegisterForm = () => {
+    const dispatch = useDispatch();
     const [password, setPassword] = useState('');
 
     return (
@@ -34,9 +37,10 @@ const RegisterForm = () => {
                     username: '',
                 }}
                 validationSchema={validationsForm}
-                onSubmit={({ email }, actions) => {
-                    console.log('submit');
-                    console.log({ email });
+                onSubmit={({ email, password, username }) => {
+                    dispatch(
+                        authOperations.register({ email, password, username }),
+                    );
                 }}
             >
                 {({ values, handleChange, handleSubmit }) => (
