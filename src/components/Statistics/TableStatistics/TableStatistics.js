@@ -6,7 +6,7 @@ import { TransictionsList } from './TransictionsList.js';
 import axios from 'axios';
 
 
-const updateUrl = (year, month) => {
+const updateUrl = async (year, month) => {
     if (year && month) {
         return {
             "year": year,
@@ -34,7 +34,6 @@ const TableStatistics = () => {
     const baseURL = `https://wallet.goit.ua/api/transactions-summary`;
 
     const fetchData = async (params) => {
-        // console.log(params);
         axios.get(baseURL, { params }).then((response) => {
             setFetcher(response.data);
         })
@@ -47,8 +46,6 @@ const TableStatistics = () => {
     const setMonthOnClick = (value) => {
         setMonth(value);
     }
-
-    // https://wallet.goit.ua/api/transactions
 
     const parseDate = (type, arr) =>
         arr.map(elem => type === "month"
@@ -72,10 +69,11 @@ const TableStatistics = () => {
 
 
     useEffect(() => {
-        let obj = updateUrl(year, month);
-        fetchData(obj);
-
-
+        const fetchTransactions = async () => {
+            let obj = await updateUrl(year, month);
+            fetchData(obj);
+        }
+        fetchTransactions();
     }, [year, month]);
 
     useEffect(() => {
@@ -87,7 +85,6 @@ const TableStatistics = () => {
 
     }, []);
 
-    console.log(fetcher);
 
     return (
         <TableContainer>
