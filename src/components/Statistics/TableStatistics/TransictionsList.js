@@ -13,21 +13,22 @@ export const TransictionsList = (props) => {
         </ListItem>
     ));
 
-    console.log(props.transactionObj);
 
     return (
-        <>
+        <div>
             <ListOfTransitions>
                 {props.categoriesSummary ? renderItems(props.categoriesSummary) : renderItems([])}
             </ListOfTransitions>
-            <Total>
-                <p>Expenses:</p>
-                <p className='expenses'>{props.transactionObj.expenseSummary}</p>
-            </Total>
-            <Total>
-                <p>Incomes:</p>
-                <p className='incomes'>{props.transactionObj.incomeSummary}</p>
-            </Total>
-        </>
+            <div style={{ alignSelf: "flex-end" }}>
+                <Total>
+                    <p>Expenses:</p>
+                    <p className='expenses'>{props.transactionObj.expenseSummary}</p>
+                </Total>
+                <Total>
+                    <p>Incomes:</p>
+                    <p className='incomes'>{props.transactionObj.incomeSummary}</p>
+                </Total>
+            </div>
+        </div>
     )
 }
