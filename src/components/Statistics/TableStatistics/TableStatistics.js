@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import reactDom from 'react-dom';
 import { default as BasicSelect } from "./Select.js";
 import { SelectsContainer, TableContainer } from "./TableStatistic.style.js";
 import { TableTransactions } from './TableTransactions.js';
 import { TransictionsList } from './TransictionsList.js';
-
-
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+
 
 const updateUrl = (year, month) => {
     if (year && month) {
@@ -31,23 +28,17 @@ const TableStatistics = () => {
     let [month, setMonth] = useState(null);
     let [year, setYear] = useState(yearNow);
     let [fetcher, setFetcher] = useState([]);
+    let [options, setOptions] = useState({ years: [], months: [] })
 
 
     const baseURL = `https://wallet.goit.ua/api/transactions-summary`;
 
     const fetchData = async (params) => {
-        console.log(params);
+        // console.log(params);
         axios.get(baseURL, { params }).then((response) => {
             setFetcher(response.data);
         })
     };
-
-
-    useEffect(() => {
-        let obj = updateUrl(year, month);
-        fetchData(obj);
-        console.log('fetch= ', fetcher)
-    }, [year, month]);
 
     const setYearOnClick = (value) => {
         setYear(value);
@@ -57,15 +48,55 @@ const TableStatistics = () => {
         setMonth(value);
     }
 
+    // https://wallet.goit.ua/api/transactions
+
+    const parseDate = (type, arr) =>
+        arr.map(elem => type === "month"
+            ? (new Date(elem.transactionDate)).getUTCMonth() + 1
+            : (new Date(elem.transactionDate)).getFullYear()
+        ).reduce((acc, elem) => {
+            if (!acc.includes(elem)) {
+                acc.push(elem);
+            }
+            return acc;
+        }, [])
+            .sort((a, b) => a - b);
+
+
+    const parseOptions = (arr) => {
+        const years = parseDate("year", arr);
+        const months = parseDate("month", arr);
+
+        setOptions({ years, months, });
+    }
+
+
+    useEffect(() => {
+        let obj = updateUrl(year, month);
+        fetchData(obj);
+
+
+    }, [year, month]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await axios.get("https://wallet.goit.ua/api/transactions")
+                .then(response => parseOptions(response.data))
+        }
+        fetchData();
+
+    }, []);
+
+    console.log(fetcher);
+
     return (
         <TableContainer>
-            {console.log(year)}
             <SelectsContainer>
-                <BasicSelect func={setMonthOnClick} selectName="Month" />
-                <BasicSelect func={setYearOnClick} selectName="Year" />
+                <BasicSelect func={setMonthOnClick} options={options.months} selectName="Month" />
+                <BasicSelect func={setYearOnClick} options={options.years} selectName="Year" />
             </SelectsContainer>
             <TableTransactions />
-            <TransictionsList categoriesSummary={fetcher.categoriesSummary} />
+            <TransictionsList categoriesSummary={fetcher.categoriesSummary} transactionObj={fetcher} />
         </TableContainer>
     )
 }
