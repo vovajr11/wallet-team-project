@@ -1,18 +1,19 @@
 import styled from '@emotion/styled';
+import { device, grid, font, color } from '../GlobalStyles';
 
 export const Header = styled.header`
     display: flex;
     justify-content: center;
     width: 100%;
     padding: 20px 85px;
-    background: #fff;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 5%);
+    background: ${color.white};
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5%);
 
-    @media screen and (max-width: 768px) {
+    @media screen and (${device.tablet}) {
         padding: 20px 40px;
     }
 
-    @media screen and (max-width: 320px) {
+    @media screen and (${device.mobile}) {
         padding: 15px 20px;
     }
 `;
@@ -21,7 +22,16 @@ export const HeaderInner = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 1120px;
+    max-width: ${grid.maxWidth};
+`;
+
+export const LogoW = styled.span`
+    @media screen and (${device.mobile}) {
+        svg {
+            width: 120px;
+            height: 30px;
+        }
+    }
 `;
 
 export const HeaderEntrance = styled.ul`
@@ -29,14 +39,14 @@ export const HeaderEntrance = styled.ul`
     align-items: center;
     padding: 0;
     list-style-type: none;
-    background: #fff;
+    background: ${color.white};
 `;
 
 export const HeaderEntranceItem = styled.li`
     display: flex;
     align-items: center;
-    font: 18px/1.33 'Abel';
-    color: #bdbdbd;
+    font: 18px/1.33 ${font.secondary};
+    color: ${color.grey};
     padding-left: 15px;
 
     &:last-child::before {
@@ -44,7 +54,7 @@ export const HeaderEntranceItem = styled.li`
         display: inline-block;
         width: 2px;
         height: 30px;
-        background: #bdbdbd;
+        background: ${color.grey};
     }
 
     @media screen and (max-width: 768px) {
@@ -66,13 +76,9 @@ export const LogoutBtn = styled.button`
     }
 `;
 
-export const LogoutIconW = styled.span`
-    padding: 0 8px 0 10px;
-`;
-
 export const LogoutBtnText = styled.span`
-    font: 18px/1.33 'Abel';
-    color: #bdbdbd;
+    font: 18px/1.33 ${font.secondary};
+    color: ${color.grey};
 
     @media screen and (max-width: 768px) {
         display: none;

@@ -12,7 +12,8 @@ export const ModalLogoutBtn = styled.button`
 `;
 
 export const LogoutIconW = styled.span`
-    padding: 0 8px 0 10px;
+    display: flex;
+    padding: 0 6px 0 13px;
 `;
 
 export const LogoutBtnText = styled.span`
