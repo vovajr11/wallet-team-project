@@ -53,7 +53,7 @@ export const Total = styled.div`
     font-family: "Abel",sans-serif;
     font-size: 16px;
     line-height: 20px;
-    padding:15px 20px;
+    padding:15px 37px 15px 20px;
     width:100%;    
     border:none;
     box-shadow:none;

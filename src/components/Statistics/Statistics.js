@@ -65,6 +65,7 @@ const Statistics = (props) => {
                 .then(response => parseOptions(response.data))
         }
         fetchData();
+        console.log(options);
     }, []);
 
 
@@ -73,7 +74,7 @@ const Statistics = (props) => {
             <h2>
                 Statistics
             </h2>
-            <div>
+            <>
                 <Chart />
                 <TableStatistics
                     setMonthOnClick={setMonthOnClick}
@@ -81,7 +82,7 @@ const Statistics = (props) => {
                     options={options}
                     fetcher={fetcher}
                 />
-            </div>
+            </>
         </section>
     )
 }

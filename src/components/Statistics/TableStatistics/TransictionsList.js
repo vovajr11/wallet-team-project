@@ -19,7 +19,7 @@ export const TransictionsList = (props) => {
             <ListOfTransitions>
                 {props.categoriesSummary ? renderItems(props.categoriesSummary) : renderItems([])}
             </ListOfTransitions>
-            <div style={{ alignSelf: "flex-end" }}>
+            <div>
                 <Total>
                     <p>Expenses:</p>
                     <p className='expenses'>{props.transactionObj.expenseSummary}</p>
