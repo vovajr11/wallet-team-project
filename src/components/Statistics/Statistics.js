@@ -13,10 +13,11 @@ const Statistics = (props) => {
     let [fetcher, setFetcher] = useState([]);
     let [options, setOptions] = useState({ years: [], months: [] });
 
-    const baseURL = `https://wallet.goit.ua/api/transactions-summary`;
+    const transactionsForPeriod = `https://wallet.goit.ua/api/transactions-summary`;
+    const summaryTransactionsURL = `https://wallet.goit.ua/api/transactions`;
 
     const fetchData = async (params) => {
-        axios.get(baseURL, { params }).then((response) => {
+        axios.get(transactionsForPeriod, { params }).then((response) => {
             setFetcher(response.data);
         })
     };
@@ -60,16 +61,15 @@ const Statistics = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get("https://wallet.goit.ua/api/transactions")
+            await axios.get(summaryTransactionsURL)
                 .then(response => parseOptions(response.data))
         }
         fetchData();
-
     }, []);
 
 
     return (
-        <section >
+        <section>
             <h2>
                 Statistics
             </h2>
