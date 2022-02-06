@@ -28,12 +28,16 @@ export default function BasicSelect(props) {
                 defaultValue={""}
                 inputProps={{ 'aria-label': 'Without label' }}
                 IconComponent={svgArrow}
+                renderValue={(selected) => {
+                    if (selected.length === 0) {
+                        return <span className='selectName'>{props.selectName}</span>;
+                    }
+                    else
+                        return selected
+                }}
             >
-                <MenuItem value={""}>
-                    <span className='selectName'>{props.selectName}</span>
-                </MenuItem>
                 {renderOptions(props.options)}
             </SelectFilter>
-        </FormControl>
+        </FormControl >
     );
 }
