@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 const Button = styled.button`
+    font-family: Abel, sans-serif;
     width: 300px;
     height: 50px;
     border: none;
@@ -18,11 +19,11 @@ export const GreenBtn = styled(Button)`
     background: #24cca7;
     color: #ffffff;
     margin-bottom: 20px;
-    opacity: 0.8;
-    transition: 0.3s;
+    opacity: 1;
 
     &:hover {
-        opacity: 1;
+        opacity: 0.6;
+        transition: 0.3s;
     }
 `;
 
