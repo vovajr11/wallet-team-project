@@ -1,7 +1,5 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import CloseIcon from '@mui/icons-material/Close';
 import { ModalLogoutBtn } from '../ModalLogoutBtn';
 
 import { WhiteBtn } from '../../StyledComponents';
@@ -26,8 +24,8 @@ export default function ModalLogout() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={StyledBox}>
-                    <CloseIcon onClick={handleClose} sx={StyledClose} />
+                <StyledBox>
+                    <StyledClose onClick={handleClose} />
                     <ModalCaption>
                         Are you sure, you want to logout?
                     </ModalCaption>
@@ -35,7 +33,7 @@ export default function ModalLogout() {
                         <WhiteBtn>Yes</WhiteBtn>
                         <WhiteBtn>No</WhiteBtn>
                     </ModalBtns>
-                </Box>
+                </StyledBox>
             </Modal>
         </>
     );

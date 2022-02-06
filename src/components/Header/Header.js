@@ -5,6 +5,7 @@ import { ModalLogout } from '../ModalLogout/ModalLogoutBody';
 import {
     Header,
     HeaderInner,
+    LogoW,
     HeaderEntrance,
     HeaderEntranceItem,
 } from './Header.style';
@@ -14,7 +15,9 @@ const HeaderComponent = () => {
         <Header>
             <HeaderInner>
                 <NavLink to="/home">
-                    <LogoIcon />
+                    <LogoW>
+                        <LogoIcon />
+                    </LogoW>
                 </NavLink>
                 <HeaderEntrance>
                     <HeaderEntranceItem>Name</HeaderEntranceItem>

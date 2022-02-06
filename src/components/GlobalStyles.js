@@ -30,3 +30,38 @@ export const GlobalStyles = css`
         text-decoration: none;
     }
 `;
+
+/* VARS */
+export const grid = {
+    maxWidth: '1120px',
+};
+
+const breakpoint = {
+    mobile: '768px',
+    tablet: '1024px',
+};
+
+export const device = {
+    mobile: `max-width: ${breakpoint.mobile}`,
+    tablet: `max-width: ${breakpoint.tablet}`,
+};
+
+export const modal = {
+    paddingTablet: '60px 65px',
+    paddingMobile: '18px 20px',
+};
+
+export const font = {
+    primary: 'Poppins, Arial, sans-serif',
+    secondary: 'Abel, Arial, sans-serif',
+};
+
+export const color = {
+    black: '#000000',
+    white: '#FFFFFF',
+    grey: '#BDBDBD',
+    green: '#24CCA7',
+    red: '#FF6596',
+    purple: '#4A56E2',
+    purpleLight: '#6E78E8',
+};
