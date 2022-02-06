@@ -34,11 +34,13 @@ export const GlobalStyles = css`
 /* VARS */
 export const grid = {
     maxWidth: '1120px',
+    paddingMobile: '0 20px',
+    paddingTablet: '0 40px',
 };
 
 const breakpoint = {
-    mobile: '768px',
-    tablet: '1024px',
+    mobile: '767px',
+    tablet: '1279px',
 };
 
 export const device = {
@@ -60,8 +62,11 @@ export const color = {
     black: '#000000',
     white: '#FFFFFF',
     grey: '#BDBDBD',
+    greyBalance: '#A6A6A6',
     green: '#24CCA7',
     red: '#FF6596',
     purple: '#4A56E2',
     purpleLight: '#6E78E8',
+    blue: '#4A56E2',
+    blueLight: '#6E78E8',
 };

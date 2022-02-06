@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 
+import { device, font, color } from '../../components/GlobalStyles';
+
 export const Table = styled.table`
     width: 100%;
     border-spacing: 0px;
 
     text-align: left;
-    font-family: 'Abel';
+    font-family: ${font.secondary};
     font-weight: 400;
+
     thead {
         background-color: white;
         th {

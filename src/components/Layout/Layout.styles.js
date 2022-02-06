@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { device, color, font, grid } from '../GlobalStyles';
+
 export const StyleLayout = styled.div`
     background: #f1f2f7;
     backdrop-filter: blur(50px);
@@ -8,20 +10,18 @@ export const StyleLayout = styled.div`
 export const MainContainer = styled.section`
     display: flex;
     justify-content: space-between;
-    max-width: 1120px;
+    max-width: ${grid.maxWidth};
     min-height: calc(100vh - 86px);
     width: 100%;
     margin: 0 auto;
-    @media screen and (max-width: 1279px) {
+    @media screen and (${device.tablet}) {
         display: block;
         justify-content: center;
         max-width: none;
-        padding-left: 40px;
-        padding-right: 40px;
+        padding: ${grid.paddingTablet};
     }
-    @media screen and (max-width: 767px) {
-        padding-left: 20px;
-        padding-right: 20px;
+    @media screen and (${device.mobile}) {
+        padding: ${grid.paddingMobile};
     }
 `;
 
@@ -41,7 +41,7 @@ export const Aside = styled.aside`
         box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.05),
             1px 0px 0px rgba(255, 255, 255, 0.6);
     }
-    @media screen and (max-width: 1279px) {
+    @media screen and (${device.tablet}) {
         display: grid;
         grid-template-columns: 1fr 1fr;
         column-gap: 20px;
@@ -53,15 +53,22 @@ export const Aside = styled.aside`
             display: none;
         }
     }
+    @media screen and (${device.mobile}) {
+        grid-template-columns: 1fr;
+    }
 `;
 
-export const AsideTop = styled.div``;
+export const AsideTop = styled.div`
+    @media screen and (${device.mobile}) {
+        width: 100%;
+    }
+`;
 
 export const MainContent = styled.div`
     width: 66%;
     padding-left: 30px;
     padding-top: 40px;
-    @media screen and (max-width: 1279px) {
+    @media screen and (${device.tablet}) {
         width: 100%;
         padding-left: 0;
     }
@@ -84,15 +91,42 @@ export const Navigation = styled.ul`
         display: flex;
         align-items: center;
         column-gap: 20px;
+        color: black;
+        transition: all 0.4s ease;
         svg {
             width: 18px;
             height: 18px;
+            transition: all 0.4s ease;
         }
         span {
             font-size: 18px;
             line-height: 150%;
         }
-        @media screen and (max-width: 480px) {
+    }
+
+    .NavLink.active,
+    .NavLink:hover {
+        text-shadow: 1px 0 0.65px black, 1px 0 0.65px black;
+        svg {
+            filter: drop-shadow(0px 3px 10px rgba(74, 86, 226, 0.5));
+            background-color: white;
+            border-radius: 3px;
+            path {
+                fill: ${color.blue};
+            }
+        }
+    }
+
+    @media screen and (${device.mobile}) {
+        display: flex;
+        justify-content: center;
+        column-gap: 30px;
+
+        .currencyItemForMobile {
+            display: block;
+        }
+
+        .NavLink {
             svg {
                 width: 38px;
                 height: 38px;
@@ -101,10 +135,11 @@ export const Navigation = styled.ul`
                 display: none;
             }
         }
-    }
-    @media screen and (max-width: 480px) {
-        .currencyItemForMobile {
-            display: block;
+        .NavLink.active,
+        .NavLink:hover {
+            svg {
+                border-radius: 6px;
+            }
         }
     }
 `;

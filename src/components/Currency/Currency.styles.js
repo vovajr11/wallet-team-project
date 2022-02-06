@@ -2,8 +2,10 @@ import styled from '@emotion/styled';
 
 import CurrencyImg from '../../assets/svgs/currency.svg';
 
+import { device, color, font } from '../GlobalStyles';
+
 export const Table = styled.table`
-    font-family: 'Abel';
+    font-family: ${font.secondary};
     font-weight: 400;
     font-size: 18px;
     text-align: left;
@@ -13,9 +15,9 @@ export const Table = styled.table`
     border-spacing: 0px;
     border-radius: 30px;
     overflow: hidden;
-    margin: 30px auto 0;
+    margin: 30px 0 0px auto;
 
-    background-color: rgba(74, 86, 226, 1);
+    background-color: ${color.blue};
     background-image: url(${CurrencyImg});
     background-repeat: no-repeat;
     background-size: contain;
@@ -41,9 +43,8 @@ export const Table = styled.table`
             }
         }
     }
-    @media screen and (max-width: 1279px) {
+    @media screen and (${device.tablet}) {
         width: 334px;
-        margin: 0 auto;
         background-position-y: 150%;
         thead {
             th {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table } from './Home.styles';
-import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 
 const Home = () => {
     const dashboardList = [
@@ -23,7 +22,7 @@ const Home = () => {
     ];
 
     return (
-        <div>
+        <>
             <Table>
                 <thead>
                     <tr>
@@ -48,8 +47,7 @@ const Home = () => {
                     ))}
                 </tbody>
             </Table>
-            <ModalAddTransaction />
-        </div>
+        </>
     );
 };
 export default Home;
