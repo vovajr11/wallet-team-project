@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 import Select from '@mui/material/Select';
+import Dialog from '@mui/material/Dialog';
+import Box from '@mui/material/Box';
+import DatePicker from '@mui/lab/DatePicker';
+import Input from '@mui/material/Input';
 
 export const AddTransactionBtn = styled.button`
     color: #ffffff;
@@ -41,6 +45,17 @@ export const AddIcon = styled.svg`
     height: 20px;
 `;
 
+export const StyledDialog = styled(Dialog)`
+    .MuiBackdrop-root {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+    .MuiPaper-root {
+        border-radius: 20px;
+        max-width: 540px;
+        padding: 40px 60px 60px 60px;
+    }
+`;
+
 export const CloseModalBtn = styled.button`
     cursor: pointer;
     border: none;
@@ -56,8 +71,22 @@ export const CloseModalBtn = styled.button`
     }
 `;
 
+export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    .MuiInput-root,
+    .MuiMenu-root,
+    .MuiPaper-root {
+        font-family: Abel, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 23px;
+    }
+`;
+
 export const DialogTitle = styled.h2`
-    margin: 40px 0;
     text-align: center;
     font-weight: 400;
     font-size: 30px;
@@ -69,7 +98,6 @@ export const Toggler = styled.div`
     gap: 20px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 40px;
     justify-content: center;
     align-items: center;
 `;
@@ -142,33 +170,47 @@ export const ToggleBtn = styled.div`
 `;
 
 export const StyledSelect = styled(Select)`
+    width: 100%;
+
     .MuiSelect-select {
-      padding: 10px 20px 10px 20px;
-      line-height: 23px;
-
-      &:focus{
-            background-color: 'transparent'
-        }
+        padding: 10px 20px 10px 20px;
+        line-height: 23px;
     }
-
-    .MuiInput-underline{
-        &:hover{
-            color:#24CCA7;
-            &:before{
-                border-bottom: 2px solid red;
-            }
-        }
-        &:before{
-            border: 1px solid #E0E0E0;
-            color: red;
-        }
+    .MuiInput-input:focus {
+        background-color: transparent;
     }
 `;
 
 export const Placeholder = styled.p`
     font-family: Abel, sans-serif;
     font-style: normal;
-font-weight: normal;
-font-size: 18px;
-color: #BDBDBD;
-`
+    font-weight: normal;
+    font-size: 18px;
+    color: #bdbdbd;
+`;
+
+export const StyledBox = styled(Box)`
+    display: flex;
+    column-gap: 30px;
+    width: 100%;
+
+    .MuiInput-input {
+        text-align: center;
+        padding-bottom: 10px;
+        font-size: 18px;
+        line-height: 23px;
+    }
+`;
+
+export const StyledDatePicker = styled(DatePicker)``;
+
+export const StyledInput = styled(Input)`
+    padding: 10px 20px 10px 20px;
+`;
+
+export const StyledContainer = styled(Box)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`;

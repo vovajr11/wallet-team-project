@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {
     AddTransactionBtn,
+    StyledDialog,
+    Form,
     CloseModalBtn,
     DialogTitle,
     Toggler,
@@ -11,6 +13,10 @@ import {
     ToggleBtn,
     Placeholder,
     StyledSelect,
+    StyledBox,
+    StyledDatePicker,
+    StyledInput,
+    StyledContainer
 } from './ModalAddTransaction.styles';
 import { GreenBtn, WhiteBtn } from '../StyledComponents';
 import { ReactComponent as AddIcon } from '../../assets/svgs/plus.svg';
@@ -21,16 +27,12 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
-import expenses from './categories';
+import expenses from './Categories/categories';
+import {MenuProps} from './Select/select';
 
 export default function ModalAddTransaction() {
     const [open, setOpen] = useState(false);
@@ -42,7 +44,7 @@ export default function ModalAddTransaction() {
 
     const formik = useFormik({
         initialValues: {
-            date: new Date(),
+            
             type: false,
             amount: '',
             comment: '',
@@ -70,12 +72,13 @@ export default function ModalAddTransaction() {
             <AddTransactionBtn onClick={handleOpen}>
                 <AddIcon />
             </AddTransactionBtn>
-            <Dialog open={open} onClose={handleClose}>
-                <CloseModalBtn onClick={handleClose}>
-                    <CloseIcon />
-                </CloseModalBtn>
-                <DialogTitle>Add transaction</DialogTitle>
-                <DialogActions>
+            <StyledDialog open={open} onClose={handleClose}>
+                <Form onSubmit={formik.handleSubmit}>
+                    <CloseModalBtn onClick={handleClose}>
+                        <CloseIcon />
+                    </CloseModalBtn>
+                    <DialogTitle>Add transaction</DialogTitle>
+
                     <Toggler>
                         <ToggleP className={!isExpenseType ? 'green' : 'grey'}>
                             Income
@@ -101,69 +104,71 @@ export default function ModalAddTransaction() {
                             Expences
                         </ToggleP>
                     </Toggler>
-                </DialogActions>
-                <DialogContent>
-                    <form onSubmit={formik.handleSubmit}>
-                        {isExpenseType && (
-                            <StyledSelect
-                                sx={{ width: '100%' }}
-                                displayEmpty
-                                value={category}
-                                onChange={handleSelectChange}
-                                variant="standard"
-                                IconComponent={expandIcon}
-                                renderValue={selected => {
-                                    if (selected.length === 0) {
-                                        return (
-                                            <Placeholder>
-                                                Select a category
-                                            </Placeholder>
-                                        );
-                                    }
-                                    return selected;
-                                }}
-                            >
-                                {expenses.map(category => (
-                                    <MenuItem value={category} key={category}>
-                                        {category}
-                                    </MenuItem>
-                                ))}
-                            </StyledSelect>
-                        )}
-                        <Box>
-                            <Input
-                                placeholder="0.00"
-                                variant="standart"
-                                type="number"
-                            />
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DatePicker
-                                    variant="standart"
-                                    value={date}
-                                    onChange={newValue => {
-                                        setDate(newValue);
-                                    }}
-                                    renderInput={params => (
-                                        <TextField
-                                            variant="standard"
-                                            {...params}
-                                        />
-                                    )}
-                                />
-                            </LocalizationProvider>
-                        </Box>
+                    {isExpenseType && (
+                        <StyledSelect
+                            MenuProps={MenuProps}
+                            displayEmpty
+                            value={category}
+                            onChange={handleSelectChange}
+                            variant="standard"
+                            IconComponent={expandIcon}
+                            renderValue={selected => {
+                                if (selected.length === 0) {
+                                    return (
+                                        <Placeholder>
+                                            Select a category
+                                        </Placeholder>
+                                    );
+                                }
+                                return selected;
+                            }}
+                        >
+                            {expenses.map(category => (
+                                <MenuItem value={category} key={category}>
+                                    {category}
+                                </MenuItem>
+                            ))}
+                        </StyledSelect>
+                    )}
+                    <StyledBox>
                         <Input
-                            placeholder="Comments"
+                            placeholder="0.00"
                             variant="standart"
-                            type="text"
+                            type="number"
                         />
+                        <LocalizationProvider dateAdapter={AdapterDateFns} >
+                            <StyledDatePicker
+                                variant="standart"
+                                inputFormat="dd.MM.yyyy"
+                                mask={'__.__.____'}
+                                value={date}
+                                onChange={newValue => {
+                                    setDate(newValue);
+                                }}
+                                renderInput={params => (
+                                    <TextField variant="standard" {...params} />
+                                )}
+                            />
+                        </LocalizationProvider>
+                    </StyledBox>
+                    <StyledInput
+                        placeholder="Comments"
+                        variant="standart"
+                        type="text"
+                        sx={{
+                            '& .MuiInput-root': {
+                                padding: '10px 20px 10px 20px',
+                            },
+                        }}
+                    />
+                    <StyledContainer>
                         <GreenBtn type="submit">Add</GreenBtn>
                         <WhiteBtn type="button" onClick={handleClose}>
                             Cancel
                         </WhiteBtn>
-                    </form>
-                </DialogContent>
-            </Dialog>
+                    </StyledContainer>
+                </Form>
+            </StyledDialog>
         </>
     );
 }
