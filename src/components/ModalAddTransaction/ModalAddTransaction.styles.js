@@ -68,6 +68,11 @@ export const CloseModalBtn = styled.button`
     svg {
         width: 16px;
         height: 16px;
+
+        &:hover {
+            transform: scale(1.3);
+            transition: 0.1s linear;
+        }
     }
 `;
 
@@ -83,6 +88,16 @@ export const Form = styled.form`
         font-weight: normal;
         font-size: 18px;
         line-height: 23px;
+    }
+    .MuiInput-underline:before {
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+        border-bottom: 3px solid #24cca7;
+    }
+    .MuiButtonBase-root  {
+        margin-right: 12px;
+        color: #4A56E2;
     }
 `;
 
