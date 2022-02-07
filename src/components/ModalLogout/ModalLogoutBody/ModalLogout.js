@@ -1,6 +1,6 @@
 import React from 'react';
 import { ModalLogoutBtn } from '../ModalLogoutBtn';
-
+import Modal from '@mui/material/Modal';
 import { WhiteBtn } from '../../StyledComponents';
 import {
     ModalCaption,
@@ -18,7 +18,7 @@ export default function ModalLogout() {
     return (
         <>
             <ModalLogoutBtn modalTrigger={handleOpen} />
-            <StyledModal
+            <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -34,7 +34,7 @@ export default function ModalLogout() {
                         <WhiteBtn>No</WhiteBtn>
                     </ModalBtns>
                 </StyledBox>
-            </StyledModal>
+            </Modal>
         </>
     );
 }
