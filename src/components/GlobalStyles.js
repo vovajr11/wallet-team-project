@@ -36,7 +36,7 @@ export const grid = {
     maxWidth: '1120px',
 };
 
-const breakpoint = {
+export const breakpoint = {
     mobile: '768px',
     tablet: '1024px',
 };
