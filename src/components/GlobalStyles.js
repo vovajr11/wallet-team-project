@@ -34,14 +34,18 @@ export const GlobalStyles = css`
 /* VARS */
 export const grid = {
     maxWidth: '1120px',
+    paddingMobile: '0 20px',
+    paddingTablet: '0 40px',
 };
 
 const breakpoint = {
-    mobile: '768px',
-    tablet: '1024px',
+    mobileS: '374px',
+    mobile: '767px',
+    tablet: '1279px',
 };
 
 export const device = {
+    mobileS: `max-width: ${breakpoint.mobileS}`,
     mobile: `max-width: ${breakpoint.mobile}`,
     tablet: `max-width: ${breakpoint.tablet}`,
 };
@@ -60,6 +64,7 @@ export const color = {
     black: '#000000',
     white: '#FFFFFF',
     grey: '#BDBDBD',
+    greyBalance: '#A6A6A6',
     green: '#24CCA7',
     red: '#FF6596',
     purple: '#4A56E2',
@@ -68,8 +73,4 @@ export const color = {
     authGray: '#e0e0e0',
     authGreen: '#24cca7',
     containerBg: '#f1f2f7',
-};
-
-export const bgColor = {
-    primaryColor: '#f1f2f7',
 };

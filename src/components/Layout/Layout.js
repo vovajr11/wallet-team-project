@@ -6,6 +6,8 @@ import Currency from '../Currency/Currency';
 import { ReactComponent as HomeIcon } from '../../assets/svgs/main.svg';
 import { ReactComponent as StatisticIcon } from '../../assets/svgs/statistic.svg';
 import { ReactComponent as CurrencyIcon } from '../../assets/svgs/currencyIcon.svg';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 
 import {
     StyleLayout,
@@ -18,6 +20,7 @@ import {
 
 const Layout = () => {
     const isAuth = useSelector(state => state.session.isAuth);
+    const breakpointMobile = useMediaQuery('(max-width: 767px)');
     return (
         <StyleLayout>
             {isAuth && (
@@ -47,17 +50,25 @@ const Layout = () => {
                                             </NavLink>
                                         </li>
                                         <li className="currencyItemForMobile">
-                                            <CurrencyIcon />
+                                            {breakpointMobile ? (
+                                                <NavLink
+                                                    to="/currency"
+                                                    className="NavLink"
+                                                >
+                                                    <CurrencyIcon />
+                                                </NavLink>
+                                            ) : null}
                                         </li>
                                     </Navigation>
-                                    <Balance />
+                                    {!breakpointMobile ? <Balance /> : null}
                                 </AsideTop>
-                                <Currency />
+                                {!breakpointMobile ? <Currency /> : null}
                             </Aside>
                             <MainContent>
                                 <Outlet />
                             </MainContent>
                         </MainContainer>
+                        <ModalAddTransaction />
                     </main>
                 </>
             )}

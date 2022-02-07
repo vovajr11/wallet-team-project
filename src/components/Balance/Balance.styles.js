@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 
-export const BalanceWrap = styled.div`
-    --grey: rgba(166, 166, 166, 1);
+import { device, color, font } from '../GlobalStyles';
 
+export const BalanceWrap = styled.div`
     width: 100%;
     background-color: white;
     padding: 8px 40px;
     border-radius: 30px;
     h3 {
-        color: var(--grey);
-        font-family: 'Abel';
+        color: ${color.greyBalance};
+        font-family: ${font.secondary};
         font-size: 12px;
         text-transform: uppercase;
     }
