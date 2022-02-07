@@ -4,8 +4,6 @@ import FormControl from '@mui/material/FormControl';
 import { SelectFilter, svgArrow } from './Select.style';
 import axios from 'axios';
 
-
-
 export default function BasicSelect(props) {
 
     const handleChange = (event) => {

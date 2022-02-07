@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { breakpoint } from "../../GlobalStyles"
 
 export const ListOfTransitions = styled.ul`
     list-style: none;
@@ -22,6 +23,11 @@ export const ListOfTransitions = styled.ul`
         border: 1px solid #f1f1f1;
         transform: rotate(180deg);
       }
+
+    @media screen and (max-width: ${breakpoint.tablet}){
+        max-height:unset;
+    }
+
 `
 
 export const ListItem = styled.li`

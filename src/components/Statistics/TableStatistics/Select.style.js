@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Select from '@mui/material/Select';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { breakpoint } from "../../GlobalStyles"
 export const SelectFilter = styled(Select)`
     width:166px;
     border-radius: 30px;
@@ -20,6 +21,9 @@ export const SelectFilter = styled(Select)`
         font-weight: 400;
         font-size: 16px;
         line-height:20px;
+    }
+    @media screen and (max-width: ${breakpoint.tablet}){
+        width:100%;
     }
 `
 
