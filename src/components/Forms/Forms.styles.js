@@ -1,10 +1,10 @@
 import { Form } from 'formik';
 import { Input, FormControl } from '@mui/material';
 import styled from '@emotion/styled';
-import { color, font, device } from '../GlobalStyles';
+import { color, font } from '../GlobalStyles';
 
 export const BackgroundContainer = styled.div`
-    background: #f1f2f7;
+    background: ${color.containerBg};
     backdrop-filter: blur(50px);
 `;
 
