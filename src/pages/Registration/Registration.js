@@ -1,6 +1,7 @@
 import React from 'react';
 import { RegisterForm } from '../../components/Forms/RegisterForm';
 import {
+    BackgroundContainer,
     Container,
     SectionRight,
     SectionLeft,
@@ -10,17 +11,19 @@ import { ReactComponent as PreviewPicture } from '../../assets/svgs/preview-regi
 
 const Registration = () => {
     return (
-        <Container>
-            <SectionLeft>
-                <PreviewPicture width="452" height="412" />
+        <BackgroundContainer>
+            <Container>
+                <SectionLeft>
+                    <PreviewPicture width="452" height="412" />
 
-                <TitleApp>Finance App</TitleApp>
-            </SectionLeft>
+                    <TitleApp>Finance App</TitleApp>
+                </SectionLeft>
 
-            <SectionRight>
-                <RegisterForm />
-            </SectionRight>
-        </Container>
+                <SectionRight>
+                    <RegisterForm />
+                </SectionRight>
+            </Container>
+        </BackgroundContainer>
     );
 };
 

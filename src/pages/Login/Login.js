@@ -1,6 +1,7 @@
 import React from 'react';
 import { LoginForm } from '../../components/Forms/LoginForm';
 import {
+    BackgroundContainer,
     Container,
     SectionRight,
     SectionLeft,
@@ -10,17 +11,19 @@ import { ReactComponent as PreviewPicture } from '../../assets/svgs/preview-logi
 
 const Login = () => {
     return (
-        <Container>
-            <SectionLeft>
-                <PreviewPicture width="432" height="420" />
+        <BackgroundContainer>
+            <Container>
+                <SectionLeft>
+                    <PreviewPicture width="432" height="420" />
 
-                <TitleApp>Finance App</TitleApp>
-            </SectionLeft>
+                    <TitleApp>Finance App</TitleApp>
+                </SectionLeft>
 
-            <SectionRight>
-                <LoginForm />
-            </SectionRight>
-        </Container>
+                <SectionRight>
+                    <LoginForm />
+                </SectionRight>
+            </Container>
+        </BackgroundContainer>
     );
 };
 
