@@ -73,5 +73,4 @@ export const color = {
     authGray: '#e0e0e0',
     authGreen: '#24cca7',
     containerBg: '#f1f2f7',
-    blue: 
 };
