@@ -64,4 +64,7 @@ export const color = {
     red: '#FF6596',
     purple: '#4A56E2',
     purpleLight: '#6E78E8',
+    authSectionBg: '#e7eaf2',
+    authGray: '#e0e0e0',
+    authGreen: '#24cca7',
 };

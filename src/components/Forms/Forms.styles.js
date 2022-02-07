@@ -1,7 +1,7 @@
 import { Form } from 'formik';
-import Input from '@mui/material/Input';
-import FormControl from '@mui/material/FormControl';
+import { Input, FormControl } from '@mui/material';
 import styled from '@emotion/styled';
+import { color, font, device } from '../GlobalStyles';
 
 export const BackgroundContainer = styled.div`
     background: #f1f2f7;
@@ -41,7 +41,7 @@ export const SectionLeft = styled.section`
         width: 44%;
         flex-direction: column;
         justify-content: center;
-        background-color: #e7eaf2;
+        background-color: ${color.authSectionBg};
     }
 `;
 
@@ -57,25 +57,27 @@ export const SectionRight = styled.section`
 `;
 
 export const TitleApp = styled.h2`
-    color: #000000;
-    font-size: 30px;
-    line-height: 45px;
+    color: ${color.black};
+    font: 30px/1.5 ${font.primary};
 
-    @media (min-width: 320px) and (max-width: 768px) {
+    @media (max-width: 1279px) {
         margin-left: 40px;
     }
 
-    @media (min-width: 769px) {
+    @media (min-width: 1280px) {
         margin-top: 28px;
     }
 `;
 
 export const FormContainer = styled.div`
-    background-color: white;
+    background-color: ${color.white};
     margin: 0 auto;
 
     @media (max-width: 767px) {
         height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     @media (min-width: 768px) {
@@ -88,10 +90,6 @@ export const FormContainer = styled.div`
 export const LogoContainer = styled.div`
     display: flex;
     justify-content: center;
-
-    @media (max-width: 767px) {
-        padding-top: 110px;
-    }
 `;
 
 export const StyledForm = styled(Form)`
@@ -113,22 +111,21 @@ export const StyledForm = styled(Form)`
 
         > .MuiInput-root {
             &::before {
-                border-bottom: 1px solid #e0e0e0;
+                border-bottom: 1px solid ${color.authGray};
             }
 
             &::after {
-                border-bottom: 2px solid #24cca7;
+                border-bottom: 2px solid ${color.authGreen};
             }
 
             .MuiSvgIcon-root path {
-                color: #e0e0e0;
+                color: ${color.authGray};
             }
         }
 
         .MuiInput-input {
             color: #c7c4c4;
-            font-size: 18px;
-            font-family: 'Abel';
+            font: 18px/1.27 ${font.secondary};
         }
     }
 `;
