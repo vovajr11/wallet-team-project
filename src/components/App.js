@@ -9,6 +9,7 @@ import { Login } from '../pages/Login';
 import { Registration } from '../pages/Registration';
 import { Statistics } from '../pages/Statistics';
 import { NotFound } from '../pages/NotFound';
+import Currency from './Currency/Currency';
 import { GlobalStyles } from './GlobalStyles';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import AuthRoute from './Routes/AuthRoute';
@@ -60,6 +61,14 @@ const App = ({ onGetCurrentUser }) => {
                             element={
                                 <ProtectedRoute>
                                     <Statistics />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/currency"
+                            element={
+                                <ProtectedRoute>
+                                    <Currency />
                                 </ProtectedRoute>
                             }
                         />

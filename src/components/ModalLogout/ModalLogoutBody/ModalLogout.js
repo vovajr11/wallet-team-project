@@ -1,11 +1,11 @@
 import React from 'react';
-import Modal from '@mui/material/Modal';
 import { ModalLogoutBtn } from '../ModalLogoutBtn';
-
+import Modal from '@mui/material/Modal';
 import { WhiteBtn } from '../../StyledComponents';
 import {
     ModalCaption,
     ModalBtns,
+    StyledModal,
     StyledBox,
     StyledClose,
 } from './ModalLogout.style';

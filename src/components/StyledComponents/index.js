@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
+import { font, color } from '../GlobalStyles';
 
 const Button = styled.button`
-    font-family: Abel, sans-serif;
     width: 300px;
     height: 50px;
     border: none;
     border-radius: 20px;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 23px;
+    font: 18px/1.27 ${font.secondary};
     text-align: center;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -16,8 +14,8 @@ const Button = styled.button`
 `;
 
 export const GreenBtn = styled(Button)`
-    background: #24cca7;
-    color: #ffffff;
+    background: ${color.green};
+    color: ${color.white};
     margin-bottom: 20px;
     opacity: 1;
 
@@ -28,13 +26,13 @@ export const GreenBtn = styled(Button)`
 `;
 
 export const WhiteBtn = styled(Button)`
-    background: #ffffff;
-    color: #4a56e2;
-    border: 1px solid #4a56e2;
+    background: ${color.white};
+    color: ${color.purple};
+    border: 1px solid ${color.purple};
 
     &:hover {
-        color: #ffffff;
-        background-color: #4a56e2;
+        color: ${color.white};
+        background-color: ${color.blue};
         transition: 0.3s;
     }
 `;
