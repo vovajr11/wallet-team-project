@@ -65,3 +65,7 @@ export const color = {
     purple: '#4A56E2',
     purpleLight: '#6E78E8',
 };
+
+export const bgColor = {
+    primaryColor: '#f1f2f7',
+};

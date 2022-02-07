@@ -1,7 +1,12 @@
 import styled from '@emotion/styled';
+import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
 import { device, font, color } from '../../GlobalStyles';
+
+export const StyledModal = styled(Modal)`
+    backdrop-filter: blur(4px) saturate(200%);
+`;
 
 export const StyledBox = styled(Box)`
     position: absolute;
