@@ -39,11 +39,13 @@ export const grid = {
 };
 
 const breakpoint = {
+    mobileS: '374px',
     mobile: '767px',
     tablet: '1279px',
 };
 
 export const device = {
+    mobileS: `max-width: ${breakpoint.mobileS}`,
     mobile: `max-width: ${breakpoint.mobile}`,
     tablet: `max-width: ${breakpoint.tablet}`,
 };

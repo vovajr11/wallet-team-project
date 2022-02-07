@@ -20,7 +20,7 @@ import {
 
 const Layout = () => {
     const isAuth = useSelector(state => state.session.isAuth);
-    const showCurrency = useMediaQuery('(max-width: 767px)');
+    const breakpointMobile = useMediaQuery('(max-width: 767px)');
     return (
         <StyleLayout>
             {isAuth && (
@@ -50,7 +50,7 @@ const Layout = () => {
                                             </NavLink>
                                         </li>
                                         <li className="currencyItemForMobile">
-                                            {showCurrency ? (
+                                            {breakpointMobile ? (
                                                 <NavLink
                                                     to="/currency"
                                                     className="NavLink"
@@ -60,9 +60,9 @@ const Layout = () => {
                                             ) : null}
                                         </li>
                                     </Navigation>
-                                    {!showCurrency ? <Balance /> : null}
+                                    {!breakpointMobile ? <Balance /> : null}
                                 </AsideTop>
-                                {!showCurrency ? <Currency /> : null}
+                                {!breakpointMobile ? <Currency /> : null}
                             </Aside>
                             <MainContent>
                                 <Outlet />

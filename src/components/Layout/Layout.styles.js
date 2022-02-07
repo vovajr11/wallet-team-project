@@ -11,7 +11,7 @@ export const MainContainer = styled.section`
     display: flex;
     justify-content: space-between;
     max-width: ${grid.maxWidth};
-    min-height: calc(100vh - 86px);
+    min-height: calc(100vh - 87px);
     width: 100%;
     margin: 0 auto;
     @media screen and (${device.tablet}) {
@@ -22,6 +22,7 @@ export const MainContainer = styled.section`
     }
     @media screen and (${device.mobile}) {
         padding: ${grid.paddingMobile};
+        min-height: calc(100vh - 67px);
     }
 `;
 
@@ -118,6 +119,7 @@ export const Navigation = styled.ul`
     }
 
     @media screen and (${device.mobile}) {
+        margin-bottom: 0;
         display: flex;
         justify-content: center;
         column-gap: 30px;

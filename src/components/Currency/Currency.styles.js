@@ -46,6 +46,7 @@ export const Table = styled.table`
     @media screen and (${device.tablet}) {
         width: 334px;
         background-position-y: 150%;
+
         thead {
             th {
                 padding: 11px 20px 16px;
@@ -60,6 +61,18 @@ export const Table = styled.table`
                     padding-bottom: 22px;
                 }
             }
+        }
+    }
+    @media screen and (${device.mobile}) {
+        margin: 0 auto;
+    }
+    @media screen and (${device.mobileS}) {
+        width: 100%;
+        th {
+            padding: 11px 10px 16px;
+        }
+        td {
+            padding: 10px 10px 4px;
         }
     }
 `;
