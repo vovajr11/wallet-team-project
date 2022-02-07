@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { default as Chart } from "./Chart/Chart";
 import { default as TableStatistics } from "./TableStatistics/TableStatistics";
+import { StatisticsContainer } from "./Statistics.styles";
 
 
 const Statistics = (props) => {
@@ -17,7 +18,7 @@ const Statistics = (props) => {
     const summaryTransactionsURL = `https://wallet.goit.ua/api/transactions`;
 
     const fetchData = async (params) => {
-        axios.get(transactionsForPeriod, { params }).then((response) => {
+        await axios.get(transactionsForPeriod, { params }).then((response) => {
             setFetcher(response.data);
         })
     };
@@ -74,15 +75,18 @@ const Statistics = (props) => {
             <h2>
                 Statistics
             </h2>
-            <>
-                <Chart />
+            <StatisticsContainer>
+                <Chart
+                    transactionsArr={fetcher.categoriesSummary ? fetcher.categoriesSummary : []}
+                    totalForPeriod={fetcher.periodTotal}
+                />
                 <TableStatistics
                     setMonthOnClick={setMonthOnClick}
                     setYearOnClick={setYearOnClick}
                     options={options}
                     fetcher={fetcher}
                 />
-            </>
+            </StatisticsContainer>
         </section>
     )
 }
