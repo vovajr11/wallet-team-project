@@ -1,8 +1,10 @@
 import React from 'react';
-import { Table } from './Home.styles';
-import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
+import Dashboard from '../../components/Dashboard/Dashboard';
+import DashboardMobile from '../../components/Dashboard/DashboardMobile';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Home = () => {
+    const breakpointMobile = useMediaQuery('(max-width: 767px)');
     const dashboardList = [
         {
             date: '04.11.2019',
@@ -23,33 +25,13 @@ const Home = () => {
     ];
 
     return (
-        <div>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Category</th>
-                        <th>Comments</th>
-                        <th>Amount</th>
-                        <th>Balance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {dashboardList.map(elem => (
-                        <tr key={+elem.balance / +elem.amount}>
-                            <td>{elem.date}</td>
-                            <td>{elem.type}</td>
-                            <td>{elem.category}</td>
-                            <td>{elem.comments}</td>
-                            <td>{elem.amount}</td>
-                            <td>{elem.balance}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-            <ModalAddTransaction />
-        </div>
+        <>
+            {!breakpointMobile ? (
+                <Dashboard data={dashboardList} />
+            ) : (
+                <DashboardMobile data={dashboardList} />
+            )}
+        </>
     );
 };
 export default Home;
