@@ -1,12 +1,23 @@
 // import { NavLink } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner';
-import { LoaderW } from './Loader.style';
+import { LoaderW, LoaderOverlay } from './Loader.style';
 
-const Loader = () => {
+const Loader = ({
+    fullscreen,
+    height = 45,
+    width = 45,
+    primaryColor = '#4A56E2',
+    secondaryColor = '#24CCA7',
+}) => {
     return (
-        <LoaderW>
-            <Oval height={45} width={45} />
-        </LoaderW>
+        <LoaderOverlay fullscreen={fullscreen}>
+            <LoaderW
+                primaryColor={primaryColor}
+                secondaryColor={secondaryColor}
+            >
+                <Oval height={height} width={width} />
+            </LoaderW>
+        </LoaderOverlay>
     );
 };
 

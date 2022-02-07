@@ -73,9 +73,9 @@ const LoginForm = () => {
                         <GreenBtn type="submit" style={{ marginTop: '50px' }}>
                             Log in
                         </GreenBtn>
-                        <WhiteBtn type="button">
-                            <Link to="/register">Registration</Link>
-                        </WhiteBtn>
+                        <Link to="/register">
+                            <WhiteBtn type="button">Registration</WhiteBtn>
+                        </Link>
                     </StyledForm>
                 )}
             </Formik>
