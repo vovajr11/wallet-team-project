@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Outlet, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Header } from '../Header';
 import Balance from '../Balance/Balance';
 import Currency from '../Currency/Currency';
@@ -18,7 +18,7 @@ import {
     AsideTop,
 } from './Layout.styles';
 
-const Layout = () => {
+const Layout = ({ children }) => {
     const isAuth = useSelector(state => state.session.isAuth);
     const breakpointMobile = useMediaQuery('(max-width: 767px)');
     return (
@@ -64,9 +64,7 @@ const Layout = () => {
                                 </AsideTop>
                                 {!breakpointMobile ? <Currency /> : null}
                             </Aside>
-                            <MainContent>
-                                <Outlet />
-                            </MainContent>
+                            <MainContent>{children}</MainContent>
                         </MainContainer>
                         <ModalAddTransaction />
                     </main>

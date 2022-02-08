@@ -1,5 +1,12 @@
-const Statistics = () => {
-    return <h2>Statistics view</h2>;
+import React from "react";
+import { Statistics } from '../../components/Statistics';
+const StatisticsPage = (props) => {
+    return (
+        <>
+            <Statistics />
+        </>
+    )
 };
 
-export default Statistics;
+
+export default StatisticsPage;
