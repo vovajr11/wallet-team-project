@@ -38,10 +38,9 @@ export const grid = {
     paddingTablet: '0 40px',
 };
 
-const breakpoint = {
-    mobileS: '374px',
-    mobile: '767px',
-    tablet: '1279px',
+export const breakpoint = {
+    mobile: '768px',
+    tablet: '1024px',
 };
 
 export const device = {
