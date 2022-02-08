@@ -24,6 +24,40 @@ const App = ({ onGetCurrentUser }) => {
             <Global styles={GlobalStyles} />
             <BrowserRouter>
                 <Routes>
+                    <Route path="*" element={<NotFound />} />
+
+                    <Route
+                        path="/home"
+                        element={
+                            <ProtectedRoute>
+                                <Layout>
+                                    <Home />
+                                </Layout>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route path="/" element={<Navigate replace to="/home" />} />
+                    <Route
+                        path="/diagram"
+                        element={
+                            <ProtectedRoute>
+                                <Layout>
+                                    <Statistics />
+                                </Layout>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/currency"
+                        element={
+                            <ProtectedRoute>
+                                <Layout>
+                                    <Currency />
+                                </Layout>
+                            </ProtectedRoute>
+                        }
+                    />
+
                     <Route
                         path="/register"
                         element={
@@ -40,39 +74,6 @@ const App = ({ onGetCurrentUser }) => {
                             </AuthRoute>
                         }
                     />
-
-                    <Route path="*" element={<NotFound />} />
-
-                    <Route path="/" element={<Layout />}>
-                        <Route
-                            path="/home"
-                            element={
-                                <ProtectedRoute>
-                                    <Home />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/"
-                            element={<Navigate replace to="/home" />}
-                        />
-                        <Route
-                            path="/diagram"
-                            element={
-                                <ProtectedRoute>
-                                    <Statistics />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/currency"
-                            element={
-                                <ProtectedRoute>
-                                    <Currency />
-                                </ProtectedRoute>
-                            }
-                        />
-                    </Route>
                 </Routes>
             </BrowserRouter>
         </>
