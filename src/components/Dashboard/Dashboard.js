@@ -15,14 +15,14 @@ const Dashboard = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(elem => (
-                        <tr key={+elem.balance / +elem.amount}>
-                            <td>{elem.date}</td>
-                            <td>{elem.type}</td>
-                            <td>{elem.category}</td>
-                            <td>{elem.comments}</td>
+                    {[...data].map(elem => (
+                        <tr key={elem.id}>
+                            <td>{elem.transactionDate}</td>
+                            <td>{elem.type === 'EXPENSE' ? '-' : '+'}</td>
+                            <td>{elem.categoryId}</td>
+                            <td>{elem.comment}</td>
                             <td>{elem.amount}</td>
-                            <td>{elem.balance}</td>
+                            <td>{elem.balanceAfter}</td>
                         </tr>
                     ))}
                 </tbody>
