@@ -1,7 +1,9 @@
-import React from 'react';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import axios from 'axios';
+
+import { useEffect } from 'react';
 
 const Home = () => {
     const breakpointMobile = useMediaQuery('(max-width: 767px)');
@@ -23,6 +25,26 @@ const Home = () => {
             balance: '14000.00',
         },
     ];
+    const summaryTransactionsURL = 'https://wallet.goit.ua/api/transactions';
+
+    /*useEffect(() => {
+        const getData = async () => {
+            return await axios
+                .get(summaryTransactionsURL)
+                .then(response => console.log(response))
+                .then(data => console.log(data))
+                .catch();
+        };
+        getData();
+    }, []);*/
+    useEffect(() => {
+        const fetchData = async () => {
+            await axios
+                .get(summaryTransactionsURL)
+                .then(response => console.log(response.data));
+        };
+        fetchData();
+    }, []);
 
     return (
         <>

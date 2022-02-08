@@ -4,15 +4,15 @@ const DashboardMobile = ({ data }) => {
     return (
         <>
             <Balance />
-            {data.map(e => (
-                <ul>
+            {data.map(transaction => (
+                <ul key={transaction.date}>
                     <li>
                         <span>Date</span>
-                        <span>{e.date}</span>
+                        <span>{transaction.date}</span>
                     </li>
                     <li>
                         <span>Type</span>
-                        <span>{e.type}</span>
+                        <span>{transaction.type}</span>
                     </li>
                 </ul>
             ))}
