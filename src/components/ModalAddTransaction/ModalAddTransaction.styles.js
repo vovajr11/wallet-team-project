@@ -4,12 +4,13 @@ import Dialog from '@mui/material/Dialog';
 import Box from '@mui/material/Box';
 import DatePicker from '@mui/lab/DatePicker';
 import Input from '@mui/material/Input';
+import {font, color} from '../GlobalStyles';
 
 export const AddTransactionBtn = styled.button`
-    color: #ffffff;
+    color: ${color.white};
     width: 44px;
     height: 44px;
-    background-color: #24cca7;
+    background-color: ${color.green};
     border: none;
     outline: none;
     cursor: pointer;
@@ -83,7 +84,7 @@ export const Form = styled.form`
     .MuiInput-root,
     .MuiMenu-root,
     .MuiPaper-root {
-        font-family: Abel, sans-serif;
+        font-family: ${font.secondary};
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
@@ -119,21 +120,21 @@ export const Toggler = styled.div`
 
 export const ToggleP = styled.p`
     &.green {
-        color: #24cca7;
+        color: ${color.green};
     }
     &.pink {
-        color: #ff6596;
+        color: ${color.red};
     }
 
     &.grey {
-        color: #e0e0e0;
+        color: ${color.authGray};
     }
 
     margin: 0;
     font-weight: 400;
     font-size: 16px;
     line-height: 1;
-    font-family: Abel, sans-serif;
+    font-family: ${font.secondary};
 `;
 
 export const ToggleLabel = styled.label`
@@ -144,7 +145,7 @@ export const ToggleLabel = styled.label`
 
     > input:checked ~ div:first-of-type div {
         left: 37px;
-        background-color: #ff6596;
+        background-color: ${color.red};
         box-shadow: 0px 6px 15px rgba(255, 101, 150, 0.5);
     }
 `;
@@ -163,7 +164,7 @@ export const ToggleBackground = styled.div`
     width: 80px;
     height: 40px;
     border-radius: 30px;
-    background-color: #fff;
+    background-color: ${color.white};
     border: 1px solid #e0e0e0;
     opacity: 1;
     transition: background-color 200ms ease-in-out;
@@ -175,7 +176,7 @@ export const ToggleBtn = styled.div`
     left: -1px;
     width: 44px;
     height: 44px;
-    background-color: #24cca7;
+    background-color: ${color.green};
     border-radius: 22px;
     transition: left 250ms ease-in-out;
     display: flex;
@@ -197,11 +198,11 @@ export const StyledSelect = styled(Select)`
 `;
 
 export const Placeholder = styled.p`
-    font-family: Abel, sans-serif;
+    font-family: ${font.secondary};
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
-    color: #bdbdbd;
+    color: ${color.grey};
 `;
 
 export const StyledBox = styled(Box)`
