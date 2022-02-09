@@ -4,52 +4,43 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 
 import { useState, useEffect } from 'react';
+import ca from 'date-fns/esm/locale/ca/index.js';
 
 const Home = () => {
     const breakpointMobile = useMediaQuery('(max-width: 767px)');
 
     const transactionsURL = 'https://wallet.goit.ua/api/';
 
-    //const [transactions, setTransactions] = useState([]);
-    //const [categories, setCategories] = useState([]);
-    const [newT, setNewT] = useState(transactions);
+    const [transactions, setTransactions] = useState([]);
 
-    useEffect(() => {
-        const getTransactions = async () => {
-            return await axios
-                .get(`${transactionsURL}transactions`)
-                .then(data => setTransactions(data.data))
-                .catch();
-        };
-        getTransactions();
-    }, []);
+    const getTransactions = async () => {
+        const trans = await axios.get(`${transactionsURL}transactions`);
+        const categories = await axios.get(
+            `${transactionsURL}transaction-categories`,
+        );
+        transactionHandler(trans.data, categories.data);
+    };
 
-    useEffect(() => {
-        const getCategories = async () => {
-            return await axios
-                .get(`${transactionsURL}transaction-categories`)
-                //.then(data => setCategories(data.data))
-                .then(data => setNewT(categoriesHandler(transactions, data)))
-                .catch();
-        };
-        getCategories();
-    }, []);
-    const categoriesHandler = async (arr1, arr2) => {
-        let bla = arr1.map(item => {
-            for (let i = 0; i < arr2.length; i++) {
-                if (item.categoryId === arr2[i].id) {
-                    let category = { category: arr2[i].name };
+    const transactionHandler = async (transactionsArray, categoriesArray) => {
+        const data = await transactionsArray.map(item => {
+            for (let i = 0; i < categoriesArray.length; i++) {
+                if (item.categoryId === categoriesArray[i].id) {
+                    let category = { category: categoriesArray[i].name };
                     return Object.assign({}, item, category);
                 }
             }
         });
-        return await setNewT(bla);
+        setTransactions(data);
     };
+
+    useEffect(() => {
+        getTransactions();
+    }, []);
 
     return (
         <>
             {!breakpointMobile ? (
-                <Dashboard data={newT} />
+                <Dashboard data={transactions} />
             ) : (
                 <DashboardMobile data={transactions} />
             )}

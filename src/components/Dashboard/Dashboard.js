@@ -20,7 +20,7 @@ const Dashboard = ({ data }) => {
                             <tr key={elem.id}>
                                 <td>{elem.transactionDate}</td>
                                 <td>{elem.type === 'EXPENSE' ? '-' : '+'}</td>
-                                <td>{elem.categoryId}</td>
+                                <td>{elem.category}</td>
                                 <td>{elem.comment}</td>
                                 <td>{elem.amount}</td>
                                 <td>{elem.balanceAfter}</td>
