@@ -4,6 +4,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import { device, font, color } from '../../GlobalStyles';
 
 export const StyledBox = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: absolute;
     top: 50%;
     left: 50%;

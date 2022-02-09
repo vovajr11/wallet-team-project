@@ -6,12 +6,14 @@ export const LoaderOverlay = styled.div`
     position: ${props => (props.fullscreen ? 'fixed' : 'absolute')};
     top: 0;
     left: 0;
-    backdrop-filter: blur(5px) saturate(200%);
-    z-index: 999;
+    background-color: ${props =>
+        props.fullscreen ? 'rgba(0, 0, 0, 0.5)' : 'none'};
+    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    z-index: 998;
 `;
 
 export const LoaderW = styled.div`
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
