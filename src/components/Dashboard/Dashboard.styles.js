@@ -1,6 +1,22 @@
 import styled from '@emotion/styled';
 
-import { device, font, color } from '../../components/GlobalStyles';
+import { font, color } from '../../components/GlobalStyles';
+
+export const TableWrap = styled.div`
+    height: 60vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: ${color.grey};
+    }
+`;
 
 export const Table = styled.table`
     width: 100%;
@@ -11,7 +27,10 @@ export const Table = styled.table`
     font-weight: 400;
 
     thead {
+        position: sticky;
+        top: -1px;
         background-color: white;
+        z-index: 2;
         th {
             font-weight: 400;
             padding: 16px 20px 19px;
@@ -31,6 +50,9 @@ export const Table = styled.table`
         tr {
             td {
                 padding: 15px 20px 19px;
+            }
+            td:first-of-type {
+                white-space: nowrap;
             }
             td:nth-of-type(2) {
                 text-align: center;

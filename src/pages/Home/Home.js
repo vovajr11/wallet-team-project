@@ -7,46 +7,51 @@ import { useState, useEffect } from 'react';
 
 const Home = () => {
     const breakpointMobile = useMediaQuery('(max-width: 767px)');
-    const dashboardList = [
-        {
-            date: '04.11.2019',
-            type: '-',
-            category: 'Other',
-            comments: 'A gift for wife',
-            amount: '300.00',
-            balance: '6900.00',
-        },
-        {
-            date: '04.11.2019',
-            type: '+',
-            category: 'Car',
-            comments: 'Vegetables for the week',
-            amount: '1000.00',
-            balance: '14000.00',
-        },
-    ];
-    const summaryTransactionsURL = 'https://wallet.goit.ua/api/transactions';
 
-    const [transactions, setTrans] = useState({});
+    const transactionsURL = 'https://wallet.goit.ua/api/';
+
+    //const [transactions, setTransactions] = useState([]);
+    //const [categories, setCategories] = useState([]);
+    const [newT, setNewT] = useState(transactions);
 
     useEffect(() => {
-        const getData = async () => {
+        const getTransactions = async () => {
             return await axios
-                .get(summaryTransactionsURL)
-                .then(response => response)
-                .then(data => setTrans(data.data))
+                .get(`${transactionsURL}transactions`)
+                .then(data => setTransactions(data.data))
                 .catch();
         };
-        getData();
+        getTransactions();
     }, []);
 
-    console.log(transactions);
+    useEffect(() => {
+        const getCategories = async () => {
+            return await axios
+                .get(`${transactionsURL}transaction-categories`)
+                //.then(data => setCategories(data.data))
+                .then(data => setNewT(categoriesHandler(transactions, data)))
+                .catch();
+        };
+        getCategories();
+    }, []);
+    const categoriesHandler = async (arr1, arr2) => {
+        let bla = arr1.map(item => {
+            for (let i = 0; i < arr2.length; i++) {
+                if (item.categoryId === arr2[i].id) {
+                    let category = { category: arr2[i].name };
+                    return Object.assign({}, item, category);
+                }
+            }
+        });
+        return await setNewT(bla);
+    };
+
     return (
         <>
             {!breakpointMobile ? (
-                <Dashboard data={transactions} />
+                <Dashboard data={newT} />
             ) : (
-                <DashboardMobile data={dashboardList} />
+                <DashboardMobile data={transactions} />
             )}
         </>
     );
