@@ -3,6 +3,22 @@ import axios from "axios";
 import { default as Chart } from "./Chart/Chart";
 import { default as TableStatistics } from "./TableStatistics/TableStatistics";
 import { StatisticsContainer } from "./Statistics.styles";
+import numberFormater from "../../logic/numberFormater"
+
+const monthsObj = {
+    "January": 1,
+    "February": 2,
+    "March": 3,
+    "April": 4,
+    "May": 5,
+    "June": 6,
+    "July": 7,
+    "August": 8,
+    "September": 9,
+    "October": 10,
+    "November": 11,
+    "December": 12,
+}
 
 
 const Statistics = (props) => {
@@ -10,7 +26,7 @@ const Statistics = (props) => {
     let yearNow = (new Date()).getFullYear();
 
     let [month, setMonth] = useState(null);
-    let [year, setYear] = useState(yearNow);
+    let [year, setYear] = useState(null);
     let [fetcher, setFetcher] = useState([]);
     let [options, setOptions] = useState({ years: [], months: [] });
 
@@ -29,7 +45,7 @@ const Statistics = (props) => {
     }
 
     const setMonthOnClick = (value) => {
-        setMonth(value);
+        setMonth(monthsObj[value]);
     }
 
     const parseDate = (type, arr) =>
@@ -69,7 +85,17 @@ const Statistics = (props) => {
         console.log(options);
     }, []);
 
-
+    const colorsArr = [
+        "#FED057",
+        "#FFD8D0",
+        "#FD9498",
+        "#C5BAFF",
+        "#6E78E8",
+        "#4A56E2",
+        "#81E1FF",
+        "#24CCA7",
+        "#00AD84",
+    ]
     return (
         <section>
             <h2>
@@ -78,13 +104,15 @@ const Statistics = (props) => {
             <StatisticsContainer>
                 <Chart
                     transactionsArr={fetcher.categoriesSummary ? fetcher.categoriesSummary : []}
-                    totalForPeriod={fetcher.periodTotal}
+                    totalForPeriod={fetcher.periodTotal ? numberFormater(fetcher.periodTotal) : 0}
+                    bgColors={colorsArr}
                 />
                 <TableStatistics
                     setMonthOnClick={setMonthOnClick}
                     setYearOnClick={setYearOnClick}
                     options={options}
                     fetcher={fetcher}
+                    squareColors={colorsArr}
                 />
             </StatisticsContainer>
         </section>
