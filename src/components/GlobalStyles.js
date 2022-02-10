@@ -39,7 +39,8 @@ export const grid = {
 };
 
 export const breakpoint = {
-    mobile: '768px',
+    mobileS: '374px',
+    mobile: '767px',
     tablet: '1024px',
 };
 
@@ -73,5 +74,6 @@ export const color = {
     authGreen: '#24cca7',
     containerBg: '#f1f2f7',
     blue: '#4A56E2',
-    blueLight: '#6E78E8'
+    blueLight: '#6E78E8',
+    greyLight: '#dcdcdf',
 };

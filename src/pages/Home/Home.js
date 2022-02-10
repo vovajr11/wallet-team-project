@@ -1,9 +1,11 @@
 import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
-import useMediaQuery from '@mui/material/useMediaQuery';
+
 import axios from 'axios';
+import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 
 import { useState, useEffect } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Home = () => {
     const breakpointMobile = useMediaQuery('(max-width: 767px)');
@@ -20,8 +22,8 @@ const Home = () => {
         transactionHandler(trans.data, categories.data);
     };
 
-    const transactionHandler = async (transactionsArray, categoriesArray) => {
-        const data = await transactionsArray.map(item => {
+    const transactionHandler = (transactionsArray, categoriesArray) => {
+        const data = transactionsArray.map(item => {
             for (let i = 0; i < categoriesArray.length; i++) {
                 if (item.categoryId === categoriesArray[i].id) {
                     let category = { category: categoriesArray[i].name };
@@ -43,6 +45,7 @@ const Home = () => {
             ) : (
                 <DashboardMobile data={transactions} />
             )}
+            <ModalAddTransaction />
         </>
     );
 };

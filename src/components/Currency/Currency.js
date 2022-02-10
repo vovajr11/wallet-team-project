@@ -4,26 +4,29 @@ import { useState, useEffect } from 'react';
 const Currency = () => {
     const [currencyData, setCurrencyData] = useState('');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await fetch(
-                'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
-            )
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    const DataF = data.filter(
-                        cur =>
-                            cur.ccy === 'USD' ||
-                            cur.ccy === 'RUR' ||
-                            cur.ccy === 'EUR',
-                    );
-                    setCurrencyData(DataF);
-                });
-        };
+    const fetchData = async () => {
+        await fetch(
+            'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
+        )
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                const DataFiltered = data.filter(
+                    cur =>
+                        cur.ccy === 'USD' ||
+                        cur.ccy === 'RUR' ||
+                        cur.ccy === 'EUR',
+                );
+                setCurrencyData(DataFiltered);
+            });
+    };
 
+    useEffect(() => {
         fetchData();
+        return () => {
+            setCurrencyData({});
+        };
     }, []);
 
     return (

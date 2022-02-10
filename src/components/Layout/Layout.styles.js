@@ -14,6 +14,7 @@ export const MainContainer = styled.section`
     min-height: calc(100vh - 87px);
     width: 100%;
     margin: 0 auto;
+    padding: 0px 10px;
     @media screen and (${device.tablet}) {
         display: block;
         justify-content: center;

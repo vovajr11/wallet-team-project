@@ -16,16 +16,18 @@ const Dashboard = ({ data }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {[...data].map(elem => (
-                            <tr key={elem.id}>
-                                <td>{elem.transactionDate}</td>
-                                <td>{elem.type === 'EXPENSE' ? '-' : '+'}</td>
-                                <td>{elem.category}</td>
-                                <td>{elem.comment}</td>
-                                <ColoredTd theme={elem.type}>
-                                    {elem.amount}
+                        {[...data].map(transaction => (
+                            <tr key={transaction.id}>
+                                <td>{transaction.transactionDate}</td>
+                                <td>
+                                    {transaction.type === 'EXPENSE' ? '-' : '+'}
+                                </td>
+                                <td>{transaction.category}</td>
+                                <td>{transaction.comment}</td>
+                                <ColoredTd theme={transaction.type}>
+                                    {transaction.amount}
                                 </ColoredTd>
-                                <td>{elem.balanceAfter}</td>
+                                <td>{transaction.balanceAfter}</td>
                             </tr>
                         ))}
                     </tbody>
