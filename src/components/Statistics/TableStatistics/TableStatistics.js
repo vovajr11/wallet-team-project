@@ -41,7 +41,7 @@ const TableStatistics = (props) => {
             <SelectsContainer>
                 <BasicSelect
                     func={props.setMonthOnClick}
-                    options={props.options.months}
+                    options={months}
                     selectName="Month" />
                 <BasicSelect
                     func={props.setYearOnClick}
@@ -51,7 +51,9 @@ const TableStatistics = (props) => {
             <TableTransactions />
             <TransictionsList
                 categoriesSummary={props.fetcher.categoriesSummary}
-                transactionObj={props.fetcher} />
+                transactionObj={props.fetcher}
+                squareColors={props.squareColors}
+            />
         </TableContainer>
     )
 }
