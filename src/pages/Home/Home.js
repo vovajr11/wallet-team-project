@@ -4,7 +4,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 
 import { useState, useEffect } from 'react';
-import ca from 'date-fns/esm/locale/ca/index.js';
 
 const Home = () => {
     const breakpointMobile = useMediaQuery('(max-width: 767px)');

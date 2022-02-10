@@ -57,6 +57,7 @@ export const Table = styled.table`
             td:nth-of-type(2) {
                 text-align: center;
             }
+
             td:nth-of-type(n + 5) {
                 text-align: right;
             }
@@ -80,4 +81,8 @@ export const Table = styled.table`
             }
         }
     }
+`;
+
+export const ColoredTd = styled.td`
+    color: ${props => (props.theme === 'EXPENSE' ? color.green : color.red)};
 `;

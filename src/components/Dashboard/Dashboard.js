@@ -1,4 +1,4 @@
-import { TableWrap, Table } from './Dashboard.styles';
+import { TableWrap, Table, ColoredTd } from './Dashboard.styles';
 
 const Dashboard = ({ data }) => {
     return (
@@ -22,7 +22,9 @@ const Dashboard = ({ data }) => {
                                 <td>{elem.type === 'EXPENSE' ? '-' : '+'}</td>
                                 <td>{elem.category}</td>
                                 <td>{elem.comment}</td>
-                                <td>{elem.amount}</td>
+                                <ColoredTd theme={elem.type}>
+                                    {elem.amount}
+                                </ColoredTd>
                                 <td>{elem.balanceAfter}</td>
                             </tr>
                         ))}
