@@ -55,7 +55,6 @@ const Statistics = (props) => {
                 .then(response => handleOptions(response.data))
         }
         fetchData();
-        console.log(options);
     }, []);
 
     return (

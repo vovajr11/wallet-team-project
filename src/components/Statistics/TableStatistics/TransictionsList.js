@@ -20,7 +20,6 @@ export const TransictionsList = (props) => {
             </div>
         </ListItem>
     )
-    console.log("PROPs", props);
 
     const renderList = () => props.categoriesSummary?.length ? renderItems(props.categoriesSummary) : emptyListMessage;
 
