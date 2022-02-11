@@ -6,9 +6,10 @@ import { InputAdornment } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
-import { authOperations } from '../../../redux/auth';
+import { signupUser } from '../../../redux/auth/authAPI';
 import validationsForm from './validations';
 import PasswordStrengthBar from './PasswordStrengthBar';
+import { Notification } from '../../Notification';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
 import {
     LogoContainer,
@@ -25,6 +26,7 @@ const RegisterForm = () => {
 
     return (
         <FormContainer>
+            <Notification />
             <LogoContainer>
                 <LogoIcon />
             </LogoContainer>
@@ -38,9 +40,7 @@ const RegisterForm = () => {
                 }}
                 validationSchema={validationsForm}
                 onSubmit={({ email, password, username }) => {
-                    dispatch(
-                        authOperations.register({ email, password, username }),
-                    );
+                    dispatch(signupUser({ email, password, username }));
                 }}
             >
                 {({ values, handleChange, handleSubmit }) => (
