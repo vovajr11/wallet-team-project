@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import { default as Chart } from "./Chart/Chart";
 import { default as TableStatistics } from "./TableStatistics/TableStatistics";
 import { StatisticsContainer } from "./Statistics.styles";
+import numberFormater from "../../logic/numberFormater";
+import { parseUniqueDate as parseDate } from "../../logic/parseUniqueDate";
+import colorsArr from "./staticObj/colorsArr";
+import updateUrl from "../../logic/updateUrl";
+import { monthsObj } from "./staticObj/montObject";
+
 
 
 const Statistics = (props) => {
 
-    let yearNow = (new Date()).getFullYear();
-
     let [month, setMonth] = useState(null);
-    let [year, setYear] = useState(yearNow);
+    let [year, setYear] = useState(null);
     let [fetcher, setFetcher] = useState([]);
-    let [options, setOptions] = useState({ years: [], months: [] });
+    let [options, setOptions] = useState({ years: [] });
 
     const transactionsForPeriod = `https://wallet.goit.ua/api/transactions-summary`;
     const summaryTransactionsURL = `https://wallet.goit.ua/api/transactions`;
@@ -23,39 +28,23 @@ const Statistics = (props) => {
         })
     };
 
-
     const setYearOnClick = (value) => {
         setYear(value);
     }
 
     const setMonthOnClick = (value) => {
-        setMonth(value);
+        setMonth(monthsObj[value]);
     }
 
-    const parseDate = (type, arr) =>
-        arr.map(elem => type === "month"
-            ? (new Date(elem.transactionDate)).getUTCMonth() + 1
-            : (new Date(elem.transactionDate)).getFullYear()
-        )
-            .reduce((acc, elem) => {
-                if (!acc.includes(elem)) {
-                    acc.push(elem);
-                }
-                return acc;
-            }, [])
-            .sort((a, b) => a - b);
-
-
-    const parseOptions = (arr) => {
-        const years = parseDate("year", arr);
-        const months = parseDate("month", arr);
-        setOptions({ years, months, });
+    const handleOptions = (arr) => {
+        const years = parseDate("year", arr)
+        setOptions({ years });
     }
 
     useEffect(() => {
         const fetchTransactions = async () => {
-            let obj = await updateUrl(year, month);
-            fetchData(obj);
+            let obj = updateUrl(year, month);
+            await fetchData(obj);
         }
         fetchTransactions();
     }, [year, month]);
@@ -63,12 +52,10 @@ const Statistics = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             await axios.get(summaryTransactionsURL)
-                .then(response => parseOptions(response.data))
+                .then(response => handleOptions(response.data))
         }
         fetchData();
-        console.log(options);
     }, []);
-
 
     return (
         <section>
@@ -78,13 +65,15 @@ const Statistics = (props) => {
             <StatisticsContainer>
                 <Chart
                     transactionsArr={fetcher.categoriesSummary ? fetcher.categoriesSummary : []}
-                    totalForPeriod={fetcher.periodTotal}
+                    totalForPeriod={fetcher.periodTotal ? numberFormater(fetcher.periodTotal) : 0}
+                    bgColors={colorsArr}
                 />
                 <TableStatistics
                     setMonthOnClick={setMonthOnClick}
                     setYearOnClick={setYearOnClick}
                     options={options}
                     fetcher={fetcher}
+                    squareColors={colorsArr}
                 />
             </StatisticsContainer>
         </section>
@@ -92,17 +81,3 @@ const Statistics = (props) => {
 }
 
 export default Statistics;
-
-async function updateUrl(year, month) {
-    if (year && month) {
-        return {
-            "year": year,
-            "month": month,
-        }
-    }
-    else if (year) {
-        return {
-            "year": year,
-        }
-    }
-}
