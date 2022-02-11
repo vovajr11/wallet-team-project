@@ -3,7 +3,7 @@ import { breakpoint } from "../../GlobalStyles"
 
 export const ListOfTransitions = styled.ul`
     list-style: none;
-    max-height:44vh;
+    max-height:40vh;
     overflow-y:scroll;
 
     ::-webkit-scrollbar-track {
