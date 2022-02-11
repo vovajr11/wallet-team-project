@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import FormControl from '@mui/material/FormControl';
+
 import { SelectFilter, svgArrow, Option } from './Select.style';
-import axios from 'axios';
-
-
 
 export default function BasicSelect(props) {
 
