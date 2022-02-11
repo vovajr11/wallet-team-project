@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ListOfTransitions, ListItem, Total } from './TransictionsList.style';
 import numberFormater from '../../../logic/numberFormater';
 
