@@ -22,6 +22,7 @@ const ChartComponent = (props) => {
         ],
 
     };
+
     const options = {
         maintainAspectRatio: true,
         legend: {
