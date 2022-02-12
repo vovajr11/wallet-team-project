@@ -14,7 +14,6 @@ import {
     Placeholder,
     StyledSelect,
     StyledBox,
-    StyledDatePicker,
     StyledInput,
     StyledContainer,
 } from './ModalAddTransaction.styles';
@@ -27,33 +26,34 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Input from '@mui/material/Input';
+import DatePicker from '@mui/lab/DatePicker';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from './DatePicker/DatePicker';
 import expenses from './Categories/categories';
 import { MenuProps } from './Select/select';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import AddTransactionSchema from './validation';
 
 export default function ModalAddTransaction() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [category, setCategory] = useState('');
-    const [date, setDate] = useState(new Date());
     const [isExpenseType, setIsExpenseType] = useState(false);
 
     const formik = useFormik({
         initialValues: {
-            date: new Date(),
-            type: false,
+            isExpenseType: false,
             amount: '',
+            date: new Date(),
             comment: '',
-            category: '+',
+            categoryId: '',
         },
+        validationSchema: AddTransactionSchema,
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
         },
@@ -67,6 +67,10 @@ export default function ModalAddTransaction() {
         setCategory(event.target.value);
     };
 
+    const handleDataChange = date => {
+        formik.setFieldValue('date', date);
+    }
+
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -75,9 +79,13 @@ export default function ModalAddTransaction() {
             <AddTransactionBtn onClick={handleOpen}>
                 <AddIcon />
             </AddTransactionBtn>
-            <StyledDialog open={open} onClose={handleClose} fullScreen={fullScreen}>
+            <StyledDialog
+                open={open}
+                onClose={handleClose}
+                fullScreen={fullScreen}
+            >
                 <Form onSubmit={formik.handleSubmit}>
-                    <CloseModalBtn onClick={handleClose} type='button'>
+                    <CloseModalBtn onClick={handleClose} type="button">
                         <CloseIcon />
                     </CloseModalBtn>
                     <DialogTitle>Add transaction</DialogTitle>
@@ -134,21 +142,26 @@ export default function ModalAddTransaction() {
                         </StyledSelect>
                     )}
                     <StyledBox>
-                        <Input
+                        <TextField
+                            name="amount"
+                            id="amount"
                             placeholder="0.00"
-                            variant="standart"
+                            variant="standard"
                             type="number"
+                            value={formik.values.amount}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.amount && Boolean(formik.errors.amount)}
+                            helperText={formik.touched.amount && formik.errors.amount}
                         />
                         <ThemeProvider theme={theme}>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <StyledDatePicker
+                                <DatePicker
                                     variant="standart"
                                     inputFormat="dd.MM.yyyy"
                                     mask={'__.__.____'}
-                                    value={date}
-                                    onChange={newValue => {
-                                        setDate(newValue);
-                                    }}
+                                    value={formik.values.date}
+                                    onChange={handleDataChange}
                                     renderInput={params => (
                                         <TextField
                                             variant="standard"
@@ -156,7 +169,7 @@ export default function ModalAddTransaction() {
                                         />
                                     )}
                                     components={{
-                                        OpenPickerIcon: DateRangeIcon
+                                        OpenPickerIcon: DateRangeIcon,
                                     }}
                                 />
                             </LocalizationProvider>

@@ -2,9 +2,8 @@ import styled from '@emotion/styled';
 import Select from '@mui/material/Select';
 import Dialog from '@mui/material/Dialog';
 import Box from '@mui/material/Box';
-import DatePicker from '@mui/lab/DatePicker';
 import Input from '@mui/material/Input';
-import {font, color} from '../GlobalStyles';
+import { font, color, breakpoint } from '../GlobalStyles';
 
 export const AddTransactionBtn = styled.button`
     color: ${color.white};
@@ -29,15 +28,13 @@ export const AddTransactionBtn = styled.button`
         transition: 0.3s linear;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: ${breakpoint.tablet}) {
         position: fixed;
         right: 30px;
         bottom: 30px;
     }
-    @media screen and (max-width: 320px) {
-        position: fixed;
+    @media screen and (max-width: ${breakpoint.mobile}) {
         right: 20px;
-        bottom: 30px;
     }
 `;
 
@@ -49,11 +46,23 @@ export const AddIcon = styled.svg`
 export const StyledDialog = styled(Dialog)`
     .MuiBackdrop-root {
         background-color: rgba(0, 0, 0, 0.25);
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            background-color: transparent;
+        }
     }
     .MuiPaper-root {
         border-radius: 20px;
         max-width: 540px;
         padding: 40px 60px 60px 60px;
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            position: fixed;
+            top: 50px;
+            border-radius: 0;
+            box-shadow: none;
+            padding-top: 20px;
+        }
     }
 `;
 
@@ -73,6 +82,10 @@ export const CloseModalBtn = styled.button`
         &:hover {
             transform: scale(1.3);
             transition: 0.1s linear;
+        }
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            display: none;
         }
     }
 `;
@@ -96,9 +109,9 @@ export const Form = styled.form`
     .MuiInput-underline:hover:not(.Mui-disabled):before {
         border-bottom: 3px solid #24cca7;
     }
-    .MuiButtonBase-root  {
+    .MuiButtonBase-root {
         margin-right: 12px;
-        color: #4A56E2;
+        color: #4a56e2;
     }
 `;
 
@@ -215,13 +228,25 @@ export const StyledBox = styled(Box)`
         padding-bottom: 10px;
         font-size: 18px;
         line-height: 23px;
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            text-align: left;
+            padding: 10px 20px 10px 20px;
+        }
+    }
+
+    @media screen and (max-width: ${breakpoint.mobile}) {
+        flex-direction: column;
+        row-gap: 40px;
     }
 `;
 
-export const StyledDatePicker = styled(DatePicker)``;
-
 export const StyledInput = styled(Input)`
     padding: 10px 20px 10px 20px;
+
+    @media screen and (max-width: ${breakpoint.mobile}) {
+        padding-bottom: 50px;
+    }
 `;
 
 export const StyledContainer = styled(Box)`
