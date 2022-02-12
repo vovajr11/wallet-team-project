@@ -10,6 +10,12 @@ export const GlobalStyles = css`
         padding: 0;
     }
 
+    html,
+    body,
+    #root {
+        height: 100%;
+    }
+
     body {
         margin: 0;
         font-family: 'Poppins', sans-serif;

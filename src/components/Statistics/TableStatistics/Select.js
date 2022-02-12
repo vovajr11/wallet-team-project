@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
+import React from 'react';
 import FormControl from '@mui/material/FormControl';
-import { SelectFilter, svgArrow } from './Select.style';
-import axios from 'axios';
+
+import { SelectFilter, svgArrow, Option } from './Select.style';
 
 export default function BasicSelect(props) {
 
@@ -11,10 +10,10 @@ export default function BasicSelect(props) {
     };
 
     const renderOptions = (arr) =>
-        arr.map(elem => (
-            <MenuItem key={elem} value={elem}>
-                <span className='selectName'>{elem}</span>
-            </MenuItem>
+        arr.map((elem, index) => (
+            <Option key={elem} value={elem}>
+                {elem}
+            </Option >
         ))
 
     return (
@@ -28,7 +27,7 @@ export default function BasicSelect(props) {
                 IconComponent={svgArrow}
                 renderValue={(selected) => {
                     if (selected.length === 0) {
-                        return <span className='selectName'>{props.selectName}</span>;
+                        return props.selectName;
                     }
                     else
                         return selected
