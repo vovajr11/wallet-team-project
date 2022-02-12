@@ -8,17 +8,14 @@ import { useState, useEffect } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Home = () => {
-    const breakpointMobile = useMediaQuery('(max-width: 767px)');
-
-    const transactionsURL = 'https://wallet.goit.ua/api/';
+    const BREACKPOINTMOBILE = useMediaQuery('(max-width: 767px)');
+    const URL = 'https://wallet.goit.ua/api/';
 
     const [transactions, setTransactions] = useState([]);
 
     const getTransactions = async () => {
-        const trans = await axios.get(`${transactionsURL}transactions`);
-        const categories = await axios.get(
-            `${transactionsURL}transaction-categories`,
-        );
+        const trans = await axios.get(`${URL}transactions`);
+        const categories = await axios.get(`${URL}transaction-categories`);
         transactionHandler(trans.data, categories.data);
     };
 
@@ -31,7 +28,16 @@ const Home = () => {
                 }
             }
         });
-        setTransactions(data);
+
+        const sortTransactions = transactions => {
+            return transactions.sort(
+                (a, b) =>
+                    Date.parse(new Date(b.transactionDate)) -
+                    Date.parse(new Date(a.transactionDate)),
+            );
+        };
+
+        setTransactions(sortTransactions(data));
     };
 
     useEffect(() => {
@@ -40,7 +46,7 @@ const Home = () => {
 
     return (
         <>
-            {!breakpointMobile ? (
+            {!BREACKPOINTMOBILE ? (
                 <Dashboard data={transactions} />
             ) : (
                 <DashboardMobile data={transactions} />

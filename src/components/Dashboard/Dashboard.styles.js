@@ -98,7 +98,7 @@ export const Table = styled.table`
             white-space: nowrap;
         }
         td:nth-of-type(2) {
-            text-align: center;
+            padding-left: 20px;
         }
 
         td:nth-of-type(n + 5) {
