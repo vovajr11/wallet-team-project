@@ -1,8 +1,10 @@
 import { Table } from './Currency.styles';
 import { useState, useEffect } from 'react';
+import Loader from '../Loader/Loader';
 
 const Currency = () => {
     const [currencyData, setCurrencyData] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
         await fetch(
@@ -19,6 +21,7 @@ const Currency = () => {
                         cur.ccy === 'EUR',
                 );
                 setCurrencyData(DataFiltered);
+                setLoading(false);
             });
     };
 
@@ -38,16 +41,22 @@ const Currency = () => {
                     <th>Sale</th>
                 </tr>
             </thead>
-            <tbody>
-                {[...currencyData].map(currency => (
-                    <tr key={currency.ccy}>
-                        <td>{currency.ccy}</td>
-                        <td>{(+currency.buy).toFixed(2)}</td>
-                        <td>{(+currency.sale).toFixed(2)}</td>
-                    </tr>
-                ))}
-            </tbody>
+            {loading ? <Loader /> : <Tbody data={currencyData} />}
         </Table>
+    );
+};
+
+const Tbody = ({ data }) => {
+    return (
+        <tbody>
+            {[...data].map(currency => (
+                <tr key={currency.ccy}>
+                    <td>{currency.ccy}</td>
+                    <td>{(+currency.buy).toFixed(2)}</td>
+                    <td>{(+currency.sale).toFixed(2)}</td>
+                </tr>
+            ))}
+        </tbody>
     );
 };
 

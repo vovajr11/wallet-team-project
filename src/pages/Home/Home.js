@@ -1,6 +1,5 @@
 import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
-
 import axios from 'axios';
 import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 
@@ -29,15 +28,15 @@ const Home = () => {
             }
         });
 
-        const sortTransactions = transactions => {
-            return transactions.sort(
+        const sortTransactions = () => {
+            return [...data].sort(
                 (a, b) =>
                     Date.parse(new Date(b.transactionDate)) -
                     Date.parse(new Date(a.transactionDate)),
             );
         };
 
-        setTransactions(sortTransactions(data));
+        setTransactions(sortTransactions);
     };
 
     useEffect(() => {

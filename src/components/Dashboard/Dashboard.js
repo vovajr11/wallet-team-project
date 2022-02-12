@@ -1,3 +1,4 @@
+import numberFormater from '../../logic/numberFormater';
 import { TableWrap, Table, ColoredTd } from './Dashboard.styles';
 
 const Dashboard = ({ data }) => {
@@ -25,9 +26,11 @@ const Dashboard = ({ data }) => {
                                 <td>{transaction.category}</td>
                                 <td>{transaction.comment}</td>
                                 <ColoredTd theme={transaction.type}>
-                                    {transaction.amount}
+                                    {numberFormater(transaction.amount)}
                                 </ColoredTd>
-                                <td>{transaction.balanceAfter}</td>
+                                <td>
+                                    {numberFormater(transaction.balanceAfter)}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

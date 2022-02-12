@@ -1,5 +1,7 @@
 import { TransactionCard, TransactionCardWrap } from './Dashboard.styles';
 import Balance from '../Balance/Balance';
+
+import numberFormater from '../../logic/numberFormater';
 const DashboardMobile = ({ data }) => {
     return (
         <>
@@ -30,11 +32,13 @@ const DashboardMobile = ({ data }) => {
                         </li>
                         <li>
                             <span>Amount</span>
-                            <span>{transaction.amount}</span>
+                            <span>{numberFormater(transaction.amount)}</span>
                         </li>
                         <li>
                             <span>Balance</span>
-                            <span>{transaction.balanceAfter}</span>
+                            <span>
+                                {numberFormater(transaction.balanceAfter)}
+                            </span>
                         </li>
                     </TransactionCard>
                 ))}
