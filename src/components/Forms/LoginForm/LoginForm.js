@@ -5,8 +5,9 @@ import { Formik, ErrorMessage } from 'formik';
 import InputAdornment from '@mui/material/InputAdornment';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
-import { authOperations } from '../../../redux/auth';
+import { signInUser } from '../../../redux/auth/authAPI';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
+import { Notification } from '../../Notification';
 import {
     LogoContainer,
     FormContainer,
@@ -22,6 +23,8 @@ const LoginForm = () => {
 
     return (
         <FormContainer>
+            <Notification />
+
             <LogoContainer>
                 <LogoIcon />
             </LogoContainer>
@@ -33,7 +36,7 @@ const LoginForm = () => {
                 }}
                 validationSchema={validationsForm}
                 onSubmit={({ email, password }) => {
-                    dispatch(authOperations.logIn({ email, password }));
+                    dispatch(signInUser({ email, password }));
                 }}
             >
                 {({ values, handleSubmit, handleChange }) => (

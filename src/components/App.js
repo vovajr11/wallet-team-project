@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Global } from '@emotion/react';
-import { authOperations } from '../redux/auth';
+import { getCurrentUser } from '../redux/auth/authAPI';
 import Layout from './Layout/Layout';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
@@ -14,9 +14,11 @@ import { GlobalStyles } from './GlobalStyles';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import AuthRoute from './Routes/AuthRoute';
 
-const App = ({ onGetCurrentUser }) => {
+const App = () => {
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        onGetCurrentUser();
+        dispatch(getCurrentUser());
     });
 
     return (
@@ -80,6 +82,4 @@ const App = ({ onGetCurrentUser }) => {
     );
 };
 
-export default connect(null, {
-    onGetCurrentUser: authOperations.getCurrentUser,
-})(App);
+export default App;

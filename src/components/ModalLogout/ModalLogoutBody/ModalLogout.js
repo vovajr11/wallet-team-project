@@ -5,7 +5,6 @@ import { WhiteBtn } from '../../StyledComponents';
 import {
     ModalCaption,
     ModalBtns,
-    StyledModal,
     StyledBox,
     StyledClose,
 } from './ModalLogout.style';
