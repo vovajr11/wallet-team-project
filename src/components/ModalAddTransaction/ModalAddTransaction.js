@@ -24,8 +24,6 @@ import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
-import Input from '@mui/material/Input';
 import DatePicker from '@mui/lab/DatePicker';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
@@ -37,6 +35,8 @@ import { MenuProps } from './Select/select';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddTransactionSchema from './validation';
+import { useDispatch } from 'react-redux';
+import { createTransaction } from '../../redux/transactions/transactionsSlice';
 
 export default function ModalAddTransaction() {
     const [open, setOpen] = useState(false);
@@ -44,6 +44,7 @@ export default function ModalAddTransaction() {
     const handleClose = () => setOpen(false);
     const [category, setCategory] = useState('');
     const [isExpenseType, setIsExpenseType] = useState(false);
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
