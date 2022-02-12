@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import Select from '@mui/material/Select';
 import Dialog from '@mui/material/Dialog';
 import Box from '@mui/material/Box';
-import DatePicker from '@mui/lab/DatePicker';
 import Input from '@mui/material/Input';
+import { font, color, breakpoint } from '../GlobalStyles';
 
 export const AddTransactionBtn = styled.button`
-    color: #ffffff;
+    color: ${color.white};
     width: 44px;
     height: 44px;
-    background-color: #24cca7;
+    background-color: ${color.green};
     border: none;
     outline: none;
     cursor: pointer;
@@ -28,15 +28,13 @@ export const AddTransactionBtn = styled.button`
         transition: 0.3s linear;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: ${breakpoint.tablet}) {
         position: fixed;
         right: 30px;
         bottom: 30px;
     }
-    @media screen and (max-width: 320px) {
-        position: fixed;
+    @media screen and (max-width: ${breakpoint.mobile}) {
         right: 20px;
-        bottom: 30px;
     }
 `;
 
@@ -48,11 +46,23 @@ export const AddIcon = styled.svg`
 export const StyledDialog = styled(Dialog)`
     .MuiBackdrop-root {
         background-color: rgba(0, 0, 0, 0.25);
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            background-color: transparent;
+        }
     }
     .MuiPaper-root {
         border-radius: 20px;
         max-width: 540px;
         padding: 40px 60px 60px 60px;
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            position: fixed;
+            top: 50px;
+            border-radius: 0;
+            box-shadow: none;
+            padding-top: 20px;
+        }
     }
 `;
 
@@ -73,6 +83,10 @@ export const CloseModalBtn = styled.button`
             transform: scale(1.3);
             transition: 0.1s linear;
         }
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            display: none;
+        }
     }
 `;
 
@@ -83,7 +97,7 @@ export const Form = styled.form`
     .MuiInput-root,
     .MuiMenu-root,
     .MuiPaper-root {
-        font-family: Abel, sans-serif;
+        font-family: ${font.secondary};
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
@@ -95,9 +109,9 @@ export const Form = styled.form`
     .MuiInput-underline:hover:not(.Mui-disabled):before {
         border-bottom: 3px solid #24cca7;
     }
-    .MuiButtonBase-root  {
+    .MuiButtonBase-root {
         margin-right: 12px;
-        color: #4A56E2;
+        color: #4a56e2;
     }
 `;
 
@@ -119,21 +133,21 @@ export const Toggler = styled.div`
 
 export const ToggleP = styled.p`
     &.green {
-        color: #24cca7;
+        color: ${color.green};
     }
     &.pink {
-        color: #ff6596;
+        color: ${color.red};
     }
 
     &.grey {
-        color: #e0e0e0;
+        color: ${color.authGray};
     }
 
     margin: 0;
     font-weight: 400;
     font-size: 16px;
     line-height: 1;
-    font-family: Abel, sans-serif;
+    font-family: ${font.secondary};
 `;
 
 export const ToggleLabel = styled.label`
@@ -144,7 +158,7 @@ export const ToggleLabel = styled.label`
 
     > input:checked ~ div:first-of-type div {
         left: 37px;
-        background-color: #ff6596;
+        background-color: ${color.red};
         box-shadow: 0px 6px 15px rgba(255, 101, 150, 0.5);
     }
 `;
@@ -163,7 +177,7 @@ export const ToggleBackground = styled.div`
     width: 80px;
     height: 40px;
     border-radius: 30px;
-    background-color: #fff;
+    background-color: ${color.white};
     border: 1px solid #e0e0e0;
     opacity: 1;
     transition: background-color 200ms ease-in-out;
@@ -175,7 +189,7 @@ export const ToggleBtn = styled.div`
     left: -1px;
     width: 44px;
     height: 44px;
-    background-color: #24cca7;
+    background-color: ${color.green};
     border-radius: 22px;
     transition: left 250ms ease-in-out;
     display: flex;
@@ -197,11 +211,11 @@ export const StyledSelect = styled(Select)`
 `;
 
 export const Placeholder = styled.p`
-    font-family: Abel, sans-serif;
+    font-family: ${font.secondary};
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
-    color: #bdbdbd;
+    color: ${color.grey};
 `;
 
 export const StyledBox = styled(Box)`
@@ -214,13 +228,25 @@ export const StyledBox = styled(Box)`
         padding-bottom: 10px;
         font-size: 18px;
         line-height: 23px;
+
+        @media screen and (max-width: ${breakpoint.mobile}) {
+            text-align: left;
+            padding: 10px 20px 10px 20px;
+        }
+    }
+
+    @media screen and (max-width: ${breakpoint.mobile}) {
+        flex-direction: column;
+        row-gap: 40px;
     }
 `;
 
-export const StyledDatePicker = styled(DatePicker)``;
-
 export const StyledInput = styled(Input)`
     padding: 10px 20px 10px 20px;
+
+    @media screen and (max-width: ${breakpoint.mobile}) {
+        padding-bottom: 50px;
+    }
 `;
 
 export const StyledContainer = styled(Box)`
