@@ -20,12 +20,13 @@ export const AddTransactionBtn = styled.button`
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: 85px;
+    right: 0px;
     bottom: 40px;
+    transition: 0.15s linear;
 
     &:hover {
-        transform: scale(1.15);
-        transition: 0.3s linear;
+        transform: scale(1.1);
+        transition: 0.2s linear;
     }
 
     @media screen and (max-width: ${breakpoint.tablet}) {
