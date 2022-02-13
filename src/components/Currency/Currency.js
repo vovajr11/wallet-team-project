@@ -1,31 +1,41 @@
 import { Table } from './Currency.styles';
 import { useState, useEffect } from 'react';
+import Loader from '../Loader/Loader';
 
 const Currency = () => {
     const [currencyData, setCurrencyData] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    const fetchData = async () => {
+        await fetch(
+            'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
+        )
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                const DataFiltered = data.filter(
+                    cur =>
+                        cur.ccy === 'USD' ||
+                        cur.ccy === 'RUR' ||
+                        cur.ccy === 'EUR',
+                );
+                setCurrencyData(DataFiltered);
+                setLoading(false);
+            });
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            await fetch(
-                'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
-            )
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    const DataF = data.filter(
-                        cur =>
-                            cur.ccy === 'USD' ||
-                            cur.ccy === 'RUR' ||
-                            cur.ccy === 'EUR',
-                    );
-                    setCurrencyData(DataF);
-                });
-        };
-
         fetchData();
+        return () => {
+            setCurrencyData({});
+        };
     }, []);
 
+    return <>{loading ? <Loader /> : <TableC data={currencyData} />}</>;
+};
+
+const TableC = ({ data }) => {
     return (
         <Table>
             <thead>
@@ -36,7 +46,7 @@ const Currency = () => {
                 </tr>
             </thead>
             <tbody>
-                {[...currencyData].map(currency => (
+                {[...data].map(currency => (
                     <tr key={currency.ccy}>
                         <td>{currency.ccy}</td>
                         <td>{(+currency.buy).toFixed(2)}</td>

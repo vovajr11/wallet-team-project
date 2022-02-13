@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { device, color, font, grid } from '../GlobalStyles';
 
 export const StyleLayout = styled.div`
-    background: #f1f2f7;
     backdrop-filter: blur(50px);
 `;
 
@@ -14,6 +13,7 @@ export const MainContainer = styled.section`
     min-height: calc(100vh - 87px);
     width: 100%;
     margin: 0 auto;
+    padding: 0px 10px;
     @media screen and (${device.tablet}) {
         display: block;
         justify-content: center;

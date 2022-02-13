@@ -67,7 +67,7 @@ export const Table = styled.table`
         margin: 0 auto;
     }
     @media screen and (${device.mobileS}) {
-        width: 100%;
+        width: 280px;
         th {
             padding: 11px 10px 16px;
         }

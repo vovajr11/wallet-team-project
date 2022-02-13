@@ -7,7 +7,6 @@ import { ReactComponent as HomeIcon } from '../../assets/svgs/main.svg';
 import { ReactComponent as StatisticIcon } from '../../assets/svgs/statistic.svg';
 import { ReactComponent as CurrencyIcon } from '../../assets/svgs/currencyIcon.svg';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 
 import {
     StyleLayout,
@@ -66,7 +65,6 @@ const Layout = ({ children }) => {
                             </Aside>
                             <MainContent>{children}</MainContent>
                         </MainContainer>
-                        <ModalAddTransaction />
                     </main>
                 </>
             )}
