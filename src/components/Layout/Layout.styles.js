@@ -67,6 +67,7 @@ export const AsideTop = styled.div`
 
 export const MainContent = styled.div`
     width: 66%;
+    position: relative;
     padding-left: 30px;
     padding-top: 40px;
     @media screen and (${device.tablet}) {
