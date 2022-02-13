@@ -2,6 +2,8 @@ import { ReactComponent as LogoIcon } from '../../assets/svgs/logo.svg';
 import { NavLink } from 'react-router-dom';
 import { ModalLogout } from '../ModalLogout/ModalLogoutBody';
 
+import { useSelector } from 'react-redux';
+
 import {
     Header,
     HeaderInner,
@@ -11,6 +13,7 @@ import {
 } from './Header.style';
 
 const HeaderComponent = () => {
+    const userName = useSelector(state => state.session.user.username);
     return (
         <Header>
             <HeaderInner>
@@ -20,7 +23,7 @@ const HeaderComponent = () => {
                     </LogoW>
                 </NavLink>
                 <HeaderEntrance>
-                    <HeaderEntranceItem>Name</HeaderEntranceItem>
+                    <HeaderEntranceItem>{userName}</HeaderEntranceItem>
                     <HeaderEntranceItem>
                         <ModalLogout />
                     </HeaderEntranceItem>
