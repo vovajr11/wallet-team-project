@@ -32,6 +32,10 @@ const Currency = () => {
         };
     }, []);
 
+    return <>{loading ? <Loader /> : <TableC data={currencyData} />}</>;
+};
+
+const TableC = ({ data }) => {
     return (
         <Table>
             <thead>
@@ -41,22 +45,16 @@ const Currency = () => {
                     <th>Sale</th>
                 </tr>
             </thead>
-            {loading ? <Loader /> : <Tbody data={currencyData} />}
+            <tbody>
+                {[...data].map(currency => (
+                    <tr key={currency.ccy}>
+                        <td>{currency.ccy}</td>
+                        <td>{(+currency.buy).toFixed(2)}</td>
+                        <td>{(+currency.sale).toFixed(2)}</td>
+                    </tr>
+                ))}
+            </tbody>
         </Table>
-    );
-};
-
-const Tbody = ({ data }) => {
-    return (
-        <tbody>
-            {[...data].map(currency => (
-                <tr key={currency.ccy}>
-                    <td>{currency.ccy}</td>
-                    <td>{(+currency.buy).toFixed(2)}</td>
-                    <td>{(+currency.sale).toFixed(2)}</td>
-                </tr>
-            ))}
-        </tbody>
     );
 };
 
