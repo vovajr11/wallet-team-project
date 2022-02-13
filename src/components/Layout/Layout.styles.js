@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { device, color, font, grid } from '../GlobalStyles';
 
 export const StyleLayout = styled.div`
-    background: #f1f2f7;
     backdrop-filter: blur(50px);
 `;
 

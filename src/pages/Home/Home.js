@@ -1,16 +1,17 @@
 import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
-import axios from 'axios';
 import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
+import Loader from '../../components/Loader/Loader';
 
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Home = () => {
-    const BREACKPOINTMOBILE = useMediaQuery('(max-width: 767px)');
     const URL = 'https://wallet.goit.ua/api/';
 
     const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const getTransactions = async () => {
         const trans = await axios.get(`${URL}transactions`);
@@ -37,6 +38,7 @@ const Home = () => {
         };
 
         setTransactions(sortTransactions);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -45,13 +47,23 @@ const Home = () => {
 
     return (
         <>
-            {!BREACKPOINTMOBILE ? (
-                <Dashboard data={transactions} />
-            ) : (
-                <DashboardMobile data={transactions} />
-            )}
+            {loading ? <Loader /> : <Component data={transactions} />}
             <ModalAddTransaction />
         </>
     );
 };
+
+const Component = ({ data }) => {
+    const BREACKPOINTMOBILE = useMediaQuery('(max-width: 767px)');
+    return (
+        <>
+            {!BREACKPOINTMOBILE ? (
+                <Dashboard data={data} />
+            ) : (
+                <DashboardMobile data={data} />
+            )}
+        </>
+    );
+};
+
 export default Home;

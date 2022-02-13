@@ -6,6 +6,9 @@ export const TransactionCardWrap = styled.div`
     margin-top: 30px;
     height: 60vh;
     overflow: scroll;
+    @media screen and (${device.mobile}) {
+        height: 50vh;
+    }
 `;
 export const TransactionCard = styled.ul`
     list-style: none;
