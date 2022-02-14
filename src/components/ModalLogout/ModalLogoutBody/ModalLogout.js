@@ -30,7 +30,7 @@ export default function ModalLogout() {
                     </ModalCaption>
                     <ModalBtns>
                         <WhiteBtn>Yes</WhiteBtn>
-                        <WhiteBtn>No</WhiteBtn>
+                        <WhiteBtn onClick={handleClose}>No</WhiteBtn>
                     </ModalBtns>
                 </StyledBox>
             </Modal>
