@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { color, font } from '../GlobalStyles';
 
 export const BackgroundContainer = styled.div`
-    background: ${color.containerBg};
     backdrop-filter: blur(50px);
 `;
 
@@ -41,7 +40,6 @@ export const SectionLeft = styled.section`
         width: 44%;
         flex-direction: column;
         justify-content: center;
-        background-color: ${color.authSectionBg};
     }
 `;
 
