@@ -5,9 +5,7 @@ import { color, font } from '../GlobalStyles';
 
 import ellipseViolet from '../../assets/svgs/ellipse-violet.svg';
 
-export const BackgroundContainer = styled.div`
-    /* backdrop-filter: blur(50px); */
-`;
+export const BackgroundContainer = styled.div``;
 
 export const Container = styled.div`
     min-height: 100%;
