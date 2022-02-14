@@ -39,6 +39,19 @@ export const signInUser = createAsyncThunk(
     },
 );
 
+export const signOutUser = createAsyncThunk(
+    'auth/signOutUser',
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const res = await axios.delete('/auth/sign-out', credentials);
+            token.unset(res.data.token);
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    },
+);
+
 export const getCurrentUser = createAsyncThunk(
     'auth/getCurrentUser',
     async (_, { getState }) => {

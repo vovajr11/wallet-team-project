@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signInUser, signupUser, getCurrentUser } from './authAPI';
+import { signInUser, signupUser, signOutUser, getCurrentUser } from './authAPI';
 import { notificationTypes } from '../../components/Notification';
 
 export const authSlice = createSlice({
@@ -14,6 +14,16 @@ export const authSlice = createSlice({
                 state.isAuth = true;
             })
             .addCase(signInUser.rejected, (state, { payload }) => {
+                notificationTypes.notificationError(payload.message);
+            });
+
+        builder
+            .addCase(signOutUser.fulfilled, (state, { payload }) => {
+                state.user = payload.user;
+                state.token = payload.token;
+                state.isAuth = false;
+            })
+            .addCase(signOutUser.rejected, (state, { payload }) => {
                 notificationTypes.notificationError(payload.message);
             });
 
