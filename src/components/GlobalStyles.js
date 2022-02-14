@@ -40,6 +40,7 @@ export const color = {
     red: '#FF6596',
     purple: '#4A56E2',
     purpleLight: '#6E78E8',
+    purpleExtraLight: '#E7EAF2',
     authSectionBg: '#e7eaf2',
     authGray: '#e0e0e0',
     authGreen: '#24cca7',
@@ -61,15 +62,25 @@ export const GlobalStyles = css`
     html,
     body,
     #root {
-        height: 100%;
+        min-height: 100%;
+    }
+
+    @media (min-width: 768px) and (max-width: 1279px) {
+        html {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
     }
 
     body {
+        width: 100%;
         margin: 0;
         font-family: 'Poppins', sans-serif;
         background: ${color.containerBg};
         background-image: url(${ellipsePink}), url(${ellipseViolet});
-        background-position: 100% 0%, 0% 100%;
+        background-position: right top, left bottom;
         background-repeat: no-repeat;
 
         @media screen and (${device.tablet}) {
