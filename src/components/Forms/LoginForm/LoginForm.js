@@ -7,7 +7,6 @@ import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import { signInUser } from '../../../redux/auth/authAPI';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
-import { Notification } from '../../Notification';
 import {
     LogoContainer,
     FormContainer,
@@ -23,8 +22,6 @@ const LoginForm = () => {
 
     return (
         <FormContainer>
-            <Notification />
-
             <LogoContainer>
                 <LogoIcon />
             </LogoContainer>
