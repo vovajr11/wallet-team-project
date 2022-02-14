@@ -4,6 +4,9 @@ import { breakpoint } from '../../GlobalStyles';
 
 export const SelectsContainer = styled.div`
     display: flex;
+    @media screen and (max-width:1115px) and (min-width:1025px){
+        flex-direction:column
+    }
     @media screen and (max-width:${breakpoint.mobile}){
         flex-direction:column;
     }

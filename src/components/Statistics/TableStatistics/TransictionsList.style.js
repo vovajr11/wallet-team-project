@@ -7,9 +7,9 @@ export const ListOfTransitions = styled.ul`
     overflow-y:scroll;
 
     ::-webkit-scrollbar-track {
-        border: 1px solid #f1f1f1;
+        border: 1px solid transparent;
         padding: 2px 0;
-        background-color: #f1f1f1;
+        background-color: transparent;
     }
     
     ::-webkit-scrollbar {

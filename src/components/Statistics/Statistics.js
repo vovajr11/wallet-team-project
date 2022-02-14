@@ -11,7 +11,6 @@ import updateUrl from "../../logic/updateUrl";
 import { monthsObj } from "./staticObj/montObject";
 
 
-
 const Statistics = (props) => {
 
     let [month, setMonth] = useState(null);
