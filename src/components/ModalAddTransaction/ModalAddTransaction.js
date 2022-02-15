@@ -35,42 +35,46 @@ import { MenuProps } from './Select/select';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddTransactionSchema from './validation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
 
 export default function ModalAddTransaction() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [category, setCategory] = useState('');
-    const [isExpenseType, setIsExpenseType] = useState(false);
     const dispatch = useDispatch();
+
+    const transactionValues = {
+        transactionDate: '',
+        type: 'INCOME',
+        categoryId: '',
+        comment: '',
+        amount: 0,
+    };
 
     const formik = useFormik({
         initialValues: {
             isExpenseType: false,
-            amount: '',
-            date: new Date(),
-            comment: '',
+            transactionDate: new Date().toISOString,
+            type: 'INCOME',
             categoryId: '',
+            comment: '',
+            amount: 0,
         },
         validationSchema: AddTransactionSchema,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: value => {
+            dispatch(createTransaction());
+            console.log(transactionValues);
         },
     });
 
     const handleInputChange = event => {
-        setIsExpenseType(event.target.checked);
-    };
-
-    const handleSelectChange = event => {
-        setCategory(event.target.value);
+        formik.setFieldValue('isExpenseType', event.target.checked);
     };
 
     const handleDataChange = date => {
-        formik.setFieldValue('date', date);
-    }
+        formik.setFieldValue('transactionDate', date.toISOString());
+    };
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -92,7 +96,7 @@ export default function ModalAddTransaction() {
                     <DialogTitle>Add transaction</DialogTitle>
 
                     <Toggler>
-                        <ToggleP className={!isExpenseType ? 'green' : 'grey'}>
+                        <ToggleP className={!formik.values.isExpenseType ? 'green' : 'grey'}>
                             Income
                         </ToggleP>
                         <ToggleLabel>
@@ -100,11 +104,11 @@ export default function ModalAddTransaction() {
                                 type="checkbox"
                                 name="type"
                                 onChange={handleInputChange}
-                                checked={isExpenseType}
+                                checked={formik.values.isExpenseType}
                             ></ToggleInput>
                             <ToggleBackground>
                                 <ToggleBtn>
-                                    {!isExpenseType ? (
+                                    {!formik.values.isExpenseType ? (
                                         <AddIcon />
                                     ) : (
                                         <SubtractIcon />
@@ -112,16 +116,16 @@ export default function ModalAddTransaction() {
                                 </ToggleBtn>
                             </ToggleBackground>
                         </ToggleLabel>
-                        <ToggleP className={isExpenseType ? 'pink' : 'grey'}>
+                        <ToggleP className={formik.values.isExpenseType ? 'pink' : 'grey'}>
                             Expences
                         </ToggleP>
                     </Toggler>
-                    {isExpenseType && (
+                    {formik.values.isExpenseType && (
                         <StyledSelect
                             MenuProps={MenuProps}
                             displayEmpty
-                            value={category}
-                            onChange={handleSelectChange}
+                            value={formik.values.categoryId}
+                            onChange={formik.handleChange}
                             variant="standard"
                             IconComponent={ExpandMore}
                             renderValue={selected => {
@@ -152,8 +156,13 @@ export default function ModalAddTransaction() {
                             value={formik.values.amount}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            error={formik.touched.amount && Boolean(formik.errors.amount)}
-                            helperText={formik.touched.amount && formik.errors.amount}
+                            error={
+                                formik.touched.amount &&
+                                Boolean(formik.errors.amount)
+                            }
+                            helperText={
+                                formik.touched.amount && formik.errors.amount
+                            }
                         />
                         <ThemeProvider theme={theme}>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -161,7 +170,7 @@ export default function ModalAddTransaction() {
                                     variant="standart"
                                     inputFormat="dd.MM.yyyy"
                                     mask={'__.__.____'}
-                                    value={formik.values.date}
+                                    value={formik.values.transactionDate}
                                     onChange={handleDataChange}
                                     renderInput={params => (
                                         <TextField
@@ -180,6 +189,8 @@ export default function ModalAddTransaction() {
                         placeholder="Comments"
                         variant="standart"
                         type="text"
+                        value={formik.values.comment}
+                        onChange={formik.handleChange}
                     />
                     <StyledContainer>
                         <GreenBtn type="submit">Add</GreenBtn>
