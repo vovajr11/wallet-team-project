@@ -27,15 +27,16 @@ const Currency = () => {
 
     useEffect(() => {
         fetchData();
+
         return () => {
             setCurrencyData({});
         };
     }, []);
 
-    return <>{loading ? <Loader /> : <TableC data={currencyData} />}</>;
+    return <>{loading ? <Loader /> : <TableComponent data={currencyData} />}</>;
 };
 
-const TableC = ({ data }) => {
+const TableComponent = ({ data }) => {
     return (
         <Table>
             <thead>
