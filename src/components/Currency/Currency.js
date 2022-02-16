@@ -2,17 +2,10 @@ import { Table } from './Currency.styles';
 import { useState, useEffect } from 'react';
 import Loader from '../Loader/Loader';
 
-// const ONE_HOUR_IN_SECONDS = 1 * 60 * 60 * 1000;
-const ONE_HOUR_IN_SECONDS = 100;
-const CURRENT_TIME = new Date().getTime();
-const deadline =
-    JSON.parse(localStorage.getItem('currency')).currentTime +
-    ONE_HOUR_IN_SECONDS;
-
-const restOfTheTime = deadline - CURRENT_TIME;
-
 const Currency = () => {
-    const [currencyData, setCurrencyData] = useState('s');
+    const ONE_HOUR_IN_SECONDS = 1 * 60 * 60 * 1000;
+    const CURRENT_TIME = new Date().getTime();
+    const [currencyData, setCurrencyData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const [seconds, setSeconds] = useState(ONE_HOUR_IN_SECONDS);
@@ -33,8 +26,18 @@ const Currency = () => {
                         cur.ccy === 'EUR',
                 );
                 setCurrencyData(DataFiltered);
+                localStorage.setItem(
+                    'currency',
+                    JSON.stringify({
+                        currentTime: CURRENT_TIME,
+                        currencyData: DataFiltered,
+                    }),
+                );
+
                 setLoading(false);
             });
+
+        console.log(currencyData);
     };
 
     useEffect(() => {
@@ -46,31 +49,76 @@ const Currency = () => {
     }, [seconds, timerActive]);
 
     useEffect(() => {
-        if (restOfTheTime < 0) {
-            fetchData();
+        if (localStorage.getItem('currency') !== null) {
+            const deadline =
+                JSON.parse(localStorage.getItem('currency')).currentTime +
+                ONE_HOUR_IN_SECONDS;
+            const restOfTheTime = deadline - CURRENT_TIME;
 
-            const obj = {
-                currentTime: CURRENT_TIME,
-                currencyData: currencyData,
-            };
-            localStorage.setItem('currency', JSON.stringify(obj));
+            if (restOfTheTime < 0) {
+                fetchData();
 
-            console.log('if');
+                const obj = {
+                    currentTime: CURRENT_TIME,
+                    currencyData: currencyData,
+                };
+                localStorage.setItem('currency', JSON.stringify(obj));
+
+                console.log('if');
+            } else {
+                console.log('else');
+                console.log('не робим запит берем старі дані');
+
+                const oldData = localStorage.getItem('currency');
+                console.log(oldData, 'oldData');
+
+                setCurrencyData(oldData);
+                console.log('my data' + currencyData);
+                setLoading(false);
+            }
         } else {
-            console.log('else');
-            console.log('не робим запит берем старі дані');
-
-            const oldData = localStorage.getItem('currency');
-            console.log(oldData, 'oldData');
-
-            setCurrencyData(oldData);
-            setLoading(false);
+            fetchData();
+            localStorage.setItem('currency', JSON.stringify(currencyData));
         }
-
-        return () => {
-            setCurrencyData({});
-        };
     }, []);
+
+    /*   useEffect(() => {
+        if (localStorage.getItem('currency').currentTime !== null) {
+            const CURRENT_TIME = new Date().getTime();
+            const deadline =
+                JSON.parse(localStorage.getItem('currency')).currentTime +
+                ONE_HOUR_IN_SECONDS;
+            const restOfTheTime = deadline - CURRENT_TIME;
+
+            if (restOfTheTime < 0) {
+                fetchData();
+
+                const obj = {
+                    currentTime: CURRENT_TIME,
+                    currencyData: currencyData,
+                };
+                localStorage.setItem('currency', JSON.stringify(obj));
+
+                console.log('if');
+            } else {
+                console.log('else');
+                console.log('не робим запит берем старі дані');
+
+                const oldData = localStorage.getItem('currency');
+                console.log(oldData, 'oldData');
+
+                setCurrencyData(oldData);
+                setLoading(false);
+            }
+
+            return () => {
+                setCurrencyData({});
+            };
+        } else {
+            fetchData();
+            localStorage.setItem('currency', JSON.stringify(currencyData));
+        }
+    }, []);*/
 
     console.log(currencyData, 'currencyData');
 
