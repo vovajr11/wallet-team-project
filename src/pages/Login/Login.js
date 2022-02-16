@@ -14,7 +14,7 @@ const Login = () => {
         <BackgroundContainer>
             <Container>
                 <SectionLeft>
-                    <PreviewPicture width="432" height="420" />
+                    <PreviewPicture width="420" height="410" />
 
                     <TitleApp>Finance App</TitleApp>
                 </SectionLeft>

@@ -3,19 +3,29 @@ import { Input, FormControl } from '@mui/material';
 import styled from '@emotion/styled';
 import { color, font } from '../GlobalStyles';
 
-export const BackgroundContainer = styled.div`
-    backdrop-filter: blur(50px);
-`;
+import ellipseViolet from '../../assets/svgs/ellipse-violet.svg';
+
+export const BackgroundContainer = styled.div``;
 
 export const Container = styled.div`
-    height: 100vh;
+    min-height: 100%;
     max-width: 540px;
     margin: 0 auto;
 
     @media (min-width: 1280px) {
-        max-width: 1920px;
+        height: 100vh;
+        max-width: 100%;
         display: flex;
         justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+        height: 100%;
+        max-width: 768px;
+    }
+
+    @media (min-width: 768px) and (max-width: 1279px) {
+        margin: 60px auto;
     }
 `;
 
@@ -23,8 +33,8 @@ export const SectionLeft = styled.section`
     display: none;
 
     @media (min-width: 768px) and (max-width: 1279px) {
-        padding-top: 60px;
-
+        display: flex;
+        justify-content: center;
         & > svg {
             width: 260px;
             height: 250px;
@@ -40,10 +50,16 @@ export const SectionLeft = styled.section`
         width: 44%;
         flex-direction: column;
         justify-content: center;
+        background: ${color.purpleExtraLight} url(${ellipseViolet}) left bottom
+            no-repeat;
+        background-size: 81%;
     }
 `;
 
 export const SectionRight = styled.section`
+    display: flex;
+    align-items: center;
+    height: 100%;
     @media (min-width: 768px) and (max-width: 1279px) {
         margin-top: 50px;
     }
@@ -51,6 +67,7 @@ export const SectionRight = styled.section`
     @media (min-width: 1280px) {
         width: 56%;
         margin: auto 0;
+        backdrop-filter: blur(50px) saturate(150%);
     }
 `;
 
@@ -63,25 +80,29 @@ export const TitleApp = styled.h2`
     }
 
     @media (min-width: 1280px) {
-        margin-top: 28px;
+        margin-top: 20px;
     }
 `;
 
 export const FormContainer = styled.div`
     background-color: ${color.white};
     margin: 0 auto;
+    width: 100%;
 
     @media (max-width: 767px) {
         height: 100vh;
+        width: 100%;
+        max-width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
     @media (min-width: 768px) {
+        width: 100%;
+        max-width: 540px;
         border-radius: 20px;
         padding: 40px 65px 60px 65px;
-        max-width: 540px;
     }
 `;
 
@@ -94,10 +115,10 @@ export const StyledForm = styled(Form)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 40px;
 
     .MuiFormControl-root {
-        margin-top: 40px;
+        margin-top: 35px;
 
         &:first-of-type {
             margin-top: 0;

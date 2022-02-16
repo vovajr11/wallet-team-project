@@ -1,7 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { signOutUser } from '../../../redux/auth/authAPI';
+
 import { ModalLogoutBtn } from '../ModalLogoutBtn';
 import Modal from '@mui/material/Modal';
 import { WhiteBtn } from '../../StyledComponents';
+
 import {
     ModalCaption,
     ModalBtns,
@@ -13,6 +18,7 @@ export default function ModalLogout() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -29,7 +35,13 @@ export default function ModalLogout() {
                         Are you sure, you want to logout?
                     </ModalCaption>
                     <ModalBtns>
-                        <WhiteBtn>Yes</WhiteBtn>
+                        <WhiteBtn
+                            onClick={({ email, password }) => {
+                                dispatch(signOutUser({ email, password }));
+                            }}
+                        >
+                            Yes
+                        </WhiteBtn>
                         <WhiteBtn onClick={handleClose}>No</WhiteBtn>
                     </ModalBtns>
                 </StyledBox>
