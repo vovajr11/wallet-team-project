@@ -38,11 +38,17 @@ import AddTransactionSchema from './validation';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
 
-export default function ModalAddTransaction() {
+
+
+
+export default function ModalAddTransaction({categories}) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const dispatch = useDispatch();
+    const allCategories = useSelector((state) => state.categories.categories);
+
+    
 
     const transactionValues = {
         transactionDate: '',
@@ -70,6 +76,8 @@ export default function ModalAddTransaction() {
 
     const handleInputChange = event => {
         formik.setFieldValue('isExpenseType', event.target.checked);
+        
+       
     };
 
     const handleDataChange = date => {
@@ -78,6 +86,8 @@ export default function ModalAddTransaction() {
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    
 
     return (
         <>
