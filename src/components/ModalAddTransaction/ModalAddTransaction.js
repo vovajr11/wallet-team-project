@@ -36,17 +36,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddTransactionSchema from './validation';
 import { useDispatch, useSelector } from 'react-redux';
+import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
 
-
-
 export default function ModalAddTransaction() {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-   
     const dispatch = useDispatch();
-
+    const open = useSelector(state => state.global.isModalAddTransactionOpen);
+    const handleClose = () => dispatch(setIsModalAddTransactionOpen(false));
+    const handleOpen = () => dispatch(setIsModalAddTransactionOpen(true));
 
     const formik = useFormik({
         initialValues: {
@@ -60,7 +57,6 @@ export default function ModalAddTransaction() {
         validationSchema: AddTransactionSchema,
         onSubmit: value => {
             dispatch(createTransaction());
-           
         },
     });
 
@@ -74,8 +70,6 @@ export default function ModalAddTransaction() {
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-    
 
     return (
         <>
@@ -94,7 +88,11 @@ export default function ModalAddTransaction() {
                     <DialogTitle>Add transaction</DialogTitle>
 
                     <Toggler>
-                        <ToggleP className={!formik.values.isExpenseType ? 'green' : 'grey'}>
+                        <ToggleP
+                            className={
+                                !formik.values.isExpenseType ? 'green' : 'grey'
+                            }
+                        >
                             Income
                         </ToggleP>
                         <ToggleLabel>
@@ -114,7 +112,11 @@ export default function ModalAddTransaction() {
                                 </ToggleBtn>
                             </ToggleBackground>
                         </ToggleLabel>
-                        <ToggleP className={formik.values.isExpenseType ? 'pink' : 'grey'}>
+                        <ToggleP
+                            className={
+                                formik.values.isExpenseType ? 'pink' : 'grey'
+                            }
+                        >
                             Expences
                         </ToggleP>
                     </Toggler>
