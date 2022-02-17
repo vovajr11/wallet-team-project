@@ -1,6 +1,7 @@
 import { Table } from './Currency.styles';
 import { useState, useEffect } from 'react';
 import Loader from '../Loader/Loader';
+import axios from 'axios';
 
 const Currency = () => {
     const ONE_HOUR_IN_SECONDS = 1 * 60 * 60 * 1000;
@@ -9,9 +10,10 @@ const Currency = () => {
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        await fetch(
-            'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
-        )
+        await axios
+            .get(
+                'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
+            )
             .then(response => {
                 return response.json();
             })
