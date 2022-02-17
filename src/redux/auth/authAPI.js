@@ -41,9 +41,9 @@ export const signInUser = createAsyncThunk(
 
 export const signOutUser = createAsyncThunk(
     'auth/signOutUser',
-    async (credentials, { rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
-            const res = await axios.delete('/auth/sign-out', credentials);
+            const res = await axios.delete('/auth/sign-out');
             token.unset(res.data.token);
             return res.data;
         } catch (error) {
