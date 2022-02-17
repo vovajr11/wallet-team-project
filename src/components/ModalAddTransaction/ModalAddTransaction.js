@@ -40,23 +40,13 @@ import { createTransaction } from '../../redux/transactions/transactionsSlice';
 
 
 
-
-export default function ModalAddTransaction({categories}) {
+export default function ModalAddTransaction() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+   
     const dispatch = useDispatch();
-    const allCategories = useSelector((state) => state.categories.categories);
 
-    
-
-    const transactionValues = {
-        transactionDate: '',
-        type: 'INCOME',
-        categoryId: '',
-        comment: '',
-        amount: 0,
-    };
 
     const formik = useFormik({
         initialValues: {
@@ -70,14 +60,12 @@ export default function ModalAddTransaction({categories}) {
         validationSchema: AddTransactionSchema,
         onSubmit: value => {
             dispatch(createTransaction());
-            console.log(transactionValues);
+           
         },
     });
 
     const handleInputChange = event => {
         formik.setFieldValue('isExpenseType', event.target.checked);
-        
-       
     };
 
     const handleDataChange = date => {
