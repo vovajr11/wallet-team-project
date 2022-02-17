@@ -9,7 +9,7 @@ export const getCategories = createAsyncThunk(
         try {
             const response = await axios.get('/transaction-categories');
             dispatch(returnCategories(response));
-
+            
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -28,7 +28,7 @@ export const getCategories = createAsyncThunk(
       },
     },
   });
-  
+ 
   export const { returnCategories } = categoriesSlice.actions;
   export const categoriesReducer = categoriesSlice.reducer;
   

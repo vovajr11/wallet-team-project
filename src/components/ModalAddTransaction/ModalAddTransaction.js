@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     AddTransactionBtn,
     StyledDialog,
@@ -38,12 +38,20 @@ import AddTransactionSchema from './validation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
+import {
+    returnCategories,
+    getCategories,
+    categoriesSelector,
+} from '../../redux/categories/categoriesSlice';
 
 export default function ModalAddTransaction() {
     const dispatch = useDispatch();
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
     const handleClose = () => dispatch(setIsModalAddTransactionOpen(false));
     const handleOpen = () => dispatch(setIsModalAddTransactionOpen(true));
+
+    const [income, setIncome] = useState({});
+    const [expenses, setExpenses] = useState([]);
 
     const formik = useFormik({
         initialValues: {
