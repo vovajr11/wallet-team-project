@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { signInUser, signupUser, signOutUser, getCurrentUser } from './authAPI';
 import { notificationTypes } from '../../components/Notification';
 
+const initialState = { user: null, token: null, isAuth: false };
+
 export const authSlice = createSlice({
     name: 'auth',
-    initialState: { user: null, token: null, isAuth: false },
+    initialState: initialState,
 
     extraReducers: builder => {
         builder
@@ -18,9 +20,8 @@ export const authSlice = createSlice({
             });
 
         builder
-            .addCase(signOutUser.fulfilled, (state, { payload }) => {
-                state.token = payload.token;
-                state.isAuth = false;
+            .addCase(signOutUser.fulfilled, () => {
+                return { ...initialState };
             })
             .addCase(signOutUser.rejected, (state, { payload }) => {
                 notificationTypes.notificationError(payload.message);
