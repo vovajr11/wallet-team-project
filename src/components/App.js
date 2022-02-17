@@ -13,6 +13,7 @@ import Currency from './Currency/Currency';
 import { GlobalStyles } from './GlobalStyles';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import AuthRoute from './Routes/AuthRoute';
+import { Notification } from './Notification';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const App = () => {
     return (
         <>
             <Global styles={GlobalStyles} />
+            <Notification />
             <BrowserRouter>
                 <Routes>
                     <Route path="*" element={<NotFound />} />

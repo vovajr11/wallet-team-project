@@ -1,37 +1,69 @@
-import React from 'react';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
+import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
+import Loader from '../../components/Loader/Loader';
+
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Home = () => {
-    const breakpointMobile = useMediaQuery('(max-width: 767px)');
-    const dashboardList = [
-        {
-            date: '04.11.2019',
-            type: '-',
-            category: 'Other',
-            comments: 'A gift for wife',
-            amount: '300.00',
-            balance: '6900.00',
-        },
-        {
-            date: '04.11.2019',
-            type: '+',
-            category: 'Car',
-            comments: 'Vegetables for the week',
-            amount: '1000.00',
-            balance: '14000.00',
-        },
-    ];
+    const URL = 'https://wallet.goit.ua/api/';
+
+    const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const getTransactions = async () => {
+        const trans = await axios.get(`${URL}transactions`);
+        const categories = await axios.get(`${URL}transaction-categories`);
+        transactionHandler(trans.data, categories.data);
+    };
+
+    const transactionHandler = (transactionsArray, categoriesArray) => {
+        const data = transactionsArray.map(item => {
+            for (let i = 0; i < categoriesArray.length; i++) {
+                if (item.categoryId === categoriesArray[i].id) {
+                    let category = { category: categoriesArray[i].name };
+                    return Object.assign({}, item, category);
+                }
+            }
+        });
+
+        const sortTransactions = () => {
+            return [...data].sort(
+                (a, b) =>
+                    Date.parse(new Date(b.transactionDate)) -
+                    Date.parse(new Date(a.transactionDate)),
+            );
+        };
+
+        setTransactions(sortTransactions);
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        getTransactions();
+    }, []);
 
     return (
         <>
-            {!breakpointMobile ? (
-                <Dashboard data={dashboardList} />
+            {loading ? <Loader /> : <Component data={transactions} />}
+            <ModalAddTransaction />
+        </>
+    );
+};
+
+const Component = ({ data }) => {
+    const BREACKPOINTMOBILE = useMediaQuery('(max-width: 767px)');
+    return (
+        <>
+            {!BREACKPOINTMOBILE ? (
+                <Dashboard data={data} />
             ) : (
-                <DashboardMobile data={dashboardList} />
+                <DashboardMobile data={data} />
             )}
         </>
     );
 };
+
 export default Home;

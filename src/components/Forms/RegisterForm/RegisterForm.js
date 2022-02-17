@@ -9,7 +9,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import { signupUser } from '../../../redux/auth/authAPI';
 import validationsForm from './validations';
 import PasswordStrengthBar from './PasswordStrengthBar';
-import { Notification } from '../../Notification';
 import { GreenBtn, WhiteBtn } from '../../StyledComponents';
 import {
     LogoContainer,
@@ -26,7 +25,6 @@ const RegisterForm = () => {
 
     return (
         <FormContainer>
-            <Notification />
             <LogoContainer>
                 <LogoIcon />
             </LogoContainer>

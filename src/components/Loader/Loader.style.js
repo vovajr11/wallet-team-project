@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
 
 export const LoaderOverlay = styled.div`
-    width: 100%;
-    height: 100%;
-    position: ${props => (props.fullscreen ? 'fixed' : 'absolute')};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    width: ${props => (props.fullscreen ? '100vw' : '100%')};
+    height: ${props => (props.fullscreen ? '100vh' : 'auto')};
+    position: ${props => (props.fullscreen ? 'fixed' : 'relative')};
     top: 0;
     left: 0;
     background-color: ${props =>
