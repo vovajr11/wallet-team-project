@@ -59,7 +59,6 @@ export const GlobalStyles = css`
         padding: 0;
     }
 
-    html,
     body,
     #root {
         min-height: 100%;

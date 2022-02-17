@@ -20,6 +20,9 @@ export const SelectFilter = styled(Select)`
     .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
         padding: 12px 20px 18px;
     }
+    @media screen and (max-width:1115px) and (min-width:1025px){
+        width:100%;
+    }
 
     @media screen and (max-width: ${breakpoint.tablet}){
         width:100%;

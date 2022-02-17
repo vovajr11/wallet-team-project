@@ -27,7 +27,7 @@ export const TransactionCard = styled.ul`
         top: 0;
         left: 0;
         background-color: ${props =>
-            props.theme === 'EXPENSE' ? color.red : color.green};
+        props.theme === 'EXPENSE' ? color.red : color.green};
     }
     li {
         span:first-of-type {
@@ -49,7 +49,7 @@ export const TableWrap = styled.div`
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
-        width: 2px;
+        width: 4px;
     }
 
     &::-webkit-scrollbar-track {
