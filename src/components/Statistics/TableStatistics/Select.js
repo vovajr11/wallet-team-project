@@ -22,6 +22,7 @@ export default function BasicSelect(props) {
                 value={props.SelectName}
                 onChange={handleChange}
                 displayEmpty
+                disabled={!props.options?.length ? true : false}
                 defaultValue={""}
                 inputProps={{ 'aria-label': 'Without label' }}
                 IconComponent={svgArrow}
