@@ -1,10 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, PERSIST } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authSlice } from './auth/authSlice';
 import { transactionReducer } from './transactions/transactionsSlice';
 import { globalReducer } from './global/globalSlice';
 import { categoriesReducer } from './categories/categoriesSlice';
+import { summaryReducer } from './transactionsSummary/transactionsSummarySlice';
 
 const authPersistConfig = {
     key: 'auth',
@@ -12,13 +13,24 @@ const authPersistConfig = {
     whitelist: ['token'],
 };
 
+const combinedReducer = combineReducers({
+    session: persistReducer(authPersistConfig, authSlice.reducer),
+    transaction: transactionReducer,
+    summary: summaryReducer,
+    global: globalReducer,
+    categories: categoriesReducer
+});
+
+const rootReducer = (state, action) => {
+    if (action.type === 'auth/signOutUser/fulfilled') {
+        state = undefined;
+    }
+
+    return combinedReducer(state, action);
+};
+
 export const store = configureStore({
-    reducer: {
-        session: persistReducer(authPersistConfig, authSlice.reducer),
-        transaction: transactionReducer,
-        categories: categoriesReducer,
-        global: globalReducer,
-    },
+    reducer: rootReducer,
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
             serializableCheck: {
