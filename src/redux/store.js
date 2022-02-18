@@ -19,7 +19,7 @@ const combinedReducer = combineReducers({
     transaction: transactionReducer,
     summary: summaryReducer,
     global: globalReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
     transactionsAll: transactionsReducer,
 });
 
