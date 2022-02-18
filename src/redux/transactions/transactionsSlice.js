@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'https://wallet.goit.ua/api';
 
-const createTransaction = createAsyncThunk(
+export const createTransaction = createAsyncThunk(
     'transactions/createTransaction',
     async (transactions, { rejectWithValue }) => {
         try {
@@ -16,7 +16,7 @@ const createTransaction = createAsyncThunk(
     },
 );
 
-const initialState = { value: 0 };
+const initialState = { value: null };
 
 const transactionsSlice = createSlice({
     name: 'transactions',
@@ -33,4 +33,3 @@ const transactionsSlice = createSlice({
 
 export const { addTransaction, getTransactions } = transactionsSlice.actions;
 export const transactionReducer = transactionsSlice.reducer;
-//export default transactionReducer;
