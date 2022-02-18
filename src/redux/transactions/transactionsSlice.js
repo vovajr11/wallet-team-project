@@ -8,7 +8,6 @@ export const createTransaction = createAsyncThunk(
     async (transactions, { rejectWithValue }) => {
         try {
             const response = await axios.post('/transactions', transactions);
-
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
