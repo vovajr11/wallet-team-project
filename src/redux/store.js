@@ -5,6 +5,7 @@ import { authSlice } from './auth/authSlice';
 import { transactionReducer } from './transactions/transactionsSlice';
 import { globalReducer } from './global/globalSlice';
 import { summaryReducer } from './transactionsSummary/transactionsSummarySlice';
+import { transactionsReducer } from './transactionsAll/transactionsAllSlice';
 
 const authPersistConfig = {
     key: 'auth',
@@ -17,6 +18,7 @@ const combinedReducer = combineReducers({
     transaction: transactionReducer,
     summary: summaryReducer,
     global: globalReducer,
+    transactionsAll: transactionsReducer,
 });
 
 const rootReducer = (state, action) => {
