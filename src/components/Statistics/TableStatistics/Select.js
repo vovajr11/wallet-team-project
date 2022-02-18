@@ -34,7 +34,7 @@ export default function BasicSelect(props) {
                         return selected
                 }}
             >
-                {renderOptions(props.options)}
+                {props.options?.length ? renderOptions(props.options) : null}
             </SelectFilter>
         </FormControl >
     );
