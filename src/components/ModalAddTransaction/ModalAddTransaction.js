@@ -44,21 +44,17 @@ import {
     categoriesSelector,
 } from '../../redux/categories/categoriesSlice';
 
-export default function ModalAddTransaction({categories}) {
+export default function ModalAddTransaction({ categories }) {
     const dispatch = useDispatch();
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
     const handleClose = () => dispatch(setIsModalAddTransactionOpen(false));
     const handleOpen = () => dispatch(setIsModalAddTransactionOpen(true));
 
-    const cats = useSelector((state) => state.categories.items);
-
-    
+    const cats = useSelector(state => state.categories.items);
 
     useEffect(() => {
         dispatch(getCategories()); // у модалку
-    }, [])
-
-    console.log(cats, 'cats');
+    }, []);
 
     const [income, setIncome] = useState({});
     const [expenses, setExpenses] = useState([]);
