@@ -21,7 +21,6 @@ const Statistics = (props) => {
     let [options, setOptions] = useState({ years: [] });
     let fetcher = useSelector(state => state.summary.transactions) || {};
 
-    const transactionsForPeriod = `https://wallet.goit.ua/api/transactions-summary`;
     const summaryTransactionsURL = `https://wallet.goit.ua/api/transactions`;
 
     const fetchData = async (params) => {
