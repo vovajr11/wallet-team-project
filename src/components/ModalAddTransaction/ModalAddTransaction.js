@@ -30,7 +30,6 @@ import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider } from '@mui/material/styles';
-import expenses from './Categories/categories';
 import { MenuProps } from './Select/select';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -38,27 +37,21 @@ import AddTransactionSchema from './validation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
-import {
-    returnCategories,
-    getCategories,
-    categoriesSelector,
-} from '../../redux/categories/categoriesSlice';
+import { getCategories } from '../../redux/categories/categoriesSlice';
 
-export default function ModalAddTransaction({categories}) {
+export default function ModalAddTransaction() {
     const dispatch = useDispatch();
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
     const handleClose = () => dispatch(setIsModalAddTransactionOpen(false));
     const handleOpen = () => dispatch(setIsModalAddTransactionOpen(true));
 
-    const cats = useSelector((state) => state.categories.items);
-
-    
+    const categories = useSelector(state => state.categories.items);
 
     useEffect(() => {
-        dispatch(getCategories()); // у модалку
-    }, [])
-
-    console.log(cats, 'cats');
+        dispatch(getCategories());
+        setIncome(categories.find(value => value.type === 'INCOME'));
+        setExpenses(categories.filter(value => value.type === 'EXPENSE'));
+    }, []);
 
     const [income, setIncome] = useState({});
     const [expenses, setExpenses] = useState([]);
@@ -80,6 +73,8 @@ export default function ModalAddTransaction({categories}) {
 
     const handleInputChange = event => {
         formik.setFieldValue('isExpenseType', event.target.checked);
+        const categoryId = event.target.checked ? '' : expenses.id;
+        formik.setFieldValue('categoryId', categoryId);
     };
 
     const handleDataChange = date => {
@@ -142,6 +137,7 @@ export default function ModalAddTransaction({categories}) {
                         <StyledSelect
                             MenuProps={MenuProps}
                             displayEmpty
+                            name='category'
                             value={formik.values.categoryId}
                             onChange={formik.handleChange}
                             variant="standard"
@@ -158,8 +154,8 @@ export default function ModalAddTransaction({categories}) {
                             }}
                         >
                             {expenses.map(category => (
-                                <MenuItem value={category} key={category}>
-                                    {category}
+                                <MenuItem value={category.name} key={category.id}>
+                                    {category.name}
                                 </MenuItem>
                             ))}
                         </StyledSelect>
