@@ -28,44 +28,51 @@ const Statistics = (props) => {
         dispatch(getTransactionsSummary({ params }));
     };
 
-    const setYearOnClick = (value) => {
+    const setYearOnClick = value => {
         setYear(value);
-    }
+    };
 
-    const setMonthOnClick = (value) => {
+    const setMonthOnClick = value => {
         setMonth(monthsObj[value]);
-    }
+    };
 
-    const handleOptions = (arr) => {
-        const years = parseDate("year", arr)
+    const handleOptions = arr => {
+        const years = parseDate('year', arr);
         setOptions({ years });
-    }
+    };
 
     useEffect(() => {
         const fetchTransactions = async () => {
             let obj = updateUrl(year, month);
             await fetchData(obj);
-        }
+        };
         fetchTransactions();
     }, [year, month, dispatch]);
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get(summaryTransactionsURL)
-                .then(response => handleOptions(response.data))
-        }
+            await axios
+                .get(summaryTransactionsURL)
+                .then(response => handleOptions(response.data));
+        };
         fetchData();
     }, []);
 
     return (
         <section>
-            <h2>
-                Statistics
-            </h2>
+            <h2>Statistics</h2>
             <StatisticsContainer>
                 <Chart
-                    transactionsArr={fetcher.categoriesSummary ? fetcher.categoriesSummary : []}
-                    totalForPeriod={fetcher.periodTotal ? numberFormater(fetcher.periodTotal) : 0}
+                    transactionsArr={
+                        fetcher.categoriesSummary
+                            ? fetcher.categoriesSummary
+                            : []
+                    }
+                    totalForPeriod={
+                        fetcher.periodTotal
+                            ? numberFormater(fetcher.periodTotal)
+                            : 0
+                    }
                     bgColors={colorsArr}
                 />
                 <TableStatistics
@@ -77,7 +84,7 @@ const Statistics = (props) => {
                 />
             </StatisticsContainer>
         </section>
-    )
-}
+    );
+};
 
 export default Statistics;
