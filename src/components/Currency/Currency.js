@@ -10,9 +10,10 @@ const Currency = () => {
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        await fetch(
-            'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
-        )
+        await fetch
+            (
+                'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
+            )
             .then(response => {
                 return response.json();
             })

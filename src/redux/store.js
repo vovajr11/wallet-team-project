@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { authSlice } from './auth/authSlice';
 import { transactionReducer } from './transactions/transactionsSlice';
 import { globalReducer } from './global/globalSlice';
+import { categoriesReducer } from './categories/categoriesSlice';
 import { summaryReducer } from './transactionsSummary/transactionsSummarySlice';
 import { transactionsReducer } from './transactionsAll/transactionsAllSlice';
 
@@ -18,6 +19,7 @@ const combinedReducer = combineReducers({
     transaction: transactionReducer,
     summary: summaryReducer,
     global: globalReducer,
+    categories: categoriesReducer
     transactionsAll: transactionsReducer,
 });
 
