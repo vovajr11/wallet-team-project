@@ -38,23 +38,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
 import { getCategories } from '../../redux/categories/categoriesSlice';
+import { ca } from 'date-fns/locale';
 
 export default function ModalAddTransaction() {
     const dispatch = useDispatch();
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
     const handleClose = () => dispatch(setIsModalAddTransactionOpen(false));
-    const handleOpen = () => dispatch(setIsModalAddTransactionOpen(true));
+    const handleOpen = () => {
+        dispatch(setIsModalAddTransactionOpen(true))
+    };
 
     const categories = useSelector(state => state.categories.items);
+    const filterArr = (arr) => arr.filter(value => value.type === 'EXPENSE');
+
+    const [income, setIncome] = useState({});
+    const [expenses, setExpenses] = useState(filterArr(categories));
+
+
+    const disp = async () =>
+        setExpenses(filterArr(categories));
 
     useEffect(() => {
         dispatch(getCategories());
         setIncome(categories.find(value => value.type === 'INCOME'));
-        setExpenses(categories.filter(value => value.type === 'EXPENSE'));
+        disp()
+        console.log(expenses);
+        console.log("first", categories);
     }, []);
 
-    const [income, setIncome] = useState({});
-    const [expenses, setExpenses] = useState([]);
 
     const formik = useFormik({
         initialValues: {
@@ -67,9 +78,16 @@ export default function ModalAddTransaction() {
         },
         validationSchema: AddTransactionSchema,
         onSubmit: value => {
-            dispatch(createTransaction());
+            console.log(value)
+            // dispatch(createTransaction());
         },
     });
+
+    const handleClick = (e) => {
+        // e.target.value = "Selectedd";
+        console.log(e.target);
+        formik.handleChange();
+    }
 
     const handleInputChange = event => {
         formik.setFieldValue('isExpenseType', event.target.checked);
@@ -83,6 +101,16 @@ export default function ModalAddTransaction() {
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const renderItems = () => {
+        return categories.map(category => (
+            category.type === "EXPENSE" ?
+                <MenuItem style={{ fontFamily: `"Abel",sans-serif` }} value={category.name} key={category.id}>
+                    {category.name}
+                </MenuItem>
+                : null
+        ))
+    };
 
     return (
         <>
@@ -139,7 +167,8 @@ export default function ModalAddTransaction() {
                             displayEmpty
                             name='category'
                             value={formik.values.categoryId}
-                            onChange={formik.handleChange}
+                            // onChange={formik.handleChange}
+                            onChange={handleClick}
                             variant="standard"
                             IconComponent={ExpandMore}
                             renderValue={selected => {
@@ -153,11 +182,7 @@ export default function ModalAddTransaction() {
                                 return selected;
                             }}
                         >
-                            {expenses.map(category => (
-                                <MenuItem value={category.name} key={category.id}>
-                                    {category.name}
-                                </MenuItem>
-                            ))}
+                            {renderItems()}
                         </StyledSelect>
                     )}
                     <StyledBox>
@@ -184,6 +209,7 @@ export default function ModalAddTransaction() {
                                     variant="standart"
                                     inputFormat="dd.MM.yyyy"
                                     mask={'__.__.____'}
+                                    name={"transactionDate"}
                                     value={formik.values.transactionDate}
                                     onChange={handleDataChange}
                                     renderInput={params => (
@@ -201,6 +227,7 @@ export default function ModalAddTransaction() {
                     </StyledBox>
                     <StyledInput
                         placeholder="Comments"
+                        name="comment"
                         variant="standart"
                         type="text"
                         value={formik.values.comment}
