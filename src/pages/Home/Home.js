@@ -8,6 +8,7 @@ import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTr
 import Loader from '../../components/Loader/Loader';
 import { fetchTransactions } from '../../redux/transactions/transactionsSlice';
 import { getCategories } from '../../redux/categories/categoriesSlice';
+import { getCurrentUser } from '../../redux/auth/authAPI';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Home = () => {
 
     useEffect(() => {
         transactionHandler(transactionsAll, transactionsCategories);
+        dispatch(getCurrentUser());
         setLoading(false);
     }, [transactionsAll]);
 
