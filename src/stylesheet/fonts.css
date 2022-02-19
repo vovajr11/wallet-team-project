@@ -1,19 +1,26 @@
 @font-face {
-    font-family: "Abel";
-    src: url("../assets/fonts/Abel-Regular.woff") format("woff");
+    font-family: 'Abel';
+    src: url('../assets/fonts/Abel-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/Poppins-Regular.woff") format("woff");
+    font-family: 'Poppins';
+    src: url('../assets/fonts/Poppins-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/Poppins-Bold.woff") format("woff");
+    font-family: 'Poppins';
+    src: url('../assets/fonts/Poppins-Bold.woff') format('woff');
     font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'EncodeSansWide';
+    src: url('../assets/fonts/EncodeSansWide-400-Regular.ttf') format('woff');
+    font-weight: normal;
     font-style: normal;
 }
