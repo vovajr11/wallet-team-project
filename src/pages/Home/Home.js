@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -7,26 +6,17 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
 import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 import Loader from '../../components/Loader/Loader';
-import { fetchTransactions } from '../../redux/transactionsAll/transactionsAllAPI';
+import { fetchTransactions } from '../../redux/transactions/transactionsSlice';
+import { getCategories } from '../../redux/categories/categoriesSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
-    let transactionsAll = useSelector(
-        state => state.transactionsAll.transactions,
-    );
+    let transactionsAll = useSelector(state => state.transactions.items);
+    let transactionsCategories = useSelector(state => state.categories.items);
 
-    //
-    const URL = 'https://wallet.goit.ua/api/';
-
-    const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState();
     const [loading, setLoading] = useState(true);
 
-    const getTransactions = async () => {
-        const categories = await axios.get(`${URL}transaction-categories`);
-        transactionHandler(transactionsAll, categories.data);
-    };
-
-    //
     const transactionHandler = (transactionsArray, categoriesArray) => {
         const data = transactionsArray.map(item => {
             for (let i = 0; i < categoriesArray.length; i++) {
@@ -44,15 +34,18 @@ const Home = () => {
                     Date.parse(new Date(a.transactionDate)),
             );
         };
-
         setTransactions(sortTransactions);
         setLoading(false);
     };
 
     useEffect(() => {
+        dispatch(getCategories());
         dispatch(fetchTransactions());
-        getTransactions();
-    }, [transactions]);
+    }, [dispatch]);
+
+    useEffect(() => {
+        transactionHandler(transactionsAll, transactionsCategories);
+    }, [transactionsAll]);
 
     return (
         <>

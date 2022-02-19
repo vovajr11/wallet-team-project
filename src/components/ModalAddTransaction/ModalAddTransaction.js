@@ -42,18 +42,6 @@ export default function ModalAddTransaction() {
     const toggleClose = () => dispatch(setIsModalAddTransactionOpen(!open));
 
     const categories = useSelector(state => state.categories.items);
-    const filterArr = arr => arr.filter(value => value.type === 'EXPENSE');
-
-    const [income, setIncome] = useState({});
-    const [expenses, setExpenses] = useState(filterArr(categories));
-
-    const disp = async () => setExpenses(filterArr(categories));
-
-    useEffect(() => {
-        dispatch(getCategories());
-        setIncome(categories.find(value => value.type === 'INCOME'));
-        disp();
-    }, []);
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -81,14 +69,15 @@ export default function ModalAddTransaction() {
         }
         return resultObj;
     };
-
     const categoriesObj = filterCategoriesObj(categories);
 
     const [category, setCategory] = useState('');
+    const [date, setDate] = useState(new Date().toISOString());
 
-    const [value, setValue] = useState(new Date().toISOString());
-
-    console.log(value, 'value');
+    const handleCategoryChange = (setFieldValue, e) => {
+        setCategory(e.target.value);
+        setFieldValue('categoryId', e.target.value);
+    };
 
     return (
         <>
@@ -102,15 +91,16 @@ export default function ModalAddTransaction() {
             >
                 <Formik
                     initialValues={{
+                        isExpenseType: false,
                         transactionDate: '',
                         type: 'INCOME',
-                        categoryId: '063f1132-ba5d-42b4-951d-44011ca46262',
+                        categoryId: '',
                         comment: '',
                         amount: 0,
                     }}
-                    validationSchema={AddTransactionSchema}
+                    // validationSchema={AddTransactionSchema}
                     onSubmit={values => {
-                        dispatch(createTransaction(values));
+                        dispatch(createTransaction({ values, categoriesObj }));
                     }}
                 >
                     {({
@@ -120,6 +110,7 @@ export default function ModalAddTransaction() {
                         touched,
                         errors,
                         handleBlur,
+                        setFieldValue,
                     }) => (
                         <Form onSubmit={handleSubmit}>
                             <CloseModalBtn onClick={toggleClose} type="button">
@@ -139,7 +130,14 @@ export default function ModalAddTransaction() {
                                     <ToggleInput
                                         type="checkbox"
                                         name="type"
-                                        onChange={handleChange}
+                                        onChange={e => {
+                                            setFieldValue(
+                                                'isExpenseType',
+                                                e.target.checked,
+                                            );
+
+                                            setFieldValue('type', 'EXPENCE');
+                                        }}
                                         checked={values.isExpenseType}
                                     ></ToggleInput>
                                     <ToggleBackground>
@@ -166,7 +164,9 @@ export default function ModalAddTransaction() {
                                     displayEmpty
                                     name="category"
                                     value={category}
-                                    onChange={handleChange}
+                                    onChange={e =>
+                                        handleCategoryChange(setFieldValue, e)
+                                    }
                                     variant="standard"
                                     IconComponent={ExpandMore}
                                 >
@@ -197,11 +197,11 @@ export default function ModalAddTransaction() {
                                             inputFormat="dd.MM.yyyy"
                                             mask={'__.__.____'}
                                             name={'transactionDate'}
-                                            value={value}
+                                            value={date}
                                             onChange={newValue => {
                                                 values.transactionDate =
                                                     newValue;
-                                                setValue(newValue);
+                                                setDate(newValue);
                                             }}
                                             renderInput={params => (
                                                 <TextField

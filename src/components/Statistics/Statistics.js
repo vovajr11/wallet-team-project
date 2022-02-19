@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { default as Chart } from './Chart/Chart';
+import { default as TableStatistics } from './TableStatistics/TableStatistics';
+import { StatisticsContainer } from './Statistics.styles';
+import numberFormater from '../../logic/numberFormater';
+import { parseUniqueDate as parseDate } from '../../logic/parseUniqueDate';
+import colorsArr from './staticObj/colorsArr';
+import updateUrl from '../../logic/updateUrl';
+import { monthsObj } from './staticObj/montObject';
+import { getTransactionsSummary } from '../../redux/transactionsSummary/transactionsSummaryAPI';
+import { fetchTransactions } from '../../redux/transactions/transactionsSlice';
 
-
-import { default as Chart } from "./Chart/Chart";
-import { default as TableStatistics } from "./TableStatistics/TableStatistics";
-import { StatisticsContainer } from "./Statistics.styles";
-import numberFormater from "../../logic/numberFormater";
-import { parseUniqueDate as parseDate } from "../../logic/parseUniqueDate";
-import colorsArr from "./staticObj/colorsArr";
-import updateUrl from "../../logic/updateUrl";
-import { monthsObj } from "./staticObj/montObject";
-import { getTransactionsSummary } from "../../redux/transactionsSummary/transactionsSummaryAPI";
-import { fetchTransactions } from "../../redux/transactionsAll/transactionsAllAPI";
-
-
-const Statistics = (props) => {
+const Statistics = props => {
     const dispatch = useDispatch();
     let [month, setMonth] = useState(null);
     let [year, setYear] = useState(null);
     let [options, setOptions] = useState({ years: [] });
     let fetcher = useSelector(state => state.summary.transactions) || {};
-    let optionsAll = useSelector(state => state.transactionsAll.transactions) || [];
+    let optionsAll =
+        useSelector(state => state.transactionsAll.transactions) || [];
 
-    const fetchData = async (params) => {
+    const fetchData = async params => {
         dispatch(getTransactionsSummary({ params }));
     };
 
