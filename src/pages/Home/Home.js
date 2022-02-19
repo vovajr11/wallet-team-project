@@ -7,6 +7,7 @@ import DashboardMobile from '../../components/Dashboard/DashboardMobile';
 import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 import Loader from '../../components/Loader/Loader';
 import { fetchTransactions } from '../../redux/transactionsAll/transactionsAllAPI';
+
 import { getCategories } from '../../redux/categories/categoriesSlice';
 
 const Home = () => {
@@ -16,13 +17,11 @@ const Home = () => {
     );
     let transactionsCategories = useSelector(state => state.categories.items);
 
-    const [transactions, setTransactions] = useState();
+    const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const transactionHandler = (transactionsArray, categoriesArray) => {
-        console.log(transactionsAll, transactionsCategories);
-
-        const data = transactionsArray.map(item => {
+        const dataArray = transactionsArray.map(item => {
             for (let i = 0; i < categoriesArray.length; i++) {
                 if (item.categoryId === categoriesArray[i].id) {
                     let category = { category: categoriesArray[i].name };
@@ -31,15 +30,22 @@ const Home = () => {
             }
         });
 
-        const sortTransactions = () => {
-            return [...data].sort(
+        const sortAndFormatTransacions = () => {
+            const sorted = [...dataArray].sort(
                 (a, b) =>
                     Date.parse(new Date(b.transactionDate)) -
                     Date.parse(new Date(a.transactionDate)),
             );
+            const formated = [...sorted].map(transaction => {
+                const date = new Date(
+                    transaction.transactionDate,
+                ).toLocaleDateString();
+                return { ...transaction, transactionDate: date };
+            });
+            return formated;
         };
-        setTransactions(sortTransactions);
-        setLoading(false);
+
+        setTransactions(sortAndFormatTransacions);
     };
 
     useEffect(() => {
@@ -49,11 +55,16 @@ const Home = () => {
 
     useEffect(() => {
         transactionHandler(transactionsAll, transactionsCategories);
+        setLoading(false);
     }, [transactionsAll]);
 
     return (
         <>
-            {loading ? <Loader /> : <Component data={transactions} />}
+            {loading && transactions.length === 0 ? (
+                <Loader />
+            ) : (
+                <Component data={transactions} />
+            )}
             <ModalAddTransaction />
         </>
     );
