@@ -45,27 +45,24 @@ export default function ModalAddTransaction() {
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
     const handleClose = () => dispatch(setIsModalAddTransactionOpen(false));
     const handleOpen = () => {
-        dispatch(setIsModalAddTransactionOpen(true))
+        dispatch(setIsModalAddTransactionOpen(true));
     };
 
     const categories = useSelector(state => state.categories.items);
-    const filterArr = (arr) => arr.filter(value => value.type === 'EXPENSE');
+    const filterArr = arr => arr.filter(value => value.type === 'EXPENSE');
 
     const [income, setIncome] = useState({});
     const [expenses, setExpenses] = useState(filterArr(categories));
 
-
-    const disp = async () =>
-        setExpenses(filterArr(categories));
+    const disp = async () => setExpenses(filterArr(categories));
 
     useEffect(() => {
         dispatch(getCategories());
         setIncome(categories.find(value => value.type === 'INCOME'));
-        disp()
+        disp();
         console.log(expenses);
-        console.log("first", categories);
+        console.log('first', categories);
     }, []);
-
 
     const formik = useFormik({
         initialValues: {
@@ -78,16 +75,10 @@ export default function ModalAddTransaction() {
         },
         validationSchema: AddTransactionSchema,
         onSubmit: value => {
-            console.log(value)
+            console.log(value);
             // dispatch(createTransaction());
         },
     });
-
-    const handleClick = (e) => {
-        // e.target.value = "Selectedd";
-        console.log(e.target);
-        formik.handleChange();
-    }
 
     const handleInputChange = event => {
         formik.setFieldValue('isExpenseType', event.target.checked);
@@ -103,14 +94,31 @@ export default function ModalAddTransaction() {
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const renderItems = () => {
-        return categories.map(category => (
-            category.type === "EXPENSE" ?
-                <MenuItem style={{ fontFamily: `"Abel",sans-serif` }} value={category.name} key={category.id}>
+        return categories.map(category =>
+            category.type === 'EXPENSE' ? (
+                <MenuItem
+                    style={{ fontFamily: `"Abel",sans-serif` }}
+                    value={category.name}
+                    key={category.id}
+                >
                     {category.name}
                 </MenuItem>
-                : null
-        ))
+            ) : null,
+        );
     };
+
+    const [category, setCategory] = useState('');
+
+    const handleChange = e => {
+        // e.target.value = "Selectedd";
+        console.log(e.target);
+
+        setCategory(e.target.value);
+
+        // formik.handleChange();
+    };
+
+    console.log(formik.values.categoryId, 'formik.values.categoryId');
 
     return (
         <>
@@ -165,22 +173,11 @@ export default function ModalAddTransaction() {
                         <StyledSelect
                             MenuProps={MenuProps}
                             displayEmpty
-                            name='category'
-                            value={formik.values.categoryId}
-                            // onChange={formik.handleChange}
-                            onChange={handleClick}
+                            name="category"
+                            value={category}
+                            onChange={handleChange}
                             variant="standard"
                             IconComponent={ExpandMore}
-                            renderValue={selected => {
-                                if (selected.length === 0) {
-                                    return (
-                                        <Placeholder>
-                                            Select a category
-                                        </Placeholder>
-                                    );
-                                }
-                                return selected;
-                            }}
                         >
                             {renderItems()}
                         </StyledSelect>
@@ -209,7 +206,7 @@ export default function ModalAddTransaction() {
                                     variant="standart"
                                     inputFormat="dd.MM.yyyy"
                                     mask={'__.__.____'}
-                                    name={"transactionDate"}
+                                    name={'transactionDate'}
                                     value={formik.values.transactionDate}
                                     onChange={handleDataChange}
                                     renderInput={params => (
