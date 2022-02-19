@@ -107,6 +107,20 @@ export default function ModalAddTransaction() {
         );
     };
 
+    const filterCategoriesObj = (arr) => {
+        const resultObj = {};
+        const nameArr = arr.map(elem =>
+            elem.name
+        );
+        const idArr = arr.map(elem => elem.id);
+        for (let i = 0; i < arr.length; i++) {
+            resultObj[nameArr[i]] = idArr[i];
+        }
+        return resultObj;
+    }
+
+    const categoriesObj = filterCategoriesObj(categories);
+
     const [category, setCategory] = useState('');
 
     const handleChange = e => {
@@ -114,6 +128,7 @@ export default function ModalAddTransaction() {
         console.log(e.target);
 
         setCategory(e.target.value);
+        console.log(categoriesObj[e.target.value]);
 
         // formik.handleChange();
     };
