@@ -92,14 +92,15 @@ export default function ModalAddTransaction() {
                 <Formik
                     initialValues={{
                         isExpenseType: false,
-                        transactionDate: '',
+                        transactionDate: date,
                         type: 'INCOME',
-                        categoryId: '',
+                        categoryId: 'Доход',
                         comment: '',
                         amount: 0,
                     }}
-                    // validationSchema={AddTransactionSchema}
+                    validationSchema={AddTransactionSchema}
                     onSubmit={values => {
+                        console.log(values, 'values');
                         dispatch(createTransaction({ values, categoriesObj }));
                     }}
                 >
@@ -136,7 +137,18 @@ export default function ModalAddTransaction() {
                                                 e.target.checked,
                                             );
 
-                                            setFieldValue('type', 'EXPENCE');
+                                            if (e.target.checked) {
+                                                setFieldValue(
+                                                    'type',
+                                                    'EXPENSE',
+                                                );
+                                            } else {
+                                                setFieldValue('type', 'INCOME');
+                                                setFieldValue(
+                                                    'categoryId',
+                                                    categories[10].name,
+                                                );
+                                            }
                                         }}
                                         checked={values.isExpenseType}
                                     ></ToggleInput>
