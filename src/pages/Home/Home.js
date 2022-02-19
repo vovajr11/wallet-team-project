@@ -6,15 +6,12 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
 import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 import Loader from '../../components/Loader/Loader';
-import { fetchTransactions } from '../../redux/transactionsAll/transactionsAllAPI';
-
+import { fetchTransactions } from '../../redux/transactions/transactionsSlice';
 import { getCategories } from '../../redux/categories/categoriesSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
-    let transactionsAll = useSelector(
-        state => state.transactionsAll.transactions,
-    );
+    let transactionsAll = useSelector(state => state.transactions.items);
     let transactionsCategories = useSelector(state => state.categories.items);
 
     const [transactions, setTransactions] = useState([]);

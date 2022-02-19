@@ -7,6 +7,7 @@ import { GlobalStyles } from './GlobalStyles';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import AuthRoute from './Routes/AuthRoute';
 import { Loader } from '../components/Loader';
+import { Notification } from './Notification';
 
 const HomePage = lazy(() =>
     import('./../pages/Home/Home'),
@@ -45,6 +46,7 @@ const App = () => {
     return (
         <>
             <Global styles={GlobalStyles} />
+            <Notification />
             <Suspense fallback={<Loader fullscreen />}>
                 <BrowserRouter>
                     <Routes>

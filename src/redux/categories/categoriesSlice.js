@@ -5,14 +5,11 @@ axios.defaults.baseURL = 'https://wallet.goit.ua/api';
 
 export const getCategories = createAsyncThunk(
     'categories/getCategory',
-    async (credentials, { dispatch, rejectWithValue }) => {
+    async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.get(
-                '/transaction-categories',
-                credentials,
+                '/transaction-categories'
             );
-            
-
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -26,11 +23,10 @@ const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
     extraReducers: builder => {
-      builder.addCase(getCategories.fulfilled, (state, {payload}) => {
-        state.items = payload;
-      })
-    }
-      
+        builder.addCase(getCategories.fulfilled, (state, { payload }) => {
+            state.items = payload;
+        });
+    },
 });
 
 export const categoriesReducer = categoriesSlice.reducer;
