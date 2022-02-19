@@ -23,30 +23,23 @@ import { ReactComponent as SubtractIcon } from '../../assets/svgs/subtract.svg';
 import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import DateRangeIcon from '@mui/icons-material/DateRange';
-import { useFormik } from 'formik';
+import { useFormik, Formik } from 'formik';
 import DatePicker from '@mui/lab/DatePicker';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
+import { MenuItem, TextField, useMediaQuery } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
 import { MenuProps } from './Select/select';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import AddTransactionSchema from './validation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
 import { getCategories } from '../../redux/categories/categoriesSlice';
-import { ca } from 'date-fns/locale';
 
 export default function ModalAddTransaction() {
     const dispatch = useDispatch();
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
-    const handleClose = () => dispatch(setIsModalAddTransactionOpen(false));
-    const handleOpen = () => {
-        dispatch(setIsModalAddTransactionOpen(true));
-    };
+    const toggleClose = () => dispatch(setIsModalAddTransactionOpen(!open));
 
     const categories = useSelector(state => state.categories.items);
     const filterArr = arr => arr.filter(value => value.type === 'EXPENSE');
@@ -60,35 +53,7 @@ export default function ModalAddTransaction() {
         dispatch(getCategories());
         setIncome(categories.find(value => value.type === 'INCOME'));
         disp();
-        console.log(expenses);
-        console.log('first', categories);
     }, []);
-
-    const formik = useFormik({
-        initialValues: {
-            isExpenseType: false,
-            transactionDate: new Date().toISOString,
-            type: 'INCOME',
-            categoryId: '',
-            comment: '',
-            amount: 0,
-        },
-        validationSchema: AddTransactionSchema,
-        onSubmit: value => {
-            console.log(value);
-            // dispatch(createTransaction());
-        },
-    });
-
-    const handleInputChange = event => {
-        formik.setFieldValue('isExpenseType', event.target.checked);
-        const categoryId = event.target.checked ? '' : expenses.id;
-        formik.setFieldValue('categoryId', categoryId);
-    };
-
-    const handleDataChange = date => {
-        formik.setFieldValue('transactionDate', date.toISOString());
-    };
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -107,151 +72,167 @@ export default function ModalAddTransaction() {
         );
     };
 
-    const filterCategoriesObj = (arr) => {
+    const filterCategoriesObj = arr => {
         const resultObj = {};
-        const nameArr = arr.map(elem =>
-            elem.name
-        );
+        const nameArr = arr.map(elem => elem.name);
         const idArr = arr.map(elem => elem.id);
         for (let i = 0; i < arr.length; i++) {
             resultObj[nameArr[i]] = idArr[i];
         }
         return resultObj;
-    }
+    };
 
     const categoriesObj = filterCategoriesObj(categories);
 
     const [category, setCategory] = useState('');
 
-    const handleChange = e => {
-        // e.target.value = "Selectedd";
-        console.log(e.target);
+    const [value, setValue] = useState(new Date().toISOString());
 
-        setCategory(e.target.value);
-        console.log(categoriesObj[e.target.value]);
-
-        // formik.handleChange();
-    };
-
-    console.log(formik.values.categoryId, 'formik.values.categoryId');
+    console.log(value, 'value');
 
     return (
         <>
-            <AddTransactionBtn onClick={handleOpen}>
+            <AddTransactionBtn onClick={toggleClose}>
                 <AddIcon />
             </AddTransactionBtn>
             <StyledDialog
                 open={open}
-                onClose={handleClose}
+                onClose={toggleClose}
                 fullScreen={fullScreen}
             >
-                <Form onSubmit={formik.handleSubmit}>
-                    <CloseModalBtn onClick={handleClose} type="button">
-                        <CloseIcon />
-                    </CloseModalBtn>
-                    <DialogTitle>Add transaction</DialogTitle>
+                <Formik
+                    initialValues={{
+                        transactionDate: '',
+                        type: 'INCOME',
+                        categoryId: '063f1132-ba5d-42b4-951d-44011ca46262',
+                        comment: '',
+                        amount: 0,
+                    }}
+                    validationSchema={AddTransactionSchema}
+                    onSubmit={values => {
+                        dispatch(createTransaction(values));
+                    }}
+                >
+                    {({
+                        values,
+                        handleChange,
+                        handleSubmit,
+                        touched,
+                        errors,
+                        handleBlur,
+                    }) => (
+                        <Form onSubmit={handleSubmit}>
+                            <CloseModalBtn onClick={toggleClose} type="button">
+                                <CloseIcon />
+                            </CloseModalBtn>
+                            <DialogTitle>Add transaction</DialogTitle>
 
-                    <Toggler>
-                        <ToggleP
-                            className={
-                                !formik.values.isExpenseType ? 'green' : 'grey'
-                            }
-                        >
-                            Income
-                        </ToggleP>
-                        <ToggleLabel>
-                            <ToggleInput
-                                type="checkbox"
-                                name="type"
-                                onChange={handleInputChange}
-                                checked={formik.values.isExpenseType}
-                            ></ToggleInput>
-                            <ToggleBackground>
-                                <ToggleBtn>
-                                    {!formik.values.isExpenseType ? (
-                                        <AddIcon />
-                                    ) : (
-                                        <SubtractIcon />
-                                    )}
-                                </ToggleBtn>
-                            </ToggleBackground>
-                        </ToggleLabel>
-                        <ToggleP
-                            className={
-                                formik.values.isExpenseType ? 'pink' : 'grey'
-                            }
-                        >
-                            Expences
-                        </ToggleP>
-                    </Toggler>
-                    {formik.values.isExpenseType && (
-                        <StyledSelect
-                            MenuProps={MenuProps}
-                            displayEmpty
-                            name="category"
-                            value={category}
-                            onChange={handleChange}
-                            variant="standard"
-                            IconComponent={ExpandMore}
-                        >
-                            {renderItems()}
-                        </StyledSelect>
-                    )}
-                    <StyledBox>
-                        <TextField
-                            name="amount"
-                            id="amount"
-                            placeholder="0.00"
-                            variant="standard"
-                            type="number"
-                            value={formik.values.amount}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={
-                                formik.touched.amount &&
-                                Boolean(formik.errors.amount)
-                            }
-                            helperText={
-                                formik.touched.amount && formik.errors.amount
-                            }
-                        />
-                        <ThemeProvider theme={theme}>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DatePicker
-                                    variant="standart"
-                                    inputFormat="dd.MM.yyyy"
-                                    mask={'__.__.____'}
-                                    name={'transactionDate'}
-                                    value={formik.values.transactionDate}
-                                    onChange={handleDataChange}
-                                    renderInput={params => (
-                                        <TextField
-                                            variant="standard"
-                                            {...params}
-                                        />
-                                    )}
-                                    components={{
-                                        OpenPickerIcon: DateRangeIcon,
-                                    }}
+                            <Toggler>
+                                <ToggleP
+                                    className={
+                                        !values.isExpenseType ? 'green' : 'grey'
+                                    }
+                                >
+                                    Income
+                                </ToggleP>
+                                <ToggleLabel>
+                                    <ToggleInput
+                                        type="checkbox"
+                                        name="type"
+                                        onChange={handleChange}
+                                        checked={values.isExpenseType}
+                                    ></ToggleInput>
+                                    <ToggleBackground>
+                                        <ToggleBtn>
+                                            {!values.isExpenseType ? (
+                                                <AddIcon />
+                                            ) : (
+                                                <SubtractIcon />
+                                            )}
+                                        </ToggleBtn>
+                                    </ToggleBackground>
+                                </ToggleLabel>
+                                <ToggleP
+                                    className={
+                                        values.isExpenseType ? 'pink' : 'grey'
+                                    }
+                                >
+                                    Expences
+                                </ToggleP>
+                            </Toggler>
+                            {values.isExpenseType && (
+                                <StyledSelect
+                                    MenuProps={MenuProps}
+                                    displayEmpty
+                                    name="category"
+                                    value={category}
+                                    onChange={handleChange}
+                                    variant="standard"
+                                    IconComponent={ExpandMore}
+                                >
+                                    {renderItems()}
+                                </StyledSelect>
+                            )}
+                            <StyledBox>
+                                <TextField
+                                    name="amount"
+                                    id="amount"
+                                    placeholder="0.00"
+                                    variant="standard"
+                                    type="number"
+                                    value={values.amount}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={
+                                        touched.amount && Boolean(errors.amount)
+                                    }
+                                    helperText={touched.amount && errors.amount}
                                 />
-                            </LocalizationProvider>
-                        </ThemeProvider>
-                    </StyledBox>
-                    <StyledInput
-                        placeholder="Comments"
-                        name="comment"
-                        variant="standart"
-                        type="text"
-                        value={formik.values.comment}
-                        onChange={formik.handleChange}
-                    />
-                    <StyledContainer>
-                        <GreenBtn type="submit">Add</GreenBtn>
-                        <WhiteBtn type="button" onClick={handleClose}>
-                            Cancel
-                        </WhiteBtn>
-                    </StyledContainer>
-                </Form>
+                                <ThemeProvider theme={theme}>
+                                    <LocalizationProvider
+                                        dateAdapter={AdapterDateFns}
+                                    >
+                                        <DatePicker
+                                            variant="standart"
+                                            inputFormat="dd.MM.yyyy"
+                                            mask={'__.__.____'}
+                                            name={'transactionDate'}
+                                            value={value}
+                                            onChange={newValue => {
+                                                values.transactionDate =
+                                                    newValue;
+                                                setValue(newValue);
+                                            }}
+                                            renderInput={params => (
+                                                <TextField
+                                                    variant="standard"
+                                                    {...params}
+                                                />
+                                            )}
+                                            components={{
+                                                OpenPickerIcon: DateRangeIcon,
+                                            }}
+                                        />
+                                    </LocalizationProvider>
+                                </ThemeProvider>
+                            </StyledBox>
+                            <StyledInput
+                                placeholder="Comments"
+                                name="comment"
+                                variant="standart"
+                                type="text"
+                                value={values.comment}
+                                onChange={handleChange}
+                            />
+                            <StyledContainer>
+                                <GreenBtn type="submit">Add</GreenBtn>
+                                <WhiteBtn type="button" onClick={toggleClose}>
+                                    Cancel
+                                </WhiteBtn>
+                            </StyledContainer>
+                        </Form>
+                    )}
+                </Formik>
             </StyledDialog>
         </>
     );
