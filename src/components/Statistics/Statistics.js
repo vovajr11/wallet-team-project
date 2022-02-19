@@ -18,7 +18,7 @@ const Statistics = props => {
     let [options, setOptions] = useState({ years: [] });
     let fetcher = useSelector(state => state.summary.transactions) || {};
     let optionsAll =
-        useSelector(state => state.transactionsAll.transactions) || [];
+        useSelector(state => state.transactions.items) || [];
 
     const fetchData = async params => {
         dispatch(getTransactionsSummary({ params }));
