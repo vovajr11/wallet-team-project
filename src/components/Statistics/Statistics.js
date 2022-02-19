@@ -12,6 +12,7 @@ import colorsArr from "./staticObj/colorsArr";
 import updateUrl from "../../logic/updateUrl";
 import { monthsObj } from "./staticObj/montObject";
 import { getTransactionsSummary } from "../../redux/transactionsSummary/transactionsSummaryAPI";
+import { fetchTransactions } from "../../redux/transactionsAll/transactionsAllAPI";
 
 
 const Statistics = (props) => {
@@ -20,52 +21,53 @@ const Statistics = (props) => {
     let [year, setYear] = useState(null);
     let [options, setOptions] = useState({ years: [] });
     let fetcher = useSelector(state => state.summary.transactions) || {};
-
-    const transactionsForPeriod = `https://wallet.goit.ua/api/transactions-summary`;
-    const summaryTransactionsURL = `https://wallet.goit.ua/api/transactions`;
+    let optionsAll = useSelector(state => state.transactionsAll.transactions) || [];
 
     const fetchData = async (params) => {
         dispatch(getTransactionsSummary({ params }));
     };
 
-    const setYearOnClick = (value) => {
+    const setYearOnClick = value => {
         setYear(value);
-    }
+    };
 
-    const setMonthOnClick = (value) => {
+    const setMonthOnClick = value => {
         setMonth(monthsObj[value]);
-    }
+    };
 
-    const handleOptions = (arr) => {
-        const years = parseDate("year", arr)
+    const handleOptions = arr => {
+        const years = parseDate('year', arr);
         setOptions({ years });
-    }
+    };
 
     useEffect(() => {
         const fetchTransactions = async () => {
             let obj = updateUrl(year, month);
             await fetchData(obj);
-        }
+        };
         fetchTransactions();
     }, [year, month, dispatch]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await axios.get(summaryTransactionsURL)
-                .then(response => handleOptions(response.data))
-        }
-        fetchData();
-    }, []);
+        dispatch(fetchTransactions());
+        handleOptions(optionsAll);
+    }, [dispatch]);
 
     return (
         <section>
-            <h2>
-                Statistics
-            </h2>
+            <h2>Statistics</h2>
             <StatisticsContainer>
                 <Chart
-                    transactionsArr={fetcher.categoriesSummary ? fetcher.categoriesSummary : []}
-                    totalForPeriod={fetcher.periodTotal ? numberFormater(fetcher.periodTotal) : 0}
+                    transactionsArr={
+                        fetcher.categoriesSummary
+                            ? fetcher.categoriesSummary
+                            : []
+                    }
+                    totalForPeriod={
+                        fetcher.periodTotal
+                            ? numberFormater(fetcher.periodTotal)
+                            : 0
+                    }
                     bgColors={colorsArr}
                 />
                 <TableStatistics
@@ -77,7 +79,7 @@ const Statistics = (props) => {
                 />
             </StatisticsContainer>
         </section>
-    )
-}
+    );
+};
 
 export default Statistics;
