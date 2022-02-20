@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     AddTransactionBtn,
     StyledDialog,
@@ -23,7 +23,7 @@ import { ReactComponent as SubtractIcon } from '../../assets/svgs/subtract.svg';
 import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import DateRangeIcon from '@mui/icons-material/DateRange';
-import { useFormik, Formik } from 'formik';
+import { Formik } from 'formik';
 import DatePicker from '@mui/lab/DatePicker';
 import { MenuItem, TextField, useMediaQuery } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -34,7 +34,6 @@ import AddTransactionSchema from './validation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
 import { createTransaction } from '../../redux/transactions/transactionsSlice';
-import { getCategories } from '../../redux/categories/categoriesSlice';
 
 export default function ModalAddTransaction() {
     const dispatch = useDispatch();
@@ -42,6 +41,8 @@ export default function ModalAddTransaction() {
     const toggleClose = () => dispatch(setIsModalAddTransactionOpen(!open));
 
     const categories = useSelector(state => state.categories.items);
+    const [category, setCategory] = useState('');
+    const [date, setDate] = useState(new Date().toISOString());
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -71,8 +72,6 @@ export default function ModalAddTransaction() {
     };
     const categoriesObj = filterCategoriesObj(categories);
 
-    const [category, setCategory] = useState('');
-    const [date, setDate] = useState(new Date().toISOString());
 
     const handleCategoryChange = (setFieldValue, e) => {
         setCategory(e.target.value);
@@ -181,6 +180,16 @@ export default function ModalAddTransaction() {
                                     }
                                     variant="standard"
                                     IconComponent={ExpandMore}
+                                    renderValue={selected => {
+                                        if (selected.length === 0) {
+                                            return (
+                                                <Placeholder>
+                                                    Select a category
+                                                </Placeholder>
+                                            );
+                                        }
+                                        return selected;
+                                    }}
                                 >
                                     {renderItems()}
                                 </StyledSelect>
@@ -224,6 +233,10 @@ export default function ModalAddTransaction() {
                                             components={{
                                                 OpenPickerIcon: DateRangeIcon,
                                             }}
+                                            error={
+                                                touched.transactionDate && Boolean(errors.transactionDate)
+                                            }
+                                            helperText={touched.transactionDate && errors.transactionDate}
                                         />
                                     </LocalizationProvider>
                                 </ThemeProvider>
