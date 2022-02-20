@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Global } from '@emotion/react';
 import { getCurrentUser } from '../redux/auth/authAPI';
