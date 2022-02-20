@@ -14,7 +14,7 @@ export const TransactionCard = styled.ul`
     list-style: none;
     background-color: white;
     position: relative;
-    font-family: ${font.secondary};
+    font-family: ${font.thirdly};
     border-radius: 10px;
     margin-bottom: 10px;
     overflow: hidden;
@@ -27,7 +27,7 @@ export const TransactionCard = styled.ul`
         top: 0;
         left: 0;
         background-color: ${props =>
-        props.theme === 'EXPENSE' ? color.red : color.green};
+            props.theme === 'EXPENSE' ? color.red : color.green};
     }
     li {
         span:first-of-type {
@@ -66,7 +66,7 @@ export const Table = styled.table`
     border-spacing: 0px;
 
     text-align: left;
-    font-family: ${font.secondary} !important;
+    font-family: ${font.secondary};
     font-weight: 400;
 
     thead {
@@ -93,7 +93,7 @@ export const Table = styled.table`
     }
 
     tbody {
-        
+        font-family: ${font.thirdly};
         letter-spacing: -0.4px;
         td {
             padding: 15px 10px 19px;
