@@ -21,7 +21,7 @@ export const Table = styled.table`
     border-spacing: 0px;
     border-radius: 30px;
     overflow: hidden;
-    margin: 30px 0 0px auto;
+    margin: 0px 0 0px auto;
 
     background-color: ${color.blue};
     background-image: url(${CurrencyImg});

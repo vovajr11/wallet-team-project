@@ -2,13 +2,9 @@ import * as Yup from 'yup';
 
 const AddTransactionSchema = Yup.object().shape({
     amount: Yup.number()
-        .positive("Amount can't be negative")
+        .positive('Amount must be')
         .required('This field is required'),
-    transactionDate: Yup.string().required('This field is required'),
-    categoryId: Yup.string().when('isExpenseType', {
-        is: true,
-        then: Yup.string().required('Please choose a category'),
-    }),
+    transactionDate: Yup.string().required('This field is required')
 });
 
 export default AddTransactionSchema;
