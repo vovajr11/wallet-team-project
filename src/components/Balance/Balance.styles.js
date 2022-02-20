@@ -6,6 +6,7 @@ export const BalanceWrap = styled.div`
     width: 100%;
     background-color: white;
     padding: 8px 40px;
+    margin-bottom: 30px;
     border-radius: 30px;
     h3 {
         color: ${color.greyBalance};
@@ -20,5 +21,8 @@ export const BalanceWrap = styled.div`
         span {
             font-weight: 400;
         }
+    }
+    @media screen and (${device.tablet}) {
+        margin-bottom: 0;
     }
 `;
