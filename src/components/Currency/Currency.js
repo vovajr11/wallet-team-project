@@ -1,7 +1,7 @@
-import { Table, Warning } from './Currency.styles';
 import { useState, useEffect } from 'react';
+
+import { Table, Warning } from './Currency.styles';
 import Loader from '../Loader/Loader';
-import axios from 'axios';
 
 const Currency = () => {
     const ONE_HOUR_IN_SECONDS = 1 * 60 * 60 * 1000;
