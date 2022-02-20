@@ -29,6 +29,7 @@ export const modal = {
 export const font = {
     primary: 'Poppins, Arial, sans-serif',
     secondary: 'Abel, Arial, sans-serif',
+    thirdly: 'Encode, Arial, sans-serif',
 };
 
 export const color = {

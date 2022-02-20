@@ -15,10 +15,10 @@ const authPersistConfig = {
 
 const combinedReducer = combineReducers({
     session: persistReducer(authPersistConfig, authSlice.reducer),
-    transaction: transactionReducer,
+    transactions: transactionReducer,
     summary: summaryReducer,
     global: globalReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
 });
 
 const rootReducer = (state, action) => {

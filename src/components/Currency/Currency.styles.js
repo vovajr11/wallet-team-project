@@ -4,6 +4,12 @@ import CurrencyImg from '../../assets/svgs/currency.svg';
 
 import { device, color, font } from '../GlobalStyles';
 
+export const Warning = styled.p`
+    color: ${color.blue};
+    padding-top: 30px;
+    text-align: center;
+    font-size: 24px;
+`;
 export const Table = styled.table`
     font-family: ${font.secondary};
     font-weight: 400;

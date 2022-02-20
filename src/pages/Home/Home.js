@@ -1,26 +1,24 @@
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 import Dashboard from '../../components/Dashboard/Dashboard';
 import DashboardMobile from '../../components/Dashboard/DashboardMobile';
 import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
 import Loader from '../../components/Loader/Loader';
-
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { fetchTransactions } from '../../redux/transactions/transactionsSlice';
+import { getCategories } from '../../redux/categories/categoriesSlice';
 
 const Home = () => {
-    const URL = 'https://wallet.goit.ua/api/';
+    const dispatch = useDispatch();
+    let transactionsAll = useSelector(state => state.transactions.items);
+    let transactionsCategories = useSelector(state => state.categories.items);
 
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const getTransactions = async () => {
-        const trans = await axios.get(`${URL}transactions`);
-        const categories = await axios.get(`${URL}transaction-categories`);
-        transactionHandler(trans.data, categories.data);
-    };
-
     const transactionHandler = (transactionsArray, categoriesArray) => {
-        const data = transactionsArray.map(item => {
+        const dataArray = transactionsArray.map(item => {
             for (let i = 0; i < categoriesArray.length; i++) {
                 if (item.categoryId === categoriesArray[i].id) {
                     let category = { category: categoriesArray[i].name };
@@ -29,25 +27,41 @@ const Home = () => {
             }
         });
 
-        const sortTransactions = () => {
-            return [...data].sort(
+        const sortAndFormatTransacions = () => {
+            const sorted = [...dataArray].sort(
                 (a, b) =>
                     Date.parse(new Date(b.transactionDate)) -
                     Date.parse(new Date(a.transactionDate)),
             );
+            const formated = [...sorted].map(transaction => {
+                const date = new Date(
+                    transaction.transactionDate,
+                ).toLocaleDateString();
+                return { ...transaction, transactionDate: date };
+            });
+            return formated;
         };
 
-        setTransactions(sortTransactions);
-        setLoading(false);
+        setTransactions(sortAndFormatTransacions);
     };
 
     useEffect(() => {
-        getTransactions();
-    }, []);
+        dispatch(getCategories());
+        dispatch(fetchTransactions());
+    }, [dispatch]);
+
+    useEffect(() => {
+        transactionHandler(transactionsAll, transactionsCategories);
+        setLoading(false);
+    }, [transactionsAll]);
 
     return (
         <>
-            {loading ? <Loader /> : <Component data={transactions} />}
+            {loading && transactions.length === 0 ? (
+                <Loader />
+            ) : (
+                <Component data={transactions} />
+            )}
             <ModalAddTransaction />
         </>
     );

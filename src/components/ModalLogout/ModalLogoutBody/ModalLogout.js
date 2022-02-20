@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { signOutUser } from '../../../redux/auth/authAPI';
+import { setIsModalLogoutOpen } from '../../../redux/global/globalSlice';
 
 import { ModalLogoutBtn } from '../ModalLogoutBtn';
 import Modal from '@mui/material/Modal';
@@ -16,9 +17,16 @@ import {
 
 export default function ModalLogout() {
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
     const dispatch = useDispatch();
+
+    const handleOpen = () => {
+        setOpen(true);
+        dispatch(setIsModalLogoutOpen(true));
+    };
+    const handleClose = () => {
+        setOpen(false);
+        dispatch(setIsModalLogoutOpen(false));
+    };
 
     return (
         <>

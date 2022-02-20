@@ -1,4 +1,4 @@
-import { Table } from './Currency.styles';
+import { Table, Warning } from './Currency.styles';
 import { useState, useEffect } from 'react';
 import Loader from '../Loader/Loader';
 import axios from 'axios';
@@ -10,10 +10,9 @@ const Currency = () => {
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        await fetch
-            (
-                'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
-            )
+        await fetch(
+            'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11',
+        )
             .then(response => {
                 return response.json();
             })
@@ -66,24 +65,28 @@ const Currency = () => {
 const TableC = ({ data }) => {
     return (
         <>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Currency</th>
-                        <th>Purchase</th>
-                        <th>Sale</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {[...data].map(currency => (
-                        <tr key={currency.ccy}>
-                            <td>{currency.ccy}</td>
-                            <td>{(+currency.buy).toFixed(2)}</td>
-                            <td>{(+currency.sale).toFixed(2)}</td>
+            {data !== undefined ? (
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Purchase</th>
+                            <th>Sale</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {[...data].map(currency => (
+                            <tr key={currency.ccy}>
+                                <td>{currency.ccy}</td>
+                                <td>{(+currency.buy).toFixed(2)}</td>
+                                <td>{(+currency.sale).toFixed(2)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            ) : (
+                <Warning>Sorry, data isn't available right now</Warning>
+            )}
         </>
     );
 };
