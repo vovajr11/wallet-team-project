@@ -5,10 +5,6 @@ const AddTransactionSchema = Yup.object().shape({
         .positive("Amount can't be negative")
         .required('This field is required'),
     date: Yup.string().required('This field is required').max(new Date()),
-    categoryId: Yup.string().when('isExpenseType', {
-        is: true,
-        then: Yup.string().required('Please choose a category'),
-    }),
 });
 
 export default AddTransactionSchema;
