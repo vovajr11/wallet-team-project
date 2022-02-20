@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
-import { InputAdornment } from '@mui/material';
+import { InputAdornment, FormControl } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
@@ -14,7 +14,6 @@ import {
     LogoContainer,
     FormContainer,
     StyledForm,
-    StyledFormControl,
     StyledInput,
 } from '../Forms.styles';
 import { ReactComponent as LogoIcon } from '../../../assets/svgs/logo.svg';
@@ -43,7 +42,7 @@ const RegisterForm = () => {
             >
                 {({ values, handleChange, handleSubmit }) => (
                     <StyledForm onSubmit={handleSubmit}>
-                        <StyledFormControl variant="standard">
+                        <FormControl variant="standard">
                             <StyledInput
                                 value={values.email}
                                 onChange={handleChange}
@@ -56,10 +55,10 @@ const RegisterForm = () => {
                                     </InputAdornment>
                                 }
                             />
-                        </StyledFormControl>
+                        </FormControl>
                         <ErrorMessage name="email" />
 
-                        <StyledFormControl variant="standard">
+                        <FormControl variant="standard">
                             <StyledInput
                                 value={values.password}
                                 onChange={e => {
@@ -75,10 +74,10 @@ const RegisterForm = () => {
                                     </InputAdornment>
                                 }
                             />
-                        </StyledFormControl>
+                        </FormControl>
                         <ErrorMessage name="password" />
 
-                        <StyledFormControl variant="standard">
+                        <FormControl variant="standard">
                             <StyledInput
                                 value={values.passwordConfirmation}
                                 onChange={handleChange}
@@ -91,12 +90,12 @@ const RegisterForm = () => {
                                     </InputAdornment>
                                 }
                             />
-                        </StyledFormControl>
+                        </FormControl>
                         <ErrorMessage name="passwordConfirmation" />
 
                         <PasswordStrengthBar value={password} />
 
-                        <StyledFormControl variant="standard">
+                        <FormControl variant="standard">
                             <StyledInput
                                 value={values.username}
                                 onChange={handleChange}
@@ -109,7 +108,7 @@ const RegisterForm = () => {
                                     </InputAdornment>
                                 }
                             />
-                        </StyledFormControl>
+                        </FormControl>
                         <ErrorMessage name="username" />
 
                         <GreenBtn type="submit" style={{ marginTop: '50px' }}>
