@@ -29,7 +29,7 @@ import { MenuItem, TextField, useMediaQuery } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
-import { MenuProps } from './Select/select';
+import { MenuProps } from './Select/Select';
 import AddTransactionSchema from './validation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
@@ -39,11 +39,9 @@ export default function ModalAddTransaction() {
     const dispatch = useDispatch();
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
     const toggleClose = () => dispatch(setIsModalAddTransactionOpen(!open));
-
     const categories = useSelector(state => state.categories.items);
     const [category, setCategory] = useState('');
     const [date, setDate] = useState(new Date().toISOString());
-
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -72,7 +70,6 @@ export default function ModalAddTransaction() {
     };
     const categoriesObj = filterCategoriesObj(categories);
 
-
     const handleCategoryChange = (setFieldValue, e) => {
         setCategory(e.target.value);
         setFieldValue('categoryId', e.target.value);
@@ -99,7 +96,6 @@ export default function ModalAddTransaction() {
                     }}
                     validationSchema={AddTransactionSchema}
                     onSubmit={values => {
-                        console.log(values, 'values');
                         dispatch(createTransaction({ values, categoriesObj }));
                     }}
                 >
@@ -234,9 +230,13 @@ export default function ModalAddTransaction() {
                                                 OpenPickerIcon: DateRangeIcon,
                                             }}
                                             error={
-                                                touched.transactionDate && Boolean(errors.transactionDate)
+                                                touched.transactionDate &&
+                                                Boolean(errors.transactionDate)
                                             }
-                                            helperText={touched.transactionDate && errors.transactionDate}
+                                            helperText={
+                                                touched.transactionDate &&
+                                                errors.transactionDate
+                                            }
                                         />
                                     </LocalizationProvider>
                                 </ThemeProvider>
