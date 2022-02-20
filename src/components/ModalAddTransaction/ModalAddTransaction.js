@@ -1,4 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import { Formik } from 'formik';
+import DatePicker from '@mui/lab/DatePicker';
+import { MenuItem, TextField, useMediaQuery } from '@mui/material';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
+import { MenuProps } from './Select/select';
+import AddTransactionSchema from './validation';
+import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
+import { createTransaction } from '../../redux/transactions/transactionsSlice';
+import { GreenBtn, WhiteBtn } from '../StyledComponents';
+import { ReactComponent as AddIcon } from '../../assets/svgs/plus.svg';
+import { ReactComponent as SubtractIcon } from '../../assets/svgs/subtract.svg';
+import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
 import {
     AddTransactionBtn,
     StyledDialog,
@@ -17,32 +34,14 @@ import {
     StyledInput,
     StyledContainer,
 } from './ModalAddTransaction.styles';
-import { GreenBtn, WhiteBtn } from '../StyledComponents';
-import { ReactComponent as AddIcon } from '../../assets/svgs/plus.svg';
-import { ReactComponent as SubtractIcon } from '../../assets/svgs/subtract.svg';
-import { ReactComponent as CloseIcon } from '../../assets/svgs/close.svg';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import DateRangeIcon from '@mui/icons-material/DateRange';
-import { useFormik, Formik } from 'formik';
-import DatePicker from '@mui/lab/DatePicker';
-import { MenuItem, TextField, useMediaQuery } from '@mui/material';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { ThemeProvider, useTheme } from '@mui/material/styles';
-import { MenuProps } from './Select/select';
-import AddTransactionSchema from './validation';
-import { useDispatch, useSelector } from 'react-redux';
-import { setIsModalAddTransactionOpen } from '../../redux/global/globalSlice';
-import { createTransaction } from '../../redux/transactions/transactionsSlice';
-import { getCategories } from '../../redux/categories/categoriesSlice';
 
 export default function ModalAddTransaction() {
     const dispatch = useDispatch();
     const open = useSelector(state => state.global.isModalAddTransactionOpen);
     const toggleClose = () => dispatch(setIsModalAddTransactionOpen(!open));
-
     const categories = useSelector(state => state.categories.items);
-
+    const [category, setCategory] = useState('');
+    const [date, setDate] = useState(new Date().toISOString());
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -71,9 +70,6 @@ export default function ModalAddTransaction() {
     };
     const categoriesObj = filterCategoriesObj(categories);
 
-    const [category, setCategory] = useState('');
-    const [date, setDate] = useState(new Date().toISOString());
-
     const handleCategoryChange = (setFieldValue, e) => {
         setCategory(e.target.value);
         setFieldValue('categoryId', e.target.value);
@@ -100,7 +96,6 @@ export default function ModalAddTransaction() {
                     }}
                     validationSchema={AddTransactionSchema}
                     onSubmit={values => {
-                        console.log(values, 'values');
                         dispatch(createTransaction({ values, categoriesObj }));
                     }}
                 >
@@ -181,6 +176,16 @@ export default function ModalAddTransaction() {
                                     }
                                     variant="standard"
                                     IconComponent={ExpandMore}
+                                    renderValue={selected => {
+                                        if (selected.length === 0) {
+                                            return (
+                                                <Placeholder>
+                                                    Select a category
+                                                </Placeholder>
+                                            );
+                                        }
+                                        return selected;
+                                    }}
                                 >
                                     {renderItems()}
                                 </StyledSelect>
@@ -224,6 +229,14 @@ export default function ModalAddTransaction() {
                                             components={{
                                                 OpenPickerIcon: DateRangeIcon,
                                             }}
+                                            error={
+                                                touched.transactionDate &&
+                                                Boolean(errors.transactionDate)
+                                            }
+                                            helperText={
+                                                touched.transactionDate &&
+                                                errors.transactionDate
+                                            }
                                         />
                                     </LocalizationProvider>
                                 </ThemeProvider>

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { color } from '../GlobalStyles';
 
 export const LoaderOverlay = styled.div`
     display: flex;
@@ -10,10 +11,9 @@ export const LoaderOverlay = styled.div`
     position: ${props => (props.fullscreen ? 'fixed' : 'relative')};
     top: 0;
     left: 0;
-    background-color: ${props =>
-        props.fullscreen ? 'rgba(0, 0, 0, 0.5)' : 'none'};
+    background-color: ${props => (props.fullscreen ? '#f1f2f7' : 'none')};
     transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    z-index: 998;
+    z-index: 999;
 `;
 
 export const LoaderW = styled.div`
@@ -21,7 +21,7 @@ export const LoaderW = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999;
+    z-index: 1000;
 
     svg {
         stroke: ${props => props.secondaryColor};

@@ -55,9 +55,12 @@ const transactionsSlice = createSlice({
         builder
             .addCase(createTransaction.fulfilled, (state, action) => {
                 state.items.push(action.payload);
+                notificationTypes.notificationSuccess("Transaction added succesfully!");
             })
             .addCase(createTransaction.rejected, (state, { payload }) => {
-                notificationTypes.notificationError(payload.message[0]);
+                Array.isArray(payload.message)
+                    ? notificationTypes.notificationError(payload.message[0])
+                    : notificationTypes.notificationError(payload.message);
             });
     },
 });

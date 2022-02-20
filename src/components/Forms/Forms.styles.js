@@ -1,11 +1,12 @@
 import { Form } from 'formik';
-import { Input, FormControl } from '@mui/material';
+import { Input } from '@mui/material';
 import styled from '@emotion/styled';
 import { color, font } from '../GlobalStyles';
-
 import ellipseViolet from '../../assets/svgs/ellipse-violet.svg';
 
-export const BackgroundContainer = styled.div``;
+export const StyledErrorMessage = styled.p`
+    color: red;
+`;
 
 export const Container = styled.div`
     min-height: 100%;
@@ -35,6 +36,7 @@ export const SectionLeft = styled.section`
     @media (min-width: 768px) and (max-width: 1279px) {
         display: flex;
         justify-content: center;
+
         & > svg {
             width: 260px;
             height: 250px;
@@ -147,12 +149,6 @@ export const StyledForm = styled(Form)`
             font: 18px/1.27 ${font.secondary};
         }
     }
-`;
-
-export const StyledFormControl = styled(FormControl)`
-    /* .MuiFormControl-root :last-child {
-        
-    } */
 `;
 
 export const StyledInput = styled(Input)`

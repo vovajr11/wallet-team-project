@@ -56,6 +56,7 @@ export const StyledDialog = styled(Dialog)`
         border-radius: 20px;
         max-width: 540px;
         padding: 40px 60px 60px 60px;
+        max-height: fit-content;
 
         @media screen and (max-width: ${breakpoint.mobile}) {
             position: fixed;

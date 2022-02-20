@@ -14,7 +14,7 @@ export const TransactionCard = styled.ul`
     list-style: none;
     background-color: white;
     position: relative;
-    font-family: ${font.secondary};
+    font-family: ${font.thirdly};
     border-radius: 10px;
     margin-bottom: 10px;
     overflow: hidden;
