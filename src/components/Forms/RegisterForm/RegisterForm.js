@@ -15,6 +15,7 @@ import {
     FormContainer,
     StyledForm,
     StyledInput,
+    StyledErrorMessage,
 } from '../Forms.styles';
 import { ReactComponent as LogoIcon } from '../../../assets/svgs/logo.svg';
 
@@ -56,7 +57,9 @@ const RegisterForm = () => {
                                 }
                             />
                         </FormControl>
-                        <ErrorMessage name="email" />
+                        <StyledErrorMessage>
+                            <ErrorMessage name="email" />
+                        </StyledErrorMessage>
 
                         <FormControl variant="standard">
                             <StyledInput
@@ -75,7 +78,9 @@ const RegisterForm = () => {
                                 }
                             />
                         </FormControl>
-                        <ErrorMessage name="password" />
+                        <StyledErrorMessage>
+                            <ErrorMessage name="password" />
+                        </StyledErrorMessage>
 
                         <FormControl variant="standard">
                             <StyledInput
@@ -91,7 +96,9 @@ const RegisterForm = () => {
                                 }
                             />
                         </FormControl>
-                        <ErrorMessage name="passwordConfirmation" />
+                        <StyledErrorMessage>
+                            <ErrorMessage name="passwordConfirmation" />
+                        </StyledErrorMessage>
 
                         <PasswordStrengthBar value={password} />
 
@@ -109,7 +116,9 @@ const RegisterForm = () => {
                                 }
                             />
                         </FormControl>
-                        <ErrorMessage name="username" />
+                        <StyledErrorMessage>
+                            <ErrorMessage name="username" />
+                        </StyledErrorMessage>
 
                         <GreenBtn type="submit" style={{ marginTop: '50px' }}>
                             Registration

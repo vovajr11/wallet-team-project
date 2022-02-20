@@ -1,7 +1,7 @@
 import { object, string, ref } from 'yup';
 
 const validationsForm = object({
-    email: string().email('Invalid email').required('Required'),
+    email: string().email('Invalid email').required('Email is required'),
     password: string().min(6, 'Too Short!').required('Password is required'),
     passwordConfirmation: string()
         .oneOf([ref('password'), null], 'Passwords must match')
