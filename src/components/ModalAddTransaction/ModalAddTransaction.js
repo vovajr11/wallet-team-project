@@ -90,7 +90,7 @@ export default function ModalAddTransaction() {
                         isExpenseType: false,
                         transactionDate: date,
                         type: 'INCOME',
-                        categoryId: 'Доход',
+                        categoryId: 'Income',
                         comment: '',
                         amount: 0,
                     }}
@@ -141,7 +141,7 @@ export default function ModalAddTransaction() {
                                                 setFieldValue('type', 'INCOME');
                                                 setFieldValue(
                                                     'categoryId',
-                                                    categories[10].name,
+                                                    "Income",
                                                 );
                                             }
                                         }}
