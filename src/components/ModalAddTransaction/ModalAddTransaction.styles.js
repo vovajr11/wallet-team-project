@@ -63,7 +63,7 @@ export const StyledDialog = styled(Dialog)`
             top: 50px;
             border-radius: 0;
             box-shadow: none;
-            padding-top: 20px;
+            padding: 40px 20px 80px 20px;
         }
     }
 `;
@@ -122,6 +122,11 @@ export const DialogTitle = styled.h2`
     font-weight: 400;
     font-size: 30px;
     line-height: 45px;
+
+    @media screen and (max-width: ${breakpoint.mobile}) {
+        font-size: 24px;
+        line-height: 36px;
+    }
 `;
 
 export const Toggler = styled.div`
