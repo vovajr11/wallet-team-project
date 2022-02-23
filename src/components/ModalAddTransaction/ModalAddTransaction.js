@@ -141,7 +141,7 @@ export default function ModalAddTransaction() {
                                                 setFieldValue('type', 'INCOME');
                                                 setFieldValue(
                                                     'categoryId',
-                                                    categories[10].name,
+                                                    "Income",
                                                 );
                                             }
                                         }}
